@@ -2,4 +2,6 @@
 
 ### Diagrama de Relaciones entre Entidades
 
-<img src="./public/diagrams/icpf-api-erd.svg" size ="80%">
+<p align="center">
+  <img src="./public/diagrams/icpf-api-erd.svg" width="80%" />
+</p>
