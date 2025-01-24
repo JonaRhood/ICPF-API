@@ -1,0 +1,29 @@
+{
+  "name": "icpf-api",
+  "version": "1.0.0",
+  "description": "REST API diseñado para ICPF",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonaRhood/ICPF-API.git"
+  },
+  "author": "Jonathan Cano Calduch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JonaRhood/ICPF-API/issues"
+  },
+  "homepage": "https://github.com/JonaRhood/ICPF-API#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0",
+    "pg": "^8.13.1"
+  }
+}
