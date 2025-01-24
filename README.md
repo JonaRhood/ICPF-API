@@ -1,3 +1,5 @@
 # ICPF-API
 
-<img src="./public/diagrams/icpf-api-erd.svg">
+### Diagrama de Relaciones entre Entidades
+
+<img src="./public/diagrams/icpf-api-erd.svg" size ="80%">
