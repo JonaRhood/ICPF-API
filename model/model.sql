@@ -31,6 +31,7 @@ CREATE TABLE carritos (
 CREATE TABLE carritos_libros (
     carrito_id INTEGER NOT NULL,
     libro_id INTEGER NOT NULL,
+    cantidad INTEGER,
     PRIMARY KEY (carrito_id, libro_id),
     FOREIGN KEY (carrito_id) REFERENCES carritos(id) ON DELETE RESTRICT,
     FOREIGN KEY (libro_id) REFERENCES libros(id) ON DELETE RESTRICT
