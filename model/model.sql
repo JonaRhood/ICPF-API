@@ -17,7 +17,7 @@ CREATE TABLE libros (
     precio INTEGER CHECK (precio >= 0),
     cantidad INTEGER CHECK (cantidad >= 0),
     paginas INTEGER CHECK (paginas > 0),
-    imagen VARCHAR(500) NOT NULL
+    imagen VARCHAR(500)
 );
 
 -- Tabla de carritos
@@ -60,13 +60,6 @@ CREATE TABLE libros_autores (
     PRIMARY KEY (libro_id, autor_id),
     FOREIGN KEY (libro_id) REFERENCES libros(id) ON DELETE RESTRICT,
     FOREIGN KEY (autor_id) REFERENCES autores(id) ON DELETE RESTRICT
-);
-
-CREATE TABLE pedidos (
-    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    carrito_id INTEGER NOT NULL,
-    FOREIGN KEY (carrito_id) REFERENCES carritos(id) ON DELETE RESTRICT  -- No eliminar pedidos automáticamente
 );
 
 -- Tabla de categorías

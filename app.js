@@ -1,25 +1,30 @@
-'use strict'
+/**
+ *
+ * app.js
+ * @fileoverview Configuraciones principales del servidor
+ * 
+ */
+
 /**
  * IMPORTS
  */
 const express = require('express');
+const librosRoutes = require('./routes/libros');
 
 /**
- * INICIALIZACIONES
+ * INICIALIZACION DEL SERVIDOR
  */
 const app = express();
-const puerto = 3000;
+const port = 3000;
 
 /**
  * PATHS
  */
-app.get('/', (req, res, next) => {
-    res.send("Hola");
-});
+app.use('/api', librosRoutes)
 
 /**
  * LISTENER
  */
-app.listen(puerto, () => {
-    console.log(`Servidor escuchando en el puerto ${puerto}`);
+app.listen(port, () => {
+    console.log(`Servidor escuchando en el puerto ${port}`);
 });
