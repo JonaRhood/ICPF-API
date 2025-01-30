@@ -1,0 +1,36 @@
+/**
+ *
+ * ./model/userRegistration.js
+ * @fileoverview Modelo de las rutas para el registro de usuarios (MVC Model View Controller)
+ * 
+ */
+
+/**
+ * IMPORTS
+ */
+const pool = require('./database.js');
+
+/**
+ * MODELOS
+ */
+// Get todos los usuarios
+const get = () => pool.query('SELECT * FROM usuarios');
+
+// Creación de nuevo usuario
+const create = async (body) => {
+    try {
+        const result = await pool.query(
+            'INSERT INTO usuarios (nombre, apellidos, email, contraseña, nacimiento) VALUES ($1, $2, $3, $4, $5) RETURNING id',
+            [body.nombre, body.apellidos, body.email, body.contraseña, body.nacimiento]
+        );
+        return result;
+    } catch (err) {
+        console.error("Error en create:", err);
+        throw err;
+    }
+};
+
+module.exports = {
+    get,
+    create,
+};

@@ -5,8 +5,8 @@ CREATE TABLE usuarios (
     apellidos VARCHAR(100) NOT NULL,
     email VARCHAR(250) NOT NULL UNIQUE,
     contraseña VARCHAR(72) NOT NULL,
-    edad INTEGER CHECK (edad >= 0),
-    imagen VARCHAR(500)
+    imagen VARCHAR(500),
+    nacimiento DATE NOT NULL
 );
 
 -- Tabla de libros

@@ -10,7 +10,8 @@
  */
 const express = require('express');
 const path = require('path');
-const librosRoutes = require('./routes/libros');
+const librosRoutes = require('./routes/libros.js');
+const usuariosRoutes = require('./routes/usuarios.js');
 const pool = require('./model/database.js');
 require('dotenv').config();
 
@@ -21,9 +22,14 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 /**
- * MIDDLEWARE PARA SERVIR ARCHIVOS ESTÁTICOS
+ * MIDDLEWARE
  */
+// Middleware para servir archivos estáticos desde la carpeta /public
 app.use(express.static(path.join(__dirname, 'public')));
+// Middleware para habilitar el soporte JSON en las solicitudes
+app.use(express.json());
+// Middleware para habilitar el soporte para formularios
+app.use(express.urlencoded({ extended: true }));
 
 /**
  * COMPROBACIÓN DE SALUD DEL SERVIDOR
@@ -36,6 +42,7 @@ app.get('/health', (req, res) => {
  * PATHS
  */
 app.use('/api', librosRoutes);
+app.use('/api', usuariosRoutes)
 
 // app.get("/libros", async (req, res) => {
 //     try {
