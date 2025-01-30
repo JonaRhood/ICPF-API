@@ -7,7 +7,7 @@
 
 const pool = require('./database.js');
 
-const get= () => pool.query('SELECT * FROM libros');
+const get = () => pool.query('SELECT * FROM libros');
 
 module.exports = {
     get,

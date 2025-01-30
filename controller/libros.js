@@ -10,7 +10,7 @@ const { get } = require('../model/libros.js');
 exports.read = async (req, res) => {
     try {
         const task = await get();
-        return res.json({ data: task.rows })
+        return res.json(task.rows)
     } catch (err) {
         return res.status(400).json({ error: err });
     }
