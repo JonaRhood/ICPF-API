@@ -14,7 +14,9 @@ const pool = require('./database.js');
  * MODELOS
  */
 // Get todos los usuarios
-const get = () => pool.query('SELECT * FROM usuarios');
+const get = () => pool.query('SELECT nombre, apellidos, email, imagen, nacimiento FROM usuarios');
+
+const getUser = (userId) => pool.query('SELECT nombre, apellidos, email, imagen, nacimiento FROM usuarios WHERE id = $1', [userId]);
 
 // Creación de nuevo usuario
 const create = async (body) => {
@@ -32,5 +34,6 @@ const create = async (body) => {
 
 module.exports = {
     get,
+    getUser,
     create,
 };

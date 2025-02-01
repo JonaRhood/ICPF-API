@@ -9,14 +9,17 @@
  * IMPORTS
  */
 const express = require('express');
-const { read, createUser } = require('../controller/usuarios.js');
+const { 
+    read, 
+    readUser,
+} = require('../controller/usuarios.js');
 
 const usuarios = express.Router();
 
 /**
  * PATHS
  */
-usuarios.get('/usuarios', read);
-usuarios.post('/usuarios', createUser);
+usuarios.get('/', read);
+usuarios.get('/:id', readUser);
 
 module.exports = usuarios;

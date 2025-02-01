@@ -16,6 +16,6 @@ const router = express.Router();
 /**
  * PATHS
  */
-router.get('/libros', read);
+router.get('/', read);
 
 module.exports = router;
