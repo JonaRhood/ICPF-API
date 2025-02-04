@@ -27,7 +27,6 @@ const create = async (body) => {
         );
         return result;
     } catch (err) {
-        console.error("Error en create:", err);
         throw err;
     }
 };

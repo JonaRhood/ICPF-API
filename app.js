@@ -14,6 +14,7 @@ const bcrypt = require('bcrypt');
 const pool = require('./model/database.js');
 const librosRoutes = require('./routes/libros.js');
 const usuariosRoutes = require('./routes/usuarios.js');
+const autoresRoutes = require('./routes/autores.js');
 const { passport, sessionMiddleware } = require('./session/session.js');
 require('dotenv').config();
 const { isAuthenticated } = require('./middleware/middleware.js');
@@ -60,8 +61,8 @@ app.post("/logout", (req, res) => {
 });
 
 // Registro de Usuarios
-const salt = 4;
 app.post('/registro', async (req, res) => {
+    const salt = 4;
     try {
         // Encriptación de la contraseña
         const saltRounds = await bcrypt.genSalt(salt);
@@ -80,7 +81,8 @@ app.post('/registro', async (req, res) => {
 
 // Rutas de la API
 app.use('/libros', librosRoutes);
-app.use('/usuarios', isAuthenticated, usuariosRoutes);
+app.use('/usuarios', usuariosRoutes);
+app.use('/autores', autoresRoutes);
 
 // Comprobación de Salud del Servidor
 app.get('/health', (req, res) => {

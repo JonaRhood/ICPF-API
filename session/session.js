@@ -47,8 +47,6 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Estrategia local de login
-const salt = 4;
-
 passport.use(
     new LocalStrategy(
         { usernameField: "email" },

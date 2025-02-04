@@ -14,7 +14,7 @@ CREATE TABLE libros (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     descripcion VARCHAR(2000),
-    precio INTEGER CHECK (precio >= 0),
+    precio NUMERIC(10,2) CHECK (precio >= 0),
     cantidad INTEGER CHECK (cantidad >= 0),
     paginas INTEGER CHECK (paginas > 0),
     imagen VARCHAR(500)

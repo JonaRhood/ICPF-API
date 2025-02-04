@@ -9,13 +9,14 @@
  * IMPORTS
  */
 const express = require('express');
-const { read } = require('../controller/libros.js');
+const { read, readById } = require('../controller/libros.js');
 
-const router = express.Router();
+const router = express.Router()
 
 /**
  * PATHS
  */
 router.get('/', read);
+router.get('/:id', readById);
 
 module.exports = router;
