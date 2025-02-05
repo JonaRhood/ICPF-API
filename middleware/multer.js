@@ -8,7 +8,7 @@
 const multer = require('multer');
 const path = require('path');
 
-const storageAutores = multer.diskStorage({
+const storageAuthors = multer.diskStorage({
     destination: 'public/imagenes/autores',
     filename: (req, file, cb) => { 
         const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
@@ -26,10 +26,10 @@ const storageLibros = multer.diskStorage({
     }
 });
 
-const uploadAutores = multer({ storage: storageAutores });
+const uploadAuthors = multer({ storage: storageAuthors });
 const uploadLibros = multer({ storage: storageLibros });
 
 module.exports = {
-    uploadAutores,
+    uploadAuthors,
     uploadLibros
 };

@@ -1,4 +1,16 @@
 /**
+ *
+ * ./session/session.js
+ * @fileoverview Configuraciones principales de express-session y passport
+ *  
+ */
+
+/**
+ * TASKS
+ */
+// TODO Habilitar cookie secure "true" en session.
+
+/**
  * IMPORTS
  */
 const pool = require('../model/database');

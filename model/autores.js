@@ -6,6 +6,8 @@
  */
 
 const pool = require('./database.js');
+const fs = require('fs');
+const path = require('path');
 
 const get = () => pool.query(`
     SELECT
@@ -14,21 +16,20 @@ const get = () => pool.query(`
         a.apellidos AS autor_apellidos,
         a.imagen AS autor_imagen,
         a.descripcion AS autor_descripcion,
-        JSON_AGG(
-            JSON_BUILD_OBJECT(
-                'id', l.id,
-                'titulo', l.titulo
-            )
+        COALESCE(
+            JSON_AGG(
+                CASE 
+                    WHEN l.id IS NOT NULL THEN 
+                        JSON_BUILD_OBJECT('id', l.id, 'titulo', l.titulo)
+                    ELSE NULL
+                END
+            ) FILTER (WHERE l.id IS NOT NULL), 
+            '[]' 
         ) AS libros
-    FROM libros l
-    JOIN libros_autores la ON l.id = la.libro_id
-    JOIN autores a ON la.autor_id = a.id
-    GROUP BY
-        a.id,
-        a.nombre,
-        a.apellidos,
-        a.imagen,
-        a.descripcion
+    FROM autores a
+    LEFT JOIN libros_autores la ON a.id = la.autor_id
+    LEFT JOIN libros l ON la.libro_id = l.id
+    GROUP BY a.id, a.nombre, a.apellidos, a.imagen, a.descripcion
     ORDER BY a.id;
 `);
 
@@ -39,46 +40,99 @@ const getById = (id) => pool.query(`
         a.apellidos AS autor_apellidos,
         a.imagen AS autor_imagen,
         a.descripcion AS autor_descripcion,
-        JSON_AGG(
-            JSON_BUILD_OBJECT(
-                'id', l.id,
-                'titulo', l.titulo,
-              	'descripcion', l.descripcion,
-              	'precio', l.precio,
-              	'cantidad', l.cantidad,
-              	'paginas', l.paginas,
-              	'imagen', l.imagen
-            )
+        COALESCE(
+            JSON_AGG(
+                CASE 
+                    WHEN l.id IS NOT NULL THEN 
+                        JSON_BUILD_OBJECT('id', l.id, 'titulo', l.titulo)
+                    ELSE NULL
+                END
+            ) FILTER (WHERE l.id IS NOT NULL), 
+            '[]' 
         ) AS libros
-    FROM libros l
-    JOIN libros_autores la ON l.id = la.libro_id
-    JOIN autores a ON la.autor_id = a.id
+    FROM autores a
+    LEFT JOIN libros_autores la ON a.id = la.autor_id
+    LEFT JOIN libros l ON la.libro_id = l.id
     WHERE a.id = $1
-    GROUP BY
-        a.id,
-        a.nombre,
-        a.apellidos,
-        a.imagen,
-        a.descripcion
+    GROUP BY a.id, a.nombre, a.apellidos, a.imagen, a.descripcion
     ORDER BY a.id;
 `, [id]);
 
 const create = async (body, imageName) => {
-    console.log(body.nombre)
     try {
         const result = await pool.query(
             `INSERT INTO autores (nombre, apellidos, imagen, descripcion) VALUES ($1, $2, $3, $4) RETURNING *`,
-            [body.nombre, body.apellidos, `http://localhost:8000/imagenes/autores/${imageName}`, body.descripcion]
+            [ body.nombre, body.apellidos, `http://localhost:8000/imagenes/autores/${imageName}`, body.descripcion ]
         );
         return result
     } catch(err) {
         console.error("Error al insertar autor:", err);
         throw err;
-    };
+    }
+};
+
+const update = async (id, body) => {
+    try {
+        const result = await pool.query(
+            `UPDATE autores SET nombre = $1, apellidos = $2, descripcion = $3 WHERE id = $4 RETURNING *`,
+            [ body.nombre, body.apellidos, body.descripcion, id ]
+        );
+
+        return result
+    } catch (err) {
+        console.error("Error al actualizar autor:", err);
+        throw err;
+    }
+};
+
+const updateImage = async (id, imageName) => {
+    try {
+        // Borrado de la antigua Imagen
+        const oldImageQuery = await pool.query(`SELECT imagen FROM autores WHERE id = $1`, [id]);
+        if (oldImageQuery.rows.length > 0) {
+             // Obtiene la URL de la imagen antigua
+            const oldImagePath = oldImageQuery.rows[0].imagen;
+
+            // Extrae el path de la imagen antigua de la URL
+            const oldFileName = path.basename(oldImagePath);
+            const filePath = path.join(__dirname, '..', 'public', 'imagenes', 'autores', oldFileName);
+            console.log(filePath);
+
+            // Elimina imagen antigua
+             if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+            } else {
+            }
+        }
+
+        // Subida de la nueva Imagen
+        const result = await pool.query(
+            `UPDATE autores SET imagen = $1 WHERE id = $2 RETURNING *`,
+            [ `http://localhost:8000/imagenes/autores/${imageName}`, id ]
+        );
+
+        return result
+    } catch (err) {
+        console.error("Error al actualizar autor:", err);
+        throw err;
+    }
+}
+
+const remove = async (id) => {
+    try {
+        const result = await pool.query(`DELETE FROM autores WHERE id = $1`, [id]);
+        return result;
+    } catch(err) {
+        console.log(err);
+        throw err;
+    }
 }
 
 module.exports = {
     get,
     getById,
-    create
+    create,
+    update,
+    updateImage,
+    remove
 };

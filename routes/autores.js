@@ -9,8 +9,11 @@
  * IMPORTS
  */
 const express = require('express');
-const { uploadAutores } = require('../middleware/multer.js');
-const { read, readById, createAuthor } = require('../controller/autores.js');
+const { uploadAuthors } = require('../middleware/multer.js');
+const { 
+    read, readById, createAuthor, updateAuthor, updateAuthorImage, 
+    deleteAuthorById 
+} = require('../controller/autores.js');
 
 const router = express.Router()
 
@@ -19,6 +22,9 @@ const router = express.Router()
  */
 router.get('/', read);
 router.get('/:id', readById);
-router.post('/registrar', uploadAutores.single('imagen'), createAuthor);
+router.post('/', uploadAuthors.single('imagen'), createAuthor);
+router.put('/:id', updateAuthor);
+router.put('/:id/imagen', uploadAuthors.single('imagen'), updateAuthorImage);
+router.delete('/:id', deleteAuthorById)
 
 module.exports = router;

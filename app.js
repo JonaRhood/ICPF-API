@@ -2,8 +2,17 @@
  *
  * app.js
  * @fileoverview Configuraciones principales del servidor
- * 
+ *  
  */
+
+/**
+ * TASKS
+ */
+// TODO Añadir CORS
+// TODO Sanitizar DB
+// TODO Instalar libreria "helmet" (Solo funciona en oficial)
+// TODO Instalar libreria express-validator
+// TODO Organizar código para path: login, registro y logout
 
 /**
  * IMPORTS
