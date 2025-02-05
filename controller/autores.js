@@ -38,7 +38,7 @@ exports.createAuthor = async (req, res) => {
     
     try {
         const task = await create(req.body, imageName);
-        return res.json(task.rows)
+        return res.status(201).json(task.rows)
     } catch(err) {
         return res.status(400).json({ error: err.detail });
     }
@@ -49,7 +49,7 @@ exports.updateAuthor = async (req, res) => {
     
     try {
         const task = await update(id, req.body);
-        return res.json(task.rows)
+        return res.status(200).json(task.rows)
     } catch(err) {
         return res.status(400).json({ error: err.detail });
     }
@@ -76,6 +76,9 @@ exports.deleteAuthorById = async (req, res) => {
     
     try {
         const task = await remove(id);
+        if (task.rows.length === 0) {
+            return res.status(404).json({ success: false, error: "Autor no encontrado" });
+        }
         return res.status(200).send("Autor Eliminado");
     } catch (err) {
         return res.status(400).json({ error: err.detail });
