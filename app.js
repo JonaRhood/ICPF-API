@@ -5,14 +5,18 @@
  *  
  */
 
+"use strict";
+
 /**
  * TASKS
  */
 // TODO Añadir CORS
 // TODO Sanitizar DB
 // TODO Instalar libreria "helmet" (Solo funciona en oficial)
-// TODO Instalar libreria express-validator
+// TODO Instalar libreria express-validator o validatorjs para prevenir SQL injections
+// TODO Instalar libreria "csurf" para prevenir CSRF en forms.
 // TODO Organizar código para path: login, registro y logout
+// TODO ESlint
 
 /**
  * IMPORTS

@@ -5,6 +5,8 @@
  * 
  */
 
+"use strict";
+
 const pool = require('./database.js');
 const fs = require('fs');
 const path = require('path');

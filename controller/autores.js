@@ -5,6 +5,8 @@
  * 
  */
 
+"use strict";
+
 const { get, getById, create, update, updateImage, remove } = require('../model/autores.js');
 
 exports.read = async (req, res) => {
