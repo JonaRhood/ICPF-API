@@ -63,24 +63,23 @@ passport.deserializeUser(async (id, done) => {
 // Estrategia local de login
 passport.use(
     new LocalStrategy(
-        { usernameField: "email" },
-        async (email, password, done) => {
+        async (username, password, done) => {
             try {
-                const result = await pool.query("SELECT * FROM usuarios WHERE email = $1", [email]);
+                const result = await pool.query("SELECT * FROM usuarios WHERE email = $1", [username]);
 
                 if (result.rows.length === 0) {
                     return done(null, false, { message: "Correo no registrado" });
                 }
 
-                const user = result.rows[0];
+                const userSQL = result.rows[0];
                 // Comparar contraseñas con bcrypt
-                const isMatch = await bcrypt.compare(password, user.contraseña);
+                const isMatch = await bcrypt.compare(password, userSQL.contraseña);
 
                 if (!isMatch) {
                     return done(null, false, { message: "Contraseña incorrecta" });
                 }
 
-                return done(null, user);
+                return done(null, userSQL);
             } catch (err) {
                 return done(err);
             }

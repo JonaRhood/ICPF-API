@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libreria ICPF</title>
+    <link rel="stylesheet" href="./assets/css/login.css">
+</head>
+
+<body>
+    <!-- Formulario -->
+    <div id="mainDiv">
+        <h1>Libreria ICPF</h1>
+        <form action="/login" method="post" id="loginForm">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required maxlength="25">
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required maxlength="25">
+ 
+            <button type="submit">Login</button>
+            <div id="message"></div>
+        </form>
+    </div>
+
+    <script type="module" src="./assets/js/login.js"></script>
+</body>
+
+</html>

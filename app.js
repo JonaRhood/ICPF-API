@@ -30,7 +30,7 @@ const usuariosRoutes = require('./routes/usuarios.js');
 const autoresRoutes = require('./routes/autores.js');
 const { passport, sessionMiddleware } = require('./session/session.js');
 require('dotenv').config();
-const { isAuthenticated } = require('./middleware/middleware.js');
+const { isAuthenticated, librarySuperUserAuthenticated } = require('./middleware/middleware.js');
 
 /**
  * INICIALIZACION DEL SERVIDOR
@@ -41,14 +41,15 @@ const port = process.env.PORT || 3000;
 /**
  * MIDDLEWARE
  */
-// Habilitar el servicio de archivos estáticos desde la carpeta /public
+// Habilitar el servicio de archivos estáticos desde la carpeta /public y /assets
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/assets', express.static(path.join(__dirname, 'src/assets')));
 
 // Habilitar el soporte JSON en las solicitudes
 app.use(express.json());
 
 // Deshabilitar el soporte para formularios
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 // Inicialización de passport y express-session (Autenticación)
 app.use(sessionMiddleware);
@@ -59,9 +60,34 @@ app.use(passport.session());
  * PATHS
  */
 
-// Login y Logout
-app.post("/login", passport.authenticate("local", { failureRedirect: "/login" }), (req, res) => {
-    res.json({ message: "Autenticación exitosa" });
+// Login y Logout, envio de solicitud en body de "username" y "password"
+app.post("/login", (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+        // Path del cliente
+        const referer = req.headers.referer || "";
+        if (err) {
+            console.log("Error en autenticación:", err);
+            return next(err);
+        }
+        if (!user) {
+            console.log("Usuario no autenticado:", info);
+            return res.status(401).json({ message: "Fallo en autenticación", info });
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                console.log("Error en logIn:", err);
+                return next(err);
+            }
+            console.log("Usuario autenticado correctamente:", user);
+
+            // Redireccionamiento al autenticar
+            if (referer.includes("/login_libreria") && user.email === process.env.SUPERUSER_LIBRARY) { 
+                return res.json({ redirect: "/inicio_libreria" });
+            } else {
+                return res.json({ message: "Autenticación exitosa" });
+            }
+        });
+    })(req, res, next);
 });
 
 app.post("/logout", (req, res) => {
@@ -69,7 +95,7 @@ app.post("/logout", (req, res) => {
         if (err) {
             return res.status(500).json({ message: "Error al cerrar sesión" });
         }
-        res.json({ message: "Sesión cerrada correctamente" });
+        res.json({ message: "Sesión cerrada correctamente" })
     });
 });
 
@@ -96,6 +122,15 @@ app.post('/registro', async (req, res) => {
 app.use('/libros', librosRoutes);
 app.use('/usuarios', usuariosRoutes);
 app.use('/autores', autoresRoutes);
+
+// Rutas del servidor
+app.get('/login_libreria', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src', 'login.html'));
+});
+
+app.get('/inicio_libreria', librarySuperUserAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'src', 'index.html'));
+});
 
 // Comprobación de Salud del Servidor
 app.get('/health', (req, res) => {

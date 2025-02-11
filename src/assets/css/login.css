@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+}
+
+body {
+    display: flex;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #f4f4f4;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    font-size: 1.2rem;
+}
+
+#mainDiv {
+    border: 1px solid rgba(125, 125, 125, 0.5);
+    background-color: rgba(255, 243, 234, 0.5);
+    padding: 20px;
+    height: auto;
+}
+
+h1 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+}
+
+input {
+    margin-bottom: 15px;
+    height: 25px;
+    font-size: 1.1rem;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#message {
+    margin-top: 10px;
+    color: rgb(177, 5, 5);
+    font-size: 1.1rem;
+}
+
+@media only screen and (max-width: 310px) {
+    div {
+        width: 70vw;
+        height: auto;
+    }
+
+    form {
+        width: 100%;
+    }
+}
