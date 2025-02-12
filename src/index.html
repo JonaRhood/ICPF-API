@@ -5,59 +5,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Libreria ICPF</title>
+
+    <!-- Estilos -->
     <link rel="stylesheet" href="./assets/css/index.css">
 </head>
 
 <body>
     <!-- Crear Autor-->
-    <div id="divCrearAutor" class="mainDiv">
+    <div id="divCreateAuthor" class="mainDiv">
         <h2>Crear Autor</h2>
-        <form action="/autores" method="post" id="formCrearAutor">
-            <label for="nombreCrearAutor">Nombre:</label>
-            <input type="text" id="nombreCrearAutor" name="nombreCrearAutor" required maxlength="100">
+        <form action="/autores" method="post" id="formCreateAuthor">
+            <label for="nombreCreateAuthor" class="labelCreateAuthor">
+                Nombre:
+            </label>
+            <input type="text" id="nombreCreateAuthor" name="nombreCreateAuthor" required maxlength="100">
 
-            <label for="apellidosCrearAutor">Apellidos:</label>
-            <input type="text" id="apellidosCrearAutor" name="apellidosCrearAutor" required maxlength="100">
+            <label for="apellidosCreateAuthor" class="labelCreateAuthor">
+                Apellidos:
+            </label>
+            <input type="text" id="apellidosCreateAuthor" name="apellidosCreateAuthor" required maxlength="100">
 
-            <label for="imagenCrearAutor">Imagen:</label>
-            <div id="imageButtonCreateAuthor" class="imageButton">
+            <label for="imagenCreateAuthor" class="labelCreateAuthor">
+                Imagen:
+            </label>
+            <div id="imagenButtonCreateAuthor" class="imageButton">
                 Seleccionar Imagen
             </div>
-            <input type="file" accept="image/*" id="imagenCrearAutor" name="imagenCrearAutor" required maxlength="500" style="display: none;">
+            <input type="file" accept="image/*" id="imagenCreateAuthor" name="imagenCreateAuthor" required maxlength="500" style="display: none;">
 
-            <label for="descripcionCrearAutor">Descripción:</label>
-            <input type="text" id="descripcionCrearAutor" name="descripcionCrearAutor" required maxlength="1000">
+            <label for="descripcionCreateAuthor" class="labelCreateAuthor">Descripción:</label>
+            <input type="text" id="descripcionCreateAuthor" name="descripcionCreateAuthor" required maxlength="1000">
  
             <button type="submit">Crear Autor</button>
-            <div id="message"></div>
+            <div id="messageCreateAuthor" class="message"></div>
         </form>
     </div>
 
-    <!-- Modificar Autor -->
-    <div id="divModAutor" class="mainDiv">
+    <!-- Modificar Author -->
+    <div id="divModAuthor" class="mainDiv">
         <h2>Modificar Autor</h2>
-        <form action="/autores" method="post" id="autorForm">
-            <label for="nombreModAutor">Nombre:</label>
-            <input type="text" id="nombreModAutor" name="nombreModAutor" required maxlength="100">
+        <form action="/autores" method="post" id="formModAuthor">
+            <label for="nombreModAuthor">
+                Nombre:
+            </label>
+            <input type="text" id="nombreModAuthor" name="nombreModAuthor" required maxlength="100" disabled>
 
-            <label for="apellidosAutor">Apellidos:</label>
-            <input type="text" id="apellidosModAutor" name="apellidosModAutor" required maxlength="100" disabled>
-
-            <label for="imagenModAutor">Imagen:</label>
-            <div id="imageButtonCreateAuthor" class="imageButton">
+            <label for="apellidosAuthor">
+                Apellidos:
+            </label>
+            <input type="text" id="apellidosModAuthor" placeholder="Buscar autor por apellidos" name="apellidosModAuthor" required maxlength="100">
+            <div id="searchResultsModAuthor"></div> <!-- div con los resultados de la búsqueda -->
+            
+            <label for="imagenModAuthor">
+                Imagen:
+            </label>
+            <div id="imagenButtonModAuthor" class="imageButton">
                 Seleccionar Imagen
             </div>
-            <input type="file" accept="image/*" id="imagenModAutor" name="imagenModAutor" required maxlength="500" style="display: none;" disabled>
+            <input type="file" accept="image/*" id="imagenModAuthor" name="imagenModAuthor" required maxlength="500" style="display: none;" disabled>
 
-            <label for="descripcionModAutor">Descripción:</label>
-            <input type="text" id="descripcionModAutor" name="descripcionModAutor" required maxlength="1000" disabled>
+            <label for="descripcionModAuthor">
+                Descripción:
+            </label>
+            <input type="text" id="descripcionModAuthor" name="descripcionModAuthor" required maxlength="1000" disabled>
  
             <button type="submit">Modificar Autor</button>
-            <div id="message"></div>
+            <div id="messageModAuthor" class="message"></div>
         </form>
     </div>
 
-    <script type="module" src="./assets/js/index.js"></script>
+    <!-- Scripts -->
+    <script type="module" src="./assets/js/index/createAuthor.js"></script>
+    <script type="module" src="./assets/js/index/modAuthor.js"></script>
 </body>
 
 </html>

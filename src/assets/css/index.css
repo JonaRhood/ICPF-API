@@ -21,6 +21,10 @@ body {
     height: auto;
 }
 
+.imageInput {
+    border: 2px solid red;
+}
+
 h2 {
     margin-bottom: 15px;
     font-size: 1.5rem;
@@ -30,6 +34,12 @@ form {
     display: flex;
     flex-direction: column;
     width: 250px;
+}
+
+.labelCreateAuthor::after {
+    content: "*";
+    font-size: 0.9rem;
+    color: rgb(177, 5, 5);
 }
 
 input {
@@ -54,25 +64,35 @@ input {
 
 button {
     font-size: 1.1rem;
+    margin-top: 20px;
 }
 
 button:hover {
     cursor: pointer;
 }
 
-#message {
+.message {
     margin-top: 10px;
-    color: rgb(177, 5, 5);
     font-size: 1.1rem;
+    height: 20px;
 }
 
-@media only screen and (max-width: 310px) {
-    div {
-        width: 70vw;
-        height: auto;
-    }
+/* Modificar Autor CSS */
+#imageButtonModAuthor {
+    cursor: default;
+    color: gray;
+}
 
-    form {
-        width: 100%;
-    }
+#imageButtonModAuthor:hover {
+    background-color: #eaeaea;
+}
+
+#searchResultsModAuthor {
+    border: 1px solid #b4b4b4;
+    background-color: white;
+    height: 150px;
+    width: 250px;
+    transform: translateY(117px);
+    position: absolute;
+    display: none;
 }

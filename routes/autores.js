@@ -13,8 +13,8 @@
 const express = require('express');
 const { uploadAuthors } = require('../middleware/multer.js');
 const { 
-    read, readById, createAuthor, updateAuthor, updateAuthorImage, 
-    deleteAuthorById 
+    read, readById, readByName, createAuthor, 
+    updateAuthor, updateAuthorImage, deleteAuthorById 
 } = require('../controller/autores.js');
 
 const router = express.Router()
@@ -23,6 +23,7 @@ const router = express.Router()
  * PATHS
  */
 router.get('/', read);
+router.get('/buscar', readByName);
 router.get('/:id', readById);
 router.post('/', uploadAuthors.single('imagen'), createAuthor);
 router.put('/:id', updateAuthor);

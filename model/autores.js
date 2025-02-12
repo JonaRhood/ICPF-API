@@ -60,6 +60,11 @@ const getById = (id) => pool.query(`
     ORDER BY a.id;
 `, [id]);
 
+const getByName = (apellidos) => pool.query(
+    `SELECT id, nombre, apellidos FROM autores WHERE apellidos ILIKE $1`,
+    [`${apellidos}%`]
+);
+
 const create = async (body, imageName) => {
     try {
         const result = await pool.query(
@@ -133,6 +138,7 @@ const remove = async (id) => {
 module.exports = {
     get,
     getById,
+    getByName,
     create,
     update,
     updateImage,
