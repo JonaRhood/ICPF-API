@@ -110,7 +110,7 @@ app.post('/registro', async (req, res) => {
         // Creación de nuevo usuario
         const task = await pool.query(
             'INSERT INTO usuarios (nombre, apellidos, email, contraseña, nacimiento) VALUES ($1, $2, $3, $4, $5) RETURNING id',
-            [req.body.nombre, req.body.apellidos, req.body.email, req.body.contraseña, req.body.nacimiento]
+            [req.body.nombre, req.body.apellidos, req.body.email.toLowerCase(), req.body.contraseña, req.body.nacimiento]
         );
         return res.status(201).send(`Usuario con nuevo id ${task.rows[0].id} creado`);
     } catch (err) {
@@ -128,7 +128,7 @@ app.get('/login_libreria', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'login.html'));
 });
 
-app.get('/inicio_libreria', librarySuperUserAuthenticated, (req, res) => {
+app.get('/inicio_libreria', /* librarySuperUserAuthenticated */ (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'index.html'));
 });
 

@@ -1,11 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICPF SERVER</title>
+    <title>Libreria ICPF</title>
+    <link rel="stylesheet" href="./assets/css/index.css">
 </head>
+
 <body>
-    <h1>Bienvenido Hola</h1>
+    <!-- Crear Autor-->
+    <div id="divCrearAutor" class="mainDiv">
+        <h2>Crear Autor</h2>
+        <form action="/autores" method="post" id="formCrearAutor">
+            <label for="nombreCrearAutor">Nombre:</label>
+            <input type="text" id="nombreCrearAutor" name="nombreCrearAutor" required maxlength="100">
+
+            <label for="apellidosCrearAutor">Apellidos:</label>
+            <input type="text" id="apellidosCrearAutor" name="apellidosCrearAutor" required maxlength="100">
+
+            <label for="imagenCrearAutor">Imagen:</label>
+            <div id="imageButtonCreateAuthor" class="imageButton">
+                Seleccionar Imagen
+            </div>
+            <input type="file" accept="image/*" id="imagenCrearAutor" name="imagenCrearAutor" required maxlength="500" style="display: none;">
+
+            <label for="descripcionCrearAutor">Descripción:</label>
+            <input type="text" id="descripcionCrearAutor" name="descripcionCrearAutor" required maxlength="1000">
+ 
+            <button type="submit">Crear Autor</button>
+            <div id="message"></div>
+        </form>
+    </div>
+
+    <!-- Modificar Autor -->
+    <div id="divModAutor" class="mainDiv">
+        <h2>Modificar Autor</h2>
+        <form action="/autores" method="post" id="autorForm">
+            <label for="nombreModAutor">Nombre:</label>
+            <input type="text" id="nombreModAutor" name="nombreModAutor" required maxlength="100">
+
+            <label for="apellidosAutor">Apellidos:</label>
+            <input type="text" id="apellidosModAutor" name="apellidosModAutor" required maxlength="100" disabled>
+
+            <label for="imagenModAutor">Imagen:</label>
+            <div id="imageButtonCreateAuthor" class="imageButton">
+                Seleccionar Imagen
+            </div>
+            <input type="file" accept="image/*" id="imagenModAutor" name="imagenModAutor" required maxlength="500" style="display: none;" disabled>
+
+            <label for="descripcionModAutor">Descripción:</label>
+            <input type="text" id="descripcionModAutor" name="descripcionModAutor" required maxlength="1000" disabled>
+ 
+            <button type="submit">Modificar Autor</button>
+            <div id="message"></div>
+        </form>
+    </div>
+
+    <script type="module" src="./assets/js/index.js"></script>
 </body>
+
 </html>

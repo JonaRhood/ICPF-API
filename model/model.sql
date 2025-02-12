@@ -3,7 +3,7 @@ CREATE TABLE usuarios (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     apellidos VARCHAR(100) NOT NULL,
-    email VARCHAR(250) NOT NULL UNIQUE,
+    email VARCHAR(250) NOT NULL UNIQUE CHECK (email = LOWER(email)),
     contraseña VARCHAR(72) NOT NULL,
     imagen VARCHAR(500),
     nacimiento DATE NOT NULL

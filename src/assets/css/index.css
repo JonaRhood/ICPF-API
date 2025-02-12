@@ -4,6 +4,7 @@
 
 body {
     display: flex;
+    gap: 20px;
     font-family: 'Times New Roman', Times, serif;
     background-color: #f4f4f4;
     justify-content: center;
@@ -13,14 +14,14 @@ body {
     font-size: 1.1rem;
 }
 
-#mainDiv {
+.mainDiv {
     border: 1px solid rgba(125, 125, 125, 0.5);
     background-color: rgba(255, 243, 234, 0.5);
     padding: 20px;
     height: auto;
 }
 
-h1 {
+h2 {
     margin-bottom: 15px;
     font-size: 1.5rem;
 }
@@ -35,6 +36,20 @@ input {
     margin-bottom: 15px;
     height: 25px;
     font-size: 1.1rem;
+}
+
+.imageButton {
+    text-align: center;
+    border: 1px solid #747474;
+    padding: 5px;
+    background-color: #eaeaea;
+    margin-bottom: 15px;
+    border-radius: 3px;
+}
+
+.imageButton:hover {
+    background-color: #e1e1e1;
+    cursor: pointer;
 }
 
 button {
