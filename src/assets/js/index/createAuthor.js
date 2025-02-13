@@ -55,10 +55,16 @@ formCreateAuthor.addEventListener("submit", async (event) => {
             imagenButton.innerHTML = "Seleccionar Imagen";
             imagenButton.style.backgroundColor = "#eaeaea";
             formCreateAuthor.reset();
+            setTimeout(() => {
+                messageCreateAuthor.textContent = "";
+            }, 3000);
         } else {
             console.log("Error al crear autor");
             messageCreateAuthor.style.color = "rgb(135 63 63)";
             messageCreateAuthor.textContent = "Error al crear Autor"
+            setTimeout(() => {
+                messageCreateAuthor.textContent = "";
+            }, 3000);
         }
 
     } catch (error) {

@@ -92,13 +92,13 @@ button:hover {
 }
 
 /* Modificar Autor CSS */
-#imageButtonModAuthor {
-    cursor: default;
+#imagenButtonModAuthor {
     color: gray;
 }
 
-#imageButtonModAuthor:hover {
-    background-color: #eaeaea;
+#imagenButtonModAuthor:hover {
+    background-color: #eaeaea !important;
+    cursor: default;
 }
 
 #searchResultsModAuthor {
@@ -110,6 +110,7 @@ button:hover {
     position: absolute;
     display: none;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .author-result {
