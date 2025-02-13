@@ -25,7 +25,7 @@ apellidosModAuthor.addEventListener("input", async (event) => {
             console.log(result);
             renderResults(result);
         } else {
-            
+            searchResultsModAuthor.style.display = "none";
         }
 
     } catch (error) {
@@ -36,18 +36,29 @@ apellidosModAuthor.addEventListener("input", async (event) => {
 // Función para renderizar resultados en la búsqueda
 function renderResults(authors) {
     searchResultsModAuthor.innerHTML = ""; // Limpiar resultados previos
-
     if (authors.length === 0) {
         searchResultsModAuthor.style.display = "none";
         return;
     }
 
-    authors.forEach(author => {
+    authors.forEach((author, index) => {
         const div = document.createElement("div");
         div.classList.add("author-result");
+        if (index % 2 == 0) {
+            div.style.backgroundColor = 'white';
+        } else {
+            div.style.backgroundColor = 'rgb(241 239 239)';
+        }
         div.innerHTML = `${author.nombre} ${author.apellidos}`;
         searchResultsModAuthor.appendChild(div);
     });
+
+    const authorDivs = document.querySelectorAll(".author-result");
+    authorDivs.forEach(div => {
+        div.addEventListener("click", () => {
+            console.log("click");
+        })
+    })
 }
 
 // Lógica para el botón del Hidden Input

@@ -11,7 +11,7 @@
  * IMPORTS
  */
 const express = require('express');
-const { uploadAuthors } = require('../middleware/multer.js');
+const { processImage, uploadAuthors } = require('../middleware/multer.js');
 const { 
     read, readById, readByName, createAuthor, 
     updateAuthor, updateAuthorImage, deleteAuthorById 
@@ -25,7 +25,7 @@ const router = express.Router()
 router.get('/', read);
 router.get('/buscar', readByName);
 router.get('/:id', readById);
-router.post('/', uploadAuthors.single('imagen'), createAuthor);
+router.post('/', processImage, createAuthor);
 router.put('/:id', updateAuthor);
 router.put('/:id/imagen', uploadAuthors.single('imagen'), updateAuthorImage);
 router.delete('/:id', deleteAuthorById)

@@ -62,7 +62,7 @@ const getById = (id) => pool.query(`
 
 const getByName = (apellidos) => pool.query(
     `SELECT id, nombre, apellidos FROM autores WHERE apellidos ILIKE $1`,
-    [`${apellidos}%`]
+    [`%${apellidos}%`]
 );
 
 const create = async (body, imageName) => {
