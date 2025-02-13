@@ -5,9 +5,12 @@
  */
 const formModAuthor = document.querySelector("#formModAuthor");
 const messageModAuthor = document.querySelector("#messageModAuthor");
+const nombreModAuthor = document.querySelector("#nombreModAuthor");
 const apellidosModAuthor = document.querySelector("#apellidosModAuthor");
 const imagenButton = document.querySelector("#imagenButtonModAuthor");
 const imagenInput = document.querySelector("#imagenModAuthor");
+const imageVisualization = document.querySelector("#imageVisualization");
+const descripcionModAuthor = document.querySelector("#descripcionModAuthor");
 const searchResultsModAuthor = document.querySelector("#searchResultsModAuthor");
 
 // Lógica para la búsqueda de autores
@@ -15,14 +18,12 @@ apellidosModAuthor.addEventListener("input", async (event) => {
     event.preventDefault();
 
     const value = event.target.value;
-    console.log(event.target.value);
 
     try {
         const response = await fetch(`/autores/buscar?apellidos=${value}`);
         const result = await response.json();
         if (response.ok) {
             searchResultsModAuthor.style.display = "flex"
-            console.log(result);
             renderResults(result);
         } else {
             searchResultsModAuthor.style.display = "none";
@@ -34,6 +35,8 @@ apellidosModAuthor.addEventListener("input", async (event) => {
 })
 
 // Función para renderizar resultados en la búsqueda
+let authorId = null;
+
 function renderResults(authors) {
     searchResultsModAuthor.innerHTML = ""; // Limpiar resultados previos
     if (authors.length === 0) {
@@ -42,81 +45,170 @@ function renderResults(authors) {
     }
 
     authors.forEach((author, index) => {
-        const div = document.createElement("div");
-        div.classList.add("author-result");
+        const li = document.createElement("li");
+        li.tabIndex = "0";
+        li.classList.add("author-result");
         if (index % 2 == 0) {
-            div.style.backgroundColor = 'white';
+            li.style.backgroundColor = 'white';
         } else {
-            div.style.backgroundColor = 'rgb(241 239 239)';
+            li.style.backgroundColor = 'rgb(241 239 239)';
         }
-        div.innerHTML = `${author.nombre} ${author.apellidos}`;
-        searchResultsModAuthor.appendChild(div);
+        li.innerHTML = `${author.nombre} ${author.apellidos}`;
+        li.id = author.id;
+        searchResultsModAuthor.appendChild(li);
     });
 
-    const authorDivs = document.querySelectorAll(".author-result");
-    authorDivs.forEach(div => {
-        div.addEventListener("click", () => {
-            console.log("click");
-        })
-    })
-}
+    // Añadir Event Listener a cada autor para poder hacer click
+    const authorLis = document.querySelectorAll(".author-result");
+    let currentIndex = -1;
 
-// Lógica para el botón del Hidden Input
+    authorLis.forEach((li, index, list) => {
+        // Evento de click
+        li.addEventListener("click", async (event) => {
+            authorId = event.target.id;
+            await fetchAuthorDetails(authorId);
+        });
+
+        // Evento de keydown para ENTER y Arrows en la lista de autores
+        li.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowDown") {
+                event.preventDefault();
+                list[index + 1]?.focus();  
+            } else if (event.key === "ArrowUp") {
+                event.preventDefault();
+                list[index - 1]?.focus();
+                if (index === 0) {
+                    apellidosModAuthor.focus();
+                }
+            } else if (event.key === "Enter") {
+                event.preventDefault();
+                li.click(); 
+            }
+        });
+    });
+
+    // Pasa del input a la lista de autores con el arrowdown 
+    apellidosModAuthor.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowDown") {
+            event.preventDefault();
+            authorLis[0]?.focus();
+        }
+    })
+
+    // Al hacer click a un Autor, hacer un request al API usando su id
+    const fetchAuthorDetails = async (authorId) => {
+        try {
+            const response = await fetch(`/autores/${authorId}`);
+            const result = await response.json();
+
+            if (response.ok) {
+                searchResultsModAuthor.style.display = "none";
+                nombreModAuthor.disabled = false;
+                imagenButton.style.color = "black";
+                imagenButton.style.backgroundColor = "#eaeaea";
+                imagenInput.disabled = false;
+                descripcionModAuthor.disabled = false;
+
+                nombreModAuthor.value = result[0].autor_nombre;
+                apellidosModAuthor.value = result[0].autor_apellidos;
+
+                imagenButton.addEventListener("mouseover", () => imageVisualization.style.display = "flex");
+                imagenButton.addEventListener("mouseout", () => imageVisualization.style.display = "none");
+                imageVisualization.src = result[0].autor_imagen;
+
+                imagenButton.innerHTML = "Cambiar Imagen<br>(Previsualizar al pasar el ratón)"
+
+                descripcionModAuthor.value = result[0].autor_descripcion;
+
+            }
+        } catch (error) {
+            console.log("Error al recibir autor: ", error);
+        }
+    };
+};
+
+// Lógica para el botón del Hidden Input para la imagen
 imagenButton.addEventListener("click", () => {
     imagenInput.click();
 });
 
 // Lógica para la subida de Imagen en el Cliente
+let imageChanged = false;
+
 imagenInput.addEventListener("change", (event) => {
     const file = event.target.files[0];
 
     if (file) {
         imagenButton.textContent = "Archivo subido: " + file.name;
         imagenButton.style.backgroundColor = "#C8E1CD";
+        imageVisualization.src = "";
+        imageChanged = true;
     } else {
         imagenButton.innerHTML = "Seleccionar Imagen";
         imagenButton.style.backgroundColor = "#eaeaea";
     }
 });
 
-// Lógica para el envio de datos al Servidor API
+// Lógica para el envio de datos al Servidor API una vez se ennvia el formulario
 formModAuthor.addEventListener("submit", async (event) => {
-    const formData = new FormData();
+    event.preventDefault();
 
+    const formData = new FormData();
     const nombre = document.querySelector("#nombreModAuthor").value;
     const apellidos = document.querySelector("#apellidosModAuthor").value;
     const imagen = document.querySelector("#imagenModAuthor").files[0];
     const descripcion = document.querySelector("#descripcionModAuthor").value;
 
-    event.preventDefault();
+    formData.append("imagen", imagen);
 
-    console.log("Hola");
+    const data = {
+        nombre,
+        apellidos,
+        descripcion
+    };
 
-    // formData.append("nombre", nombre);
-    // formData.append("apellidos", apellidos);
-    // formData.append("imagen", imagen);
-    // formData.append("descripcion", descripcion);
+    try {
+        const response = await fetch(`/autores/${authorId}`, {
+            method: "PUT",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
 
-    // try {
-    //     const response = await fetch("/autores", {
-    //         method: "POST",
-    //         body: formData
-    //     });
+        if (imageChanged) {
+            const image = await fetch(`autores/${authorId}/imagen`, {
+                method: "PUT",
+                body: formData
+            });
+        }
 
-    //     if (response.ok) {
-    //         console.log("Autor creado con éxito");
-    //         messageModAuthor.style.color = "rgb(63 135 77)";
-    //         messageModAuthor.textContent = "Autor creado con éxito"
-    //         imagenButton.innerHTML = "Seleccionar Imagen";
-    //         imagenButton.style.backgroundColor = "#eaeaea";
-    //         formModAuthor.reset();
-    //     } else {
-    //         console.log("Error al crear autor");
-    //         messageModAuthor.style.color = "rgb(135 63 63)";
-    //         messageModAuthor.textContent = "Error al crear Autor"
-    //     }
+        if (response.ok) {
+            console.log("Autor modificado con éxito");
+            messageModAuthor.style.color = "rgb(63 135 77)";
+            messageModAuthor.textContent = "Autor modificado con éxito"
+            imagenButton.innerHTML = "Seleccionar Imagen";
+            imagenButton.style.backgroundColor = "#eaeaea";
+            imageVisualization.src = "";
+            formModAuthor.reset();
+            nombreModAuthor.disabled = true;
+            descripcionModAuthor.disabled = true;
+            imagenInput.disabled = true;
+            setTimeout(() => {
+                messageModAuthor.style.display = "none";
+            }, 3000);
+        } else {
+            console.log("Error al crear autor");
+            messageModAuthor.style.color = "rgb(135 63 63)";
+            messageModAuthor.textContent = "Error al modificar Autor"
+        }
 
-    // } catch (error) {
-    //     console.error('Error al enviar el formulario:', error);
-    // }
+    } catch (error) {
+        console.error('Error al enviar el formulario:', error);
+    }
+});
+
+// Cierra el div de los autores al hacer click fuera de él
+document.addEventListener("click", (event) => {
+    if (!searchResultsModAuthor.contains(event.target)) {
+        searchResultsModAuthor.style.display = "none";
+    }
 });

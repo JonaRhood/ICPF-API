@@ -27,7 +27,7 @@ router.get('/buscar', readByName);
 router.get('/:id', readById);
 router.post('/', processImage, createAuthor);
 router.put('/:id', updateAuthor);
-router.put('/:id/imagen', uploadAuthors.single('imagen'), updateAuthorImage);
+router.put('/:id/imagen', processImage, updateAuthorImage);
 router.delete('/:id', deleteAuthorById)
 
 module.exports = router;

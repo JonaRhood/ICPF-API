@@ -21,20 +21,20 @@
                     <label for="nombreCreateAuthor" class="labelCreateAuthor">
                         Nombre:
                     </label>
-                    <input type="text" id="nombreCreateAuthor" name="nombreCreateAuthor" required maxlength="100">
+                    <input type="text" id="nombreCreateAuthor" name="nombreCreateAuthor" required maxlength="100" autocomplete="off">
         
                     <label for="apellidosCreateAuthor" class="labelCreateAuthor">
                         Apellidos:
                     </label>
-                    <input type="text" id="apellidosCreateAuthor" name="apellidosCreateAuthor" required maxlength="100">
+                    <input type="text" id="apellidosCreateAuthor" name="apellidosCreateAuthor" required maxlength="100" autocomplete="off">
         
                     <label for="imagenCreateAuthor" class="labelCreateAuthor">
-                        Imagen:
+                        Imagen: (Vertical / Retrato)
                     </label>
                     <div id="imagenButtonCreateAuthor" class="imageButton">
                         Seleccionar Imagen
                     </div>
-                    <input type="file" accept="image/*" id="imagenCreateAuthor" name="imagenCreateAuthor" required maxlength="500" style="display: none;">
+                    <input type="file" accept="image/*" id="imagenCreateAuthor" name="imagenCreateAuthor" required maxlength="500" style="display: none;" autocomplete="off">
         
                     <label for="descripcionCreateAuthor" class="labelCreateAuthor">
                         Descripción:
@@ -53,21 +53,22 @@
                     <label for="nombreModAuthor">
                         Nombre:
                     </label>
-                    <input type="text" id="nombreModAuthor" name="nombreModAuthor" required maxlength="100" disabled>
+                    <input type="text" id="nombreModAuthor" name="nombreModAuthor" required maxlength="100" disabled autocomplete="off">
         
                     <label for="apellidosAuthor">
-                        Apellidos:
+                        Apellidos: (Buscar Autor)
                     </label>
-                    <input type="text" id="apellidosModAuthor" placeholder="Buscar autor por apellidos" name="apellidosModAuthor" required maxlength="100">
-                    <div id="searchResultsModAuthor"></div> <!-- div con los resultados de la búsqueda -->
+                    <input type="text" id="apellidosModAuthor" placeholder="Buscar Autor por apellidos" name="apellidosModAuthor" required maxlength="100" autocomplete="off">
+                    <ul id="searchResultsModAuthor" style="list-style-type: none; padding: 0px;"></ul> <!-- div con los resultados de la búsqueda -->
         
                     <label for="imagenModAuthor">
-                        Imagen:
+                        Imagen: (Vertical / Retrato)
                     </label>
                     <div id="imagenButtonModAuthor" class="imageButton">
                         Seleccionar Imagen
                     </div>
-                    <input type="file" accept="image/*" id="imagenModAuthor" name="imagenModAuthor" required maxlength="500" style="display: none;" disabled>
+                    <input type="file" accept="image/*" id="imagenModAuthor" name="imagenModAuthor" disabled maxlength="500" style="display: none;" autocomplete="off">
+                    <img id="imageVisualization" style="display: none;">
         
                     <label for="descripcionModAuthor">
                         Descripción:

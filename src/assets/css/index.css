@@ -96,11 +96,6 @@ button:hover {
     color: gray;
 }
 
-#imagenButtonModAuthor:hover {
-    background-color: #eaeaea !important;
-    cursor: default;
-}
-
 #searchResultsModAuthor {
     border: 1px solid #b4b4b4;
     background-color: white;
@@ -122,4 +117,10 @@ button:hover {
 .author-result:hover {
     background-color: #e9faff !important;
     cursor: pointer;
+}
+
+#imageVisualization {
+    position: absolute;
+    width: 350px;
+    left: 30px;
 }
