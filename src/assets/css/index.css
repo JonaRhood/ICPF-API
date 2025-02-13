@@ -46,6 +46,10 @@ form {
     width: 350px;
 }
 
+label {
+    margin-bottom: 3px;
+}
+
 .labelCreateAuthor::after {
     content: "*";
     font-size: 0.9rem;
