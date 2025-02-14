@@ -24,11 +24,11 @@ const router = express.Router()
 router.get('/', read);
 router.get('/:id', readById);
 router.post('/', imageProcessor('libros'), createBook);
+router.post('/autor', addAuthor);
 router.put('/autor', updateNewAuthor);
 router.put('/remover_autor', removeAuthorFromBook);
 router.put('/:id', updateBook);
 router.put('/:id/imagen', imageProcessor('libros'), updateBookImage);
-router.post('/autor', addAuthor);
 router.delete('/:id', deleteBookById)
 
 module.exports = router;

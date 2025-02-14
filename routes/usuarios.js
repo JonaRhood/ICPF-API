@@ -14,12 +14,12 @@ const {
     readUser,
 } = require('../controller/usuarios.js');
 
-const usuarios = express.Router();
+const router = express.Router();
 
 /**
  * PATHS
  */
-usuarios.get('/', read);
-usuarios.get('/:id', readUser);
+router.get('/', read);
+router.get('/:id', readUser);
 
-module.exports = usuarios;
+module.exports = router;

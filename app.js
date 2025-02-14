@@ -28,6 +28,7 @@ const pool = require('./model/database.js');
 const librosRoutes = require('./routes/libros.js');
 const usuariosRoutes = require('./routes/usuarios.js');
 const autoresRoutes = require('./routes/autores.js');
+const categoriasRoutes = require('./routes/categorias.js');
 const { passport, sessionMiddleware } = require('./session/session.js');
 require('dotenv').config();
 const { isAuthenticated, librarySuperUserAuthenticated } = require('./middleware/middleware.js');
@@ -122,6 +123,7 @@ app.post('/registro', async (req, res) => {
 app.use('/libros', librosRoutes);
 app.use('/usuarios', usuariosRoutes);
 app.use('/autores', autoresRoutes);
+app.use('/categorias', categoriasRoutes);
 
 // Rutas del servidor
 app.get('/login_libreria', (req, res) => {
