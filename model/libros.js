@@ -76,10 +76,10 @@ const create = async (body, imageName) => {
     try {
         const result = await pool.query(
             `INSERT INTO libros (titulo, descripcion, precio, cantidad, paginas, imagen) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-            [ body.titulo, body.descripcion, body.precio, body.cantidad, body.paginas, `http://localhost:8000/imagenes/libros/${imageName}` ]
+            [body.titulo, body.descripcion, body.precio, body.cantidad, body.paginas, `http://localhost:8000/imagenes/libros/${imageName}`]
         );
         return result
-    } catch(err) {
+    } catch (err) {
         console.error("Error al insertar libro:", err);
         throw err;
     }
@@ -89,7 +89,7 @@ const update = async (id, body) => {
     try {
         const result = await pool.query(
             `UPDATE libros SET titulo = $1, descripcion = $2, precio = $3, cantidad = $4, paginas = $5 WHERE id = $6 RETURNING *`,
-            [ body.titulo, body.descripcion, body.precio, body.cantidad, body.paginas, id ]
+            [body.titulo, body.descripcion, body.precio, body.cantidad, body.paginas, id]
         );
 
         return result
@@ -104,7 +104,7 @@ const updateImage = async (id, imageName) => {
         // Borrado de la antigua Imagen
         const oldImageQuery = await pool.query(`SELECT imagen FROM libros WHERE id = $1`, [id]);
         if (oldImageQuery.rows.length > 0) {
-             // Obtiene la URL de la imagen antigua
+            // Obtiene la URL de la imagen antigua
             const oldImagePath = oldImageQuery.rows[0].imagen;
 
             // Extrae el path de la imagen antigua de la URL
@@ -113,7 +113,7 @@ const updateImage = async (id, imageName) => {
             console.log(filePath);
 
             // Elimina imagen antigua
-             if (fs.existsSync(filePath)) {
+            if (fs.existsSync(filePath)) {
                 fs.unlinkSync(filePath);
             } else {
             }
@@ -122,7 +122,7 @@ const updateImage = async (id, imageName) => {
         // Subida de la nueva Imagen
         const result = await pool.query(
             `UPDATE libros SET imagen = $1 WHERE id = $2 RETURNING *`,
-            [ `http://localhost:8000/imagenes/libros/${imageName}`, id ]
+            [`http://localhost:8000/imagenes/libros/${imageName}`, id]
         );
 
         return result
@@ -132,11 +132,49 @@ const updateImage = async (id, imageName) => {
     }
 }
 
+const assignAuthor = async (libroId, autorId) => {
+    try {
+        const result = await pool.query(
+            `INSERT INTO libros_autores (libro_id, autor_id) VALUES ($1, $2) RETURNING *`,
+            [libroId, autorId]
+        );
+        return result;
+    } catch (error) {
+        console.log(err);
+        throw err;
+    }
+};
+
+const updateAuthor = async (libroId, autorOldId, autorNewId) => {
+    try {
+        const result = await pool.query(
+            `UPDATE libros_autores SET autor_id = $1 WHERE libro_id = $2 AND autor_id = $3 RETURNING *`,
+            [ autorNewId, libroId, autorOldId ]
+        );
+        return result;
+    } catch (error) {
+        console.log(err);
+        throw err;
+    }
+}
+const removeAuthor = async (libroId, autorId) => {
+    try {
+        const result = pool.query(
+            `DELETE FROM libros_autores WHERE libro_id = $1 AND autor_id = $2`,
+            [ libroId, autorId ]
+        );
+        return result;
+    } catch (error) {
+        console.log(err)
+        throw err;
+    }
+}
+
 const remove = async (id) => {
     try {
-        const result = await pool.query(`DELETE FROM autores WHERE id = $1`, [id]);
+        const result = await pool.query(`DELETE FROM libros WHERE id = $1`, [id]);
         return result;
-    } catch(err) {
+    } catch (err) {
         console.log(err);
         throw err;
     }
@@ -148,5 +186,8 @@ module.exports = {
     create,
     update,
     updateImage,
+    assignAuthor,
+    updateAuthor,
+    removeAuthor,
     remove
 };
