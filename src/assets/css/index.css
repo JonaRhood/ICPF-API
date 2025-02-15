@@ -8,20 +8,29 @@ body {
     font-family: 'Times New Roman', Times, serif;
     background-color: #f4f4f4;
     height: 100vh;
-    width: 100vw;
-    font-size: 1.1rem;
+    width: 100%;
+    font-size: 1rem;
 }
 
 #bodyDiv {
     width: 100%;
     display: flex;
     padding: 10px;
+    gap: 1%;
 }
 
-#divAuthor{
+#divAuthor {
     display: flex;
-    height: 530px;
-    gap: 15px;
+    width: 44%;
+    height: 55%;
+    gap: 1%;
+}
+
+#divBook {
+    display: flex;
+    gap: 1%;
+    width: 56%;
+    flex-direction: column;
 }
 
 .mainDiv {
@@ -31,19 +40,52 @@ body {
     height: auto;
 }
 
-.imageInput {
-    border: 2px solid red;
-}
-
 h2 {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     font-size: 1.5rem;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 100%;
+}
+
+.divFormOut {
+    display: flex;
+    gap: 2%;
+}
+
+.divFormLeft {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.divFormRight {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+#divCreateAuthor {
+    width: 50%;
+}
+
+#divModAuthor {
+    width: 50%;
+}
+
+#divCreateBook {
+    height: 50%;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+#divModBook {
+    height: 50%;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 label {
@@ -57,9 +99,8 @@ label {
 }
 
 input {
-    margin-bottom: 15px;
-    height: 25px;
-    font-size: 1.1rem;
+    margin-bottom: 1vh;
+    font-size: 1rem;
 }
 
 .imageButton {
@@ -67,7 +108,7 @@ input {
     border: 1px solid #747474;
     padding: 5px;
     background-color: #eaeaea;
-    margin-bottom: 15px;
+    margin-bottom: 1vh;
     border-radius: 3px;
 }
 
@@ -77,22 +118,60 @@ input {
 }
 
 button {
-    font-size: 1.1rem;
-    margin-top: 20px;
+    font-size: 1rem;
+    margin-top: 1.5vh;
+}
+
+.descripcionTextArea {
+    resize: none;
+    min-height: 10vh;
+    max-height: 50vh;
+}
+
+.textAreaBook {
+    height: 5vh !important;
+    min-height: 5vh !important;
 }
 
 button:hover {
     cursor: pointer;
 }
 
-.descripcionTextArea{
-    resize: none;
+.message {
+    margin-top: 1vh;
+    font-size: 1rem;
+    height: 20px;
 }
 
-.message {
-    margin-top: 2px;
-    font-size: 1.1rem;
-    height: 20px;
+.divInputButton {
+    display: flex;
+    margin-bottom: 1vh;
+}
+
+.buttonPlus {
+    height: 100%;
+    margin-top: 0;
+}
+
+#autorCreateBook {
+    width: 100%;
+    margin-bottom: 0vh !important;
+}
+
+#categoriaCreateBook {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.listAuthorUl {
+    display: none;
+    flex-direction: column;
+    height: 230px;
+    overflow-y: auto;
+}
+
+.Book-result {
+    padding: 3px;
 }
 
 /* Modificar Autor CSS */

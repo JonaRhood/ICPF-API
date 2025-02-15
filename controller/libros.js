@@ -7,10 +7,12 @@
 
 const { 
     get, getById, create,
-    update, updateImage, assignAuthor,
-    updateAuthor, removeAuthor, remove
+    update, updateImage, remove, assignAuthor,
+    updateAuthor, removeAuthor, assignCategory, 
+    updateCategory, removeCategory
  } = require('../model/libros.js');
 
+// GET libros
 exports.read = async (req, res) => {
     try {
         const task = await get();
@@ -20,6 +22,7 @@ exports.read = async (req, res) => {
     }
 };
 
+// GET libro por id
 exports.readById = async (req, res) => {
     const id = req.params.id;
     try {
@@ -30,7 +33,7 @@ exports.readById = async (req, res) => {
     }
 };
 
-
+// POST libro
 exports.createBook = async (req, res) => {
     const imageName = req.file.filename;
 
@@ -46,6 +49,7 @@ exports.createBook = async (req, res) => {
     }
 };
 
+// PUT libro
 exports.updateBook = async (req, res) => {
     const id = req.params.id;
 
@@ -57,6 +61,7 @@ exports.updateBook = async (req, res) => {
     }
 }
 
+// PUT imagen libro
 exports.updateBookImage = async (req, res) => {
     const imageName = req.file.filename;
     const id = req.params.id
@@ -73,6 +78,22 @@ exports.updateBookImage = async (req, res) => {
     }
 };
 
+// DELETE libro
+exports.deleteBookById = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const task = await remove(id);
+        if (task.rows.length === 0) {
+            return res.status(404).json({ success: false, error: "Autor no encontrado" });
+        }
+        return res.status(200).send("Libro Eliminado");
+    } catch (err) {
+        return res.status(400).json({ error: err.detail });
+    }
+}
+
+// POST autor a libro
 exports.addAuthor = async (req, res) => {
     const libroId = req.query.libro;
     const autorId = req.query.autor;
@@ -85,6 +106,7 @@ exports.addAuthor = async (req, res) => {
     }
 }
 
+// PUT autor a libro
 exports.updateNewAuthor = async (req, res) => {
     const libroId = req.query.libro;
     const autorOldId = req.query.autor;
@@ -99,6 +121,7 @@ exports.updateNewAuthor = async (req, res) => {
     }
 }
 
+// DELETE autor de libro
 exports.removeAuthorFromBook = async (req, res) => {
     const libroId = req.query.libro;
     const autorId = req.query.autor;
@@ -111,16 +134,43 @@ exports.removeAuthorFromBook = async (req, res) => {
     }
 }
 
-exports.deleteBookById = async (req, res) => {
-    const id = req.params.id;
+// POST autor a libro
+exports.addCategory = async (req, res) => {
+    const libroId = req.query.libro;
+    const categoriaId = req.query.categoria;
 
     try {
-        const task = await remove(id);
-        if (task.rows.length === 0) {
-            return res.status(404).json({ success: false, error: "Autor no encontrado" });
-        }
-        return res.status(200).send("Libro Eliminado");
+        const task = await assignCategory(libroId, categoriaId);
+        return res.json(task.rows);
     } catch (err) {
-        return res.status(400).json({ error: err.detail });
+        return res.status(400).json({ error: err.detail })
+    }
+}
+
+// PUT autor a libro
+exports.updateNewCategory = async (req, res) => {
+    const libroId = req.query.libro;
+    const categoriaOldId = req.query.categoria;
+    const categoriaNewId = req.query.nueva_categoria;
+    console.log(libroId, categoriaOldId, categoriaNewId);
+
+    try {
+        const task = await updateCategory(libroId, categoriaOldId, categoriaNewId);
+        return res.json(task.rows);
+    } catch (err) {
+        return res.status(400).json({ error: err.detail })
+    }
+}
+
+// DELETE autor de libro
+exports.removeCategoryFromBook = async (req, res) => {
+    const libroId = req.query.libro;
+    const categoriaId = req.query.categoria;
+    
+    try {
+        const task = await removeCategory(libroId, categoriaId);
+        return res.status(200).send("Categoria Removida");
+    } catch (err) {
+        return res.status(404).json({ error: err.detail })
     }
 }

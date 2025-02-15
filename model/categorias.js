@@ -13,12 +13,12 @@ const pool = require('./database.js');
 /**
  * MODELOS
  */
-// Get todos los usuarios
-const get = () => pool.query('SELECT * FROM categorias');
+// Get todas las categorías
+const get = () => pool.query('SELECT * FROM categorias ORDER BY categoria ASC');
 
-const getUser = (userId) => pool.query('SELECT * FROM categorias WHERE id = $1', [userId]);
+const getCategory = (id) => pool.query('SELECT * FROM categorias WHERE id = $1', [id]);
 
-// Creación de nuevo usuario
+// Creación de nueva categoría
 const create = async (body) => {
     try {
         const result = await pool.query(
@@ -31,14 +31,19 @@ const create = async (body) => {
     }
 };
 
-// const remove = async (id) => {
-//     try {
-
-//     }
-// }
+// Remover categoría
+const remove = async (id) => {
+    try {
+        const result = await pool.query(`DELETE FROM categorias WHERE id = $1`, [id]);
+        return result;
+    } catch(error) {
+        throw err;
+    }
+}
 
 module.exports = {
     get,
-    getUser,
+    getCategory,
     create,
+    remove
 };

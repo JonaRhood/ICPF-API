@@ -10,7 +10,8 @@
  */
 const express = require('express');
 const { 
-    read, readCategory, createCategory
+    read, readCategory, createCategory,
+    removeCategory
 } = require('../controller/categorias.js');
 
 const router = express.Router();
@@ -21,5 +22,7 @@ const router = express.Router();
 router.get('/', read);
 router.get('/:id', readCategory);
 router.post('/', createCategory);
+router.delete('/:id', removeCategory);
+
 
 module.exports = router;

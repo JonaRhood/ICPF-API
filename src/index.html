@@ -21,31 +21,35 @@
                     <label for="nombreCreateAuthor" class="labelCreateAuthor">
                         Nombre:
                     </label>
-                    <input type="text" id="nombreCreateAuthor" name="nombreCreateAuthor" required maxlength="100" autocomplete="off">
-        
+                    <input type="text" id="nombreCreateAuthor" name="nombreCreateAuthor" required maxlength="100"
+                        autocomplete="off">
+
                     <label for="apellidosCreateAuthor" class="labelCreateAuthor">
                         Apellidos:
                     </label>
-                    <input type="text" id="apellidosCreateAuthor" name="apellidosCreateAuthor" required maxlength="100" autocomplete="off">
-        
+                    <input type="text" id="apellidosCreateAuthor" name="apellidosCreateAuthor" required maxlength="100"
+                        autocomplete="off">
+
                     <label for="imagenCreateAuthor" class="labelCreateAuthor">
                         Imagen: <div style="display: inline; color: gray;">(Vertical / Retrato)</div>
                     </label>
                     <div id="imagenButtonCreateAuthor" class="imageButton">
                         Seleccionar Imagen
                     </div>
-                    <input type="file" accept="image/*" id="imagenCreateAuthor" name="imagenCreateAuthor" required maxlength="500" style="display: none;" autocomplete="off">
-        
+                    <input type="file" accept="image/*" id="imagenCreateAuthor" name="imagenCreateAuthor" required
+                        maxlength="500" style="display: none;" autocomplete="off">
+
                     <label for="descripcionCreateAuthor" class="labelCreateAuthor">
                         Descripción:
                     </label>
-                    <textarea type="text" id="descripcionCreateAuthor" class="descripcionTextArea" name="descripcionCreateAuthor" required maxlength="1000" rows="10"></textarea>
-         
+                    <textarea type="text" id="descripcionCreateAuthor" class="descripcionTextArea"
+                        name="descripcionCreateAuthor" required maxlength="1000"></textarea>
+
                     <button type="submit">Crear Autor</button>
                     <div id="messageCreateAuthor" class="message"></div>
                 </form>
             </div>
-        
+
             <!-- Modificar Author -->
             <div id="divModAuthor" class="mainDiv">
                 <h2>Modificar Autor</h2>
@@ -53,30 +57,151 @@
                     <label for="nombreModAuthor">
                         Nombre:
                     </label>
-                    <input type="text" id="nombreModAuthor" name="nombreModAuthor" required maxlength="100" disabled autocomplete="off">
-        
-                    <label for="apellidosAuthor">
+                    <input type="text" id="nombreModAuthor" name="nombreModAuthor" required maxlength="100" disabled
+                        autocomplete="off">
+
+                    <label for="apellidosModAuthor">
                         Apellidos: <div style="display: inline; color: rgb(0, 119, 255);">(Buscar Autor)</div>
                     </label>
-                    <input type="text" id="apellidosModAuthor" placeholder="Buscar Autor por apellidos" name="apellidosModAuthor" required maxlength="100" autocomplete="off">
-                    <ul id="searchResultsModAuthor" style="list-style-type: none; padding: 0px;"></ul> <!-- div con los resultados de la búsqueda -->
-        
+                    <input type="text" id="apellidosModAuthor" placeholder="Buscar Autor por apellidos"
+                        name="apellidosModAuthor" required maxlength="100" autocomplete="off">
+                    <ul id="searchResultsModAuthor" style="list-style-type: none; padding: 0px;"></ul>
+
                     <label for="imagenModAuthor">
                         Imagen: <div style="display: inline; color: gray;">(Vertical / Retrato)</div>
                     </label>
                     <div id="imagenButtonModAuthor" class="imageButton">
                         Seleccionar Imagen
                     </div>
-                    <input type="file" accept="image/*" id="imagenModAuthor" name="imagenModAuthor" disabled maxlength="500" style="display: none;" autocomplete="off">
+                    <input type="file" accept="image/*" id="imagenModAuthor" name="imagenModAuthor" disabled
+                        maxlength="500" style="display: none;" autocomplete="off">
                     <img id="imageVisualization" style="display: none;">
-        
+
                     <label for="descripcionModAuthor">
                         Descripción:
                     </label>
-                    <textarea type="text" id="descripcionModAuthor" class="descripcionTextArea" name="descripcionModAuthor" required maxlength="1000" rows="10" disabled></textarea>
-         
+                    <textarea type="text" id="descripcionModAuthor" class="descripcionTextArea"
+                        name="descripcionModAuthor" required maxlength="1000" disabled></textarea>
+
                     <button type="submit">Modificar Autor</button>
                     <div id="messageModAuthor" class="message"></div>
+                </form>
+            </div>
+        </div>
+
+        <div id="divBook">
+            <!-- Crear Libro -->
+            <div id="divCreateBook" class="mainDiv">
+                <h2>Crear Libro</h2>
+                <form action="/autores" method="post" id="formCreateBook">
+                    <div class="divFormOut">
+                        <div class="divFormLeft">
+                            <label for="tituloCreateBook">
+                                Título:
+                            </label>
+                            <input type="text" id="tituloCreateBook" name="tituloCreateBook" required maxlength="100"
+                                autocomplete="off">
+
+                            <label for="autorCreateBook">
+                                Autor: <div style="display: inline; color: rgb(0, 119, 255);">(Buscar Autor por
+                                    Apellidos)
+                                </div>
+                            </label>
+                            <div class="divInputButton">
+                                <input type="text" id="autorCreateBook" placeholder="Buscar Autor por apellidos"
+                                    name="autorCreateBook" required maxlength="100" autocomplete="off">
+                                <button id="buttonPlusAuthorCreateBook" class="buttonPlus" tabindex="1">+</button>
+                            </div>
+                            <ul id="searchResultsCreateBook" class="listAuthorUl" style="list-style-type: none; padding: 0px;"></ul>
+
+                            <label for="paginasCreateBook">
+                                Nª de Páginas:
+                            </label>
+                            <input type="text" id="paginasCreateBook" name="paginasCreateBook" required maxlength="100"
+                                autocomplete="off">
+                        </div>
+                        <div class="divFormRight">
+                            <label for="precioCreateBook">
+                                Precio:
+                            </label>
+                            <input type="text" id="precioCreateBook" name="precioCreateBook" required maxlength="100"
+                                autocomplete="off">
+
+
+                            <label for="categoriaCreateBook">
+                                Categoría:
+                            </label>
+                            <div class="divInputButton">
+                                <input type="text" id="categoriaCreateBook" placeholder="Buscar Autor por apellidos"
+                                    name="categoriaCreateBook" required maxlength="100" autocomplete="off">
+                                <button id="buttonPlusAuthorCreateBook" class="buttonPlus">+</button>
+                            </div>
+                            <ul id="searchResultsCreateBook" style="list-style-type: none; padding: 0px;"></ul>
+
+                            <label for="cantidadCreateBook">
+                                Cantidad en Stock:
+                            </label>
+                            <input type="text" id="cantidadCreateBook" name="cantidadCreateBook" required
+                                maxlength="100" autocomplete="off">
+                        </div>
+                    </div>
+                    <label for="imagenCreateBook">
+                        Imagen: <div style="display: inline; color: gray;">(Vertical / Retrato)</div>
+                    </label>
+                    <div id="imagenButtonCreateBook" class="imageButton">
+                        Seleccionar Imagen
+                    </div>
+                    <input type="file" accept="image/*" id="imagenCreateBook" name="imagenCreateBook" maxlength="500"
+                        style="display: none;" autocomplete="off">
+                    <img id="imageVisualization" style="display: none;">
+
+                    <label for="descripcionCreateBook">
+                        Descripción:
+                    </label>
+                    <textarea type="text" id="descripcionCreateBook" class="descripcionTextArea textAreaBook"
+                        name="descripcionCreateBook" required maxlength="1000"></textarea>
+
+                    <button type="submit">Crear Libro</button>
+                    <div id="messageCreateBook" class="message"></div>
+                </form>
+            </div>
+
+            <!-- Modificar Libro -->
+            <div id="divModBook" class="mainDiv">
+                <h2>Modificar Libro</h2>
+                <form action="/autores" method="post" id="formModBook">
+                    <label for="nombreModBook">
+                        Nombre:
+                    </label>
+                    <input type="text" id="nombreModBook" name="nombreModBook" required maxlength="100" disabled
+                        autocomplete="off">
+
+                    <label for="apellidosBook">
+                        Apellidos: <div style="display: inline; color: rgb(0, 119, 255);">(Buscar Autor)</div>
+                    </label>
+                    <input type="text" id="apellidosModBook" placeholder="Buscar Autor por apellidos"
+                        name="apellidosModBook" required maxlength="100" autocomplete="off">
+                    <ul id="searchResultsModBook" style="list-style-type: none; padding: 0px;"></ul>
+                    <!-- div con los resultados de la búsqueda -->
+
+                    <label for="imagenModBook">
+                        Imagen: <div style="display: inline; color: gray;">(Vertical / Retrato)</div>
+                    </label>
+                    <div id="imagenButtonModBook" class="imageButton">
+                        Seleccionar Imagen
+                    </div>
+                    <input type="file" accept="image/*" id="imagenModBook" name="imagenModBook" disabled maxlength="500"
+                        style="display: none;" autocomplete="off">
+                    <img id="imageVisualization" style="display: none;">
+
+                    <label for="descripcionModBook">
+                        Descripción:
+                    </label>
+                    <textarea type="text" id="descripcionModBook" class="descripcionTextArea textAreaBook"
+                        name="descripcionModBook" required maxlength="1000" disabled></textarea>
+
+                    <button type="submit">Modificar Libro</button>
+                    <div id="messageModBook" class="message"></div>
                 </form>
             </div>
         </div>
@@ -85,6 +210,7 @@
     <!-- Scripts -->
     <script type="module" src="./assets/js/index/createAuthor.js"></script>
     <script type="module" src="./assets/js/index/modAuthor.js"></script>
+    <script type="module" src="./assets/js/index/createBook.js"></script>
 </body>
 
 </html>

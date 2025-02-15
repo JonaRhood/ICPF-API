@@ -9,6 +9,7 @@ const pool = require('./database.js');
 const fs = require('fs');
 const path = require('path');
 
+// GET libros
 const get = () => pool.query(`
     SELECT 
         l.id AS libro_id,
@@ -40,6 +41,7 @@ const get = () => pool.query(`
     ORDER BY l.id;
 `);
 
+// GET libro por id
 const getById = (id) => pool.query(`
     SELECT 
         l.id AS libro_id,
@@ -72,6 +74,7 @@ const getById = (id) => pool.query(`
     ORDER BY l.id;
 `, [id]);
 
+// POST libro
 const create = async (body, imageName) => {
     try {
         const result = await pool.query(
@@ -85,6 +88,7 @@ const create = async (body, imageName) => {
     }
 };
 
+// PUT libro
 const update = async (id, body) => {
     try {
         const result = await pool.query(
@@ -99,6 +103,7 @@ const update = async (id, body) => {
     }
 };
 
+// PUT imagen de un libro
 const updateImage = async (id, imageName) => {
     try {
         // Borrado de la antigua Imagen
@@ -132,6 +137,18 @@ const updateImage = async (id, imageName) => {
     }
 }
 
+// DELETE libro
+const remove = async (id) => {
+    try {
+        const result = await pool.query(`DELETE FROM libros WHERE id = $1`, [id]);
+        return result;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+// POST autor de libro
 const assignAuthor = async (libroId, autorId) => {
     try {
         const result = await pool.query(
@@ -145,6 +162,7 @@ const assignAuthor = async (libroId, autorId) => {
     }
 };
 
+// PUT autor de libro
 const updateAuthor = async (libroId, autorOldId, autorNewId) => {
     try {
         const result = await pool.query(
@@ -157,6 +175,8 @@ const updateAuthor = async (libroId, autorOldId, autorNewId) => {
         throw err;
     }
 }
+
+// DELETE autor de libro
 const removeAuthor = async (libroId, autorId) => {
     try {
         const result = pool.query(
@@ -170,15 +190,48 @@ const removeAuthor = async (libroId, autorId) => {
     }
 }
 
-const remove = async (id) => {
+// POST autor de libro
+const assignCategory = async (libroId, categoriaId) => {
     try {
-        const result = await pool.query(`DELETE FROM libros WHERE id = $1`, [id]);
+        const result = await pool.query(
+            `INSERT INTO libros_categorias (libro_id, categoria_id) VALUES ($1, $2) RETURNING *`,
+            [libroId, categoriaId]
+        );
         return result;
-    } catch (err) {
+    } catch (error) {
+        console.log(err);
+        throw err;
+    }
+};
+
+// PUT autor de libro
+const updateCategory = async (libroId, categoriaOldId, catrgoriaNewId) => {
+    try {
+        const result = await pool.query(
+            `UPDATE libros_categorias SET categoria_id = $1 WHERE libro_id = $2 AND categoria_id = $3 RETURNING *`,
+            [ catrgoriaNewId, libroId, categoriaOldId ]
+        );
+        return result;
+    } catch (error) {
         console.log(err);
         throw err;
     }
 }
+
+// DELETE autor de libro
+const removeCategory= async (libroId, categoriaId) => {
+    try {
+        const result = pool.query(
+            `DELETE FROM libros_categorias WHERE libro_id = $1 AND categoria_id = $2`,
+            [ libroId, categoriaId ]
+        );
+        return result;
+    } catch (error) {
+        console.log(err)
+        throw err;
+    }
+}
+
 
 module.exports = {
     get,
@@ -186,8 +239,11 @@ module.exports = {
     create,
     update,
     updateImage,
+    remove,
     assignAuthor,
     updateAuthor,
     removeAuthor,
-    remove
+    assignCategory,
+    updateCategory,
+    removeCategory
 };
