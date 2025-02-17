@@ -11,13 +11,16 @@ const autorCreateBook = document.querySelector("#autorCreateBook");
 const paginasCreateBook = document.querySelector("#paginasCreateBook");
 const precioCreateBook = document.querySelector("#precioCreateBook")
 const categoriaCreateBook = document.querySelector("#categoriaCreateBook")
+const fieldsetCategoria = document.querySelector("#fieldsetCategoriaCreateBook");
 const cantidadCreateBook = document.querySelector("#cantidadCreateBook")
 const imagenButton = document.querySelector("#imagenButtonCreateBook");
 const imagenInput = document.querySelector("#imagenCreateBook");
-// const imageVisualization = document.querySelector("#imageVisualization");
 const descripcionCreateBook = document.querySelector("#descripcionCreateBook");
 const searchResultsCreateBook = document.querySelector("#searchResultsCreateBook");
 const buttonPlusAuthorCreateBook = document.querySelector("#buttonPlusAuthorCreateBook");
+
+// Lógica para eliminar cualquier value del autor input
+autorCreateBook.addEventListener("click", () => autorCreateBook.value = "");
 
 // Lógica para la búsqueda de autores
 autorCreateBook.addEventListener("input", async (event) => {
@@ -103,24 +106,52 @@ function renderResults(Books) {
 
 // Lógica para el botón + de Autores
 buttonPlusAuthorCreateBook.addEventListener("click", (e) => {
-    e.preventDefault();
+    if (autorCreateBook.dataset.autorId !== undefined && autorCreateBook.dataset.autorId !== "") {
+        console.log(autorCreateBook.dataset.autorId);
+        e.preventDefault();
+    
+        const newDiv = document.createElement("div");
+        newDiv.id = autorCreateBook.dataset.autorId;
+        newDiv.className = "autorPlus"
+    
+        const newP = document.createElement("p");
+        newP.className = "pAuthors"
+        newP.textContent = "Autor: " + autorCreateBook.value;
+    
+        const buttonRemove = document.createElement("div");
+        buttonRemove.className = "buttonRemove";
+        buttonRemove.textContent = "-";
+    
+        buttonRemove.addEventListener("click", () => newDiv.remove());
+    
+        newDiv.appendChild(newP);
+        newDiv.appendChild(buttonRemove);
+    
+        // Agregar el nuevo bloque al contenedor
+        searchResultsCreateBook.insertAdjacentElement("afterend", newDiv);
+        autorCreateBook.value = "";
+        autorCreateBook.dataset.autorId = "";
+    }
+});
 
-    const newDiv = document.createElement("div");
-    newDiv.id = autorCreateBook.dataset.autorId;
-    newDiv.className = "autorPlus"
-    newDiv.textContent = "Autor: " + autorCreateBook.value;
+// Lógica para crear el fieldset de Categorías
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        const response = await fetch("/categorias");
+        const categorias = await response.json();
 
-    const buttonRemove = document.createElement("div");
-    buttonRemove.className = "buttonRemove";
-    buttonRemove.textContent = "-";
-
-    newDiv.appendChild(buttonRemove);
-
-    // Agregar el nuevo bloque al contenedor
-    searchResultsCreateBook.insertAdjacentElement("afterend", newDiv);
-    autorCreateBook.value = "";
-    autorCreateBook.dataset.autorId = "";
-})
+        if (response.ok) {
+            categorias.forEach(categoria => {
+                const label = document.createElement("label");
+                label.innerHTML = `<input type="checkbox" name="categoria" value="${categoria.id}">
+                ${categoria.categoria} &nbsp&nbsp`;
+                fieldsetCategoria.appendChild(label);
+            });
+        }
+    } catch (error) {
+        console.error("Error al cargar categorias:", error)
+    }
+});
 
 // Lógica para el botón del Hidden Input para la imagen
 imagenButton.addEventListener("click", () => {
@@ -147,46 +178,79 @@ imagenInput.addEventListener("change", (event) => {
 // Lógica para el envio de datos al Servidor API una vez se ennvia el formulario
 formCreateBook.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (imagenInput.files.length === 0) {
+        imagenButton.classList.add("noImage");
+        setTimeout(() => {
+            imagenButton.classList.remove("noImage")
+        }, 3000)
+    }
 
     const formData = new FormData();
-    const nombre = document.querySelector("#nombreCreateBook").value;
-    const apellidos = document.querySelector("#autorCreateBook").value;
-    const imagen = document.querySelector("#imagenCreateBook").files[0];
-    const descripcion = document.querySelector("#descripcionCreateBook").value;
 
+    const titulo = tituloCreateBook.value
+    const descripcion = descripcionCreateBook.value;
+    const precio = precioCreateBook.value
+    const cantidad = cantidadCreateBook.value
+    const paginas = paginasCreateBook.value
+    const imagen = imagenInput.files[0];
+
+    const addedAuthors = document.querySelectorAll(".autorPlus");
+    
+    if (precio.includes(",")) {
+        precio = precio.replace(",", ".");
+    }
+        
+    formData.append("titulo", titulo);
+    formData.append("descripcion", descripcion);
+    formData.append("precio", precio);
+    formData.append("cantidad", cantidad);
+    formData.append("paginas", paginas);
     formData.append("imagen", imagen);
 
-    const data = {
-        nombre,
-        apellidos,
-        descripcion
-    };
+
 
     try {
-        const response = await fetch(`/autores/${BookId}`, {
-            method: "PUT",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+        //  Fetch para subir nuevo libro
+        const responseBook = await fetch(`/libros`, {
+            method: "POST",
+            body: formData
         });
+        const resultBook = await responseBook.json()
 
-        if (imageChanged) {
-            const image = await fetch(`autores/${BookId}/imagen`, {
-                method: "PUT",
-                body: formData
+        // Fetch para asignar autores y categorias al nuevo libro
+        if (responseBook.ok) {
+            if (autorCreateBook.value !== "") {
+                const responseAuthors = await fetch(`
+                    libros/autor?libro=${resultBook[0].id}&autor=${autorCreateBook.dataset.autorId}
+                `, { method: "POST" });
+            };
+           
+            if (addedAuthors) {
+                addedAuthors.forEach(async (div) => {              
+                    const responseAddedAuthors = await fetch(`
+                        libros/autor?libro=${resultBook[0].id}&autor=${div.id}
+                    `, { method: "POST" });
+                })
+            };
+
+            const fieldsetCategoriaChecks = document.querySelectorAll("#fieldsetCategoriaCreateBook input[type='checkbox']");
+            fieldsetCategoriaChecks.forEach(async (input) => {
+                if (input.checked) {
+                    const responseCategories = await fetch(`
+                        libros/categoria?libro=${resultBook[0].id}&categoria=${input.value}
+                    `, { method: "POST" })
+                }
             });
         }
 
-        if (response.ok) {
-            console.log("Autor Createificado con éxito");
+        if (responseBook.ok) {
+            console.log("Libro creado con éxito");
             messageCreateBook.style.color = "rgb(63 135 77)";
-            messageCreateBook.textContent = "Autor Createificado con éxito"
+            messageCreateBook.textContent = "Libro creado con éxito"
             imagenButton.innerHTML = "Seleccionar Imagen";
             imagenButton.style.backgroundColor = "#eaeaea";
-            imageVisualization.src = "";
+            autorCreateBook.dataset.autorId = ""
             formCreateBook.reset();
-            nombreCreateBook.disabled = true;
-            descripcionCreateBook.disabled = true;
-            imagenInput.disabled = true;
             setTimeout(() => {
                 messageCreateBook.style.display = "none";
             }, 3000);

@@ -168,10 +168,64 @@ button:hover {
     flex-direction: column;
     height: 230px;
     overflow-y: auto;
+    background-color: white;
+    border: 0.5px solid gray;
+}
+
+.autorPlus {
+    border: 0.5px solid gray;
+    display: flex;
+    height: 22px;
+    background-color: rgb(200, 225, 205);
+    margin-bottom: 2%;
+    justify-content: space-between;
+}
+
+.pAuthors {
+    display: flex;
+    align-items: center;
+}
+
+.buttonRemove {
+    display: flex;
+    border: 0.5px solid gray;
+    width: 25px;
+    background-color: lightgray;
+    justify-content: center;
+}
+
+.buttonRemove:hover {
+    cursor: pointer;
+    background-color: #d9d8d8;
 }
 
 .Book-result {
     padding: 3px;
+}
+
+.fieldsetCategoria {
+    height: 100px;
+    overflow: hidden;
+    overflow-y: auto;
+    height: 150px;
+}
+
+.fieldsetCategoria label {
+    display: flex;
+    align-items: center; 
+    gap: 8px; 
+    margin-bottom: 5px; 
+    white-space: nowrap; 
+}
+
+.fieldsetCategoria label:hover {
+    cursor: pointer;
+    color: blue;
+}
+
+.fieldsetCategoria input[type="checkbox"]:hover {
+    cursor: pointer;
+    
 }
 
 /* Modificar Autor CSS */
@@ -206,4 +260,21 @@ button:hover {
     position: absolute;
     width: 350px;
     left: 30px;
+}
+
+/* ANIMACIONES */
+.noImage {
+    animation-name: alertImage;
+    animation-duration: 0.5s;
+    animation-timing-function: linear; 
+    animation-iteration-count: 3; 
+}
+
+@keyframes alertImage {
+    0% {
+        background-color: #ff9e9e;
+    }
+    100% {
+        background-color: #eaeaea;
+    }
 }

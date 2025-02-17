@@ -96,56 +96,48 @@
                 <form action="/autores" method="post" id="formCreateBook">
                     <div class="divFormOut">
                         <div class="divFormLeft">
-                            <label for="tituloCreateBook">
+                            <label for="tituloCreateBook" class="labelCreateAuthor">
                                 Título:
                             </label>
-                            <input type="text" id="tituloCreateBook" name="tituloCreateBook" required maxlength="100"
+                            <input type="text" id="tituloCreateBook" name="tituloCreateBook" required maxlength="500"
                                 autocomplete="off">
 
-                            <label for="autorCreateBook">
+                            <label for="autorCreateBook" class="labelCreateAuthor">
                                 Autor: <div style="display: inline; color: rgb(0, 119, 255);">(Buscar Autor por
                                     Apellidos)
                                 </div>
                             </label>
                             <div class="divInputButton">
                                 <input type="text" id="autorCreateBook" placeholder="Buscar Autor por apellidos"
-                                    name="autorCreateBook" required maxlength="100" autocomplete="off">
+                                    name="autorCreateBook" maxlength="200" autocomplete="off">
                                 <button id="buttonPlusAuthorCreateBook" class="buttonPlus" tabindex="1">+</button>
                             </div>
-                            <ul id="searchResultsCreateBook" class="listAuthorUl" style="list-style-type: none; padding: 0px;"></ul>
+                            <ul id="searchResultsCreateBook" class="listAuthorUl"
+                                style="list-style-type: none; padding: 0px;"></ul>
 
-                            <label for="paginasCreateBook">
+                            <label for="paginasCreateBook" class="labelCreateAuthor">
                                 Nª de Páginas:
                             </label>
-                            <input type="text" id="paginasCreateBook" name="paginasCreateBook" required maxlength="100"
-                                autocomplete="off">
-                        </div>
-                        <div class="divFormRight">
-                            <label for="precioCreateBook">
-                                Precio:
-                            </label>
-                            <input type="text" id="precioCreateBook" name="precioCreateBook" required maxlength="100"
-                                autocomplete="off">
-
-
-                            <label for="categoriaCreateBook">
-                                Categoría:
-                            </label>
-                            <div class="divInputButton">
-                                <input type="text" id="categoriaCreateBook" placeholder="Buscar Autor por apellidos"
-                                    name="categoriaCreateBook" required maxlength="100" autocomplete="off">
-                                <button id="buttonPlusAuthorCreateBook" class="buttonPlus">+</button>
-                            </div>
-                            <ul id="searchResultsCreateBook" style="list-style-type: none; padding: 0px;"></ul>
-
-                            <label for="cantidadCreateBook">
+                            <input type="number" inputmode="numeric" id="paginasCreateBook" name="paginasCreateBook"
+                                required step="1" autocomplete="off">
+                            <label for="cantidadCreateBook" class="labelCreateAuthor">
                                 Cantidad en Stock:
                             </label>
-                            <input type="text" id="cantidadCreateBook" name="cantidadCreateBook" required
-                                maxlength="100" autocomplete="off">
+                            <input type="number" inputmode="numeric" id="cantidadCreateBook" name="cantidadCreateBook"
+                                required autocomplete="off" step="1">
+                        </div>
+                        <div class="divFormRight">
+                            <label for="precioCreateBook" class="labelCreateAuthor">
+                                Precio:
+                            </label>
+                            <input type="number" inputmode="decimal" step="0.01" id="precioCreateBook" name="precioCreateBook"
+                                required autocomplete="off">
+                            <fieldset id="fieldsetCategoriaCreateBook" class="fieldsetCategoria">
+                                <legend class="labelCreateAuthor">Categoria/s:</legend>
+                            </fieldset>
                         </div>
                     </div>
-                    <label for="imagenCreateBook">
+                    <label for="imagenCreateBook" class="labelCreateAuthor">
                         Imagen: <div style="display: inline; color: gray;">(Vertical / Retrato)</div>
                     </label>
                     <div id="imagenButtonCreateBook" class="imageButton">
@@ -155,7 +147,7 @@
                         style="display: none;" autocomplete="off">
                     <img id="imageVisualization" style="display: none;">
 
-                    <label for="descripcionCreateBook">
+                    <label for="descripcionCreateBook" class="labelCreateAuthor">
                         Descripción:
                     </label>
                     <textarea type="text" id="descripcionCreateBook" class="descripcionTextArea textAreaBook"
