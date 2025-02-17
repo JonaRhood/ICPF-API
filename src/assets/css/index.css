@@ -163,6 +163,16 @@ button:hover {
     margin-bottom: 0;
 }
 
+#autorModBook {
+    width: 100%;
+    margin-bottom: 0vh !important;
+}
+
+#categoriaModBook {
+    width: 100%;
+    margin-bottom: 0;
+}
+
 .listAuthorUl {
     display: none;
     flex-direction: column;

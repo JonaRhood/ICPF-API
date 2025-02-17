@@ -130,8 +130,8 @@
                             <label for="precioCreateBook" class="labelCreateAuthor">
                                 Precio:
                             </label>
-                            <input type="number" inputmode="decimal" step="0.01" id="precioCreateBook" name="precioCreateBook"
-                                required autocomplete="off">
+                            <input type="number" inputmode="decimal" step="0.01" id="precioCreateBook"
+                                name="precioCreateBook" required autocomplete="off">
                             <fieldset id="fieldsetCategoriaCreateBook" class="fieldsetCategoria">
                                 <legend class="labelCreateAuthor">Categoria/s:</legend>
                             </fieldset>
@@ -162,27 +162,58 @@
             <div id="divModBook" class="mainDiv">
                 <h2>Modificar Libro</h2>
                 <form action="/autores" method="post" id="formModBook">
-                    <label for="nombreModBook">
-                        Nombre:
-                    </label>
-                    <input type="text" id="nombreModBook" name="nombreModBook" required maxlength="100" disabled
-                        autocomplete="off">
+                    <div class="divFormOut">
+                        <div class="divFormLeft">
+                            <label for="tituloModBook">
+                                Título:
+                            </label>
+                            <input type="text" id="tituloModBook" name="tituloModBook" required maxlength="500"
+                                autocomplete="off" placeholder="Buscar Libro por Título">
+                            <ul id="searchResultsTitleModBook" class="listAuthorUl"
+                                style="list-style-type: none; padding: 0px;"></ul>
 
-                    <label for="apellidosBook">
-                        Apellidos: <div style="display: inline; color: rgb(0, 119, 255);">(Buscar Autor)</div>
-                    </label>
-                    <input type="text" id="apellidosModBook" placeholder="Buscar Autor por apellidos"
-                        name="apellidosModBook" required maxlength="100" autocomplete="off">
-                    <ul id="searchResultsModBook" style="list-style-type: none; padding: 0px;"></ul>
-                    <!-- div con los resultados de la búsqueda -->
+                            <label for="autorModBook">
+                                Autor: <div style="display: inline; color: rgb(0, 119, 255);">(Buscar Autor por
+                                    Apellidos)
+                                </div>
+                            </label>
+                            <div class="divInputButton">
+                                <input type="text" id="autorModBook" placeholder="Buscar Autor por Apellidos"
+                                    name="autorModBook" maxlength="200" autocomplete="off" disabled>
+                                <button id="buttonPlusAuthorModBook" class="buttonPlus" tabindex="1">+</button>
+                            </div>
+                            <ul id="searchResultsModBook" class="listAuthorUl"
+                                style="list-style-type: none; padding: 0px;"></ul>
 
+                            <label for="paginasModBook">
+                                Nª de Páginas:
+                            </label>
+                            <input type="number" inputmode="numeric" id="paginasModBook" name="paginasModBook" required
+                                step="1" autocomplete="off" disabled>
+                            <label for="cantidadModBook">
+                                Cantidad en Stock:
+                            </label>
+                            <input type="number" inputmode="numeric" id="cantidadModBook" name="cantidadModBook"
+                                required autocomplete="off" step="1" disabled>
+                        </div>
+                        <div class="divFormRight">
+                            <label for="precioModBook">
+                                Precio:
+                            </label>
+                            <input type="number" inputmode="decimal" step="0.01" id="precioModBook" name="precioModBook"
+                                required autocomplete="off" disabled>
+                            <fieldset id="fieldsetCategoriaModBook" class="fieldsetCategoria">
+                                <legend>Categoria/s:</legend>
+                            </fieldset>
+                        </div>
+                    </div>
                     <label for="imagenModBook">
                         Imagen: <div style="display: inline; color: gray;">(Vertical / Retrato)</div>
                     </label>
                     <div id="imagenButtonModBook" class="imageButton">
                         Seleccionar Imagen
                     </div>
-                    <input type="file" accept="image/*" id="imagenModBook" name="imagenModBook" disabled maxlength="500"
+                    <input type="file" accept="image/*" id="imagenModBook" name="imagenModBook" maxlength="500"
                         style="display: none;" autocomplete="off">
                     <img id="imageVisualization" style="display: none;">
 
@@ -192,7 +223,7 @@
                     <textarea type="text" id="descripcionModBook" class="descripcionTextArea textAreaBook"
                         name="descripcionModBook" required maxlength="1000" disabled></textarea>
 
-                    <button type="submit">Modificar Libro</button>
+                    <button type="submit">Crear Libro</button>
                     <div id="messageModBook" class="message"></div>
                 </form>
             </div>
@@ -203,6 +234,7 @@
     <script type="module" src="./assets/js/index/createAuthor.js"></script>
     <script type="module" src="./assets/js/index/modAuthor.js"></script>
     <script type="module" src="./assets/js/index/createBook.js"></script>
+    <script type="module" src="./assets/js/index/modBook.js"></script>
 </body>
 
 </html>

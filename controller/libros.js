@@ -6,7 +6,7 @@
  */
 
 const { 
-    get, getById, create,
+    get, getById, create, getByName,
     update, updateImage, remove, assignAuthor,
     updateAuthor, removeAuthor, assignCategory, 
     updateCategory, removeCategory
@@ -32,6 +32,22 @@ exports.readById = async (req, res) => {
         return res.status(400).json({ error: err });
     }
 };
+
+exports.readByName = async (req, res) => {
+    const titulo = req.query.titulo;
+    if (titulo === null || titulo === "") {
+        return res.status(404).json({ success: false, error: "Falta añadir apellido" })
+    }
+    try {
+        const task = await getByName(titulo);
+        if (task.rows.length === 0) {
+            return res.status(404).json({ success: false, error: "Autor no encontrado" });
+        }
+        return res.json(task.rows);
+    } catch(error) {
+        return res.status(400).json({ error: err });
+    }
+}
 
 // POST libro
 exports.createBook = async (req, res) => {

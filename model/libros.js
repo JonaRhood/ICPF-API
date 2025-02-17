@@ -74,6 +74,11 @@ const getById = (id) => pool.query(`
     ORDER BY l.id;
 `, [id]);
 
+const getByName = (titulo) => pool.query(
+    `SELECT id, titulo FROM libros WHERE titulo ILIKE $1`,
+    [`%${titulo}%`]
+);
+
 // POST libro
 const create = async (body, imageName) => {
     try {
@@ -236,6 +241,7 @@ const removeCategory= async (libroId, categoriaId) => {
 module.exports = {
     get,
     getById,
+    getByName,
     create,
     update,
     updateImage,
