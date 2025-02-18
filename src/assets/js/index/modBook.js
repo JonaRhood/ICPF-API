@@ -277,6 +277,16 @@ function renderAuthorResults(Books) {
 // Lógica para el botón + de Autores
 buttonPlusAuthorModBook.addEventListener("click", (e) => {
     e.preventDefault();
+
+    const authorsList = document.querySelectorAll(".autorPlusModBook");
+    
+    for (const div of authorsList) {
+        if (autorModBook.dataset.autorId == div.id) {
+            console.log("SAME");
+            return; // Sale de la función si se encuentra una coincidencia
+        }
+    }
+
     if (autorModBook.dataset.autorId !== undefined && autorModBook.dataset.autorId !== "") {
 
         const newDiv = document.createElement("div");

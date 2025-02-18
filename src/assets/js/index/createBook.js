@@ -107,26 +107,36 @@ function renderResults(Books) {
 // Lógica para el botón + de Autores
 buttonPlusAuthorCreateBook.addEventListener("click", (e) => {
     e.preventDefault();
+
+    const authorsList = document.querySelectorAll(".autorPlus");
+    
+    for (const div of authorsList) {
+        if (autorCreateBook.dataset.autorId == div.id) {
+            console.log("SAME");
+            return; // Sale de la función si se encuentra una coincidencia
+        }
+    }
+
     if (autorCreateBook.dataset.autorId !== undefined && autorCreateBook.dataset.autorId !== "") {
         console.log(autorCreateBook.dataset.autorId);
-    
+
         const newDiv = document.createElement("div");
         newDiv.id = autorCreateBook.dataset.autorId;
         newDiv.className = "autorPlus"
-    
+
         const newP = document.createElement("p");
         newP.className = "pAuthors"
         newP.textContent = "Autor: " + autorCreateBook.value;
-    
+
         const buttonRemove = document.createElement("div");
         buttonRemove.className = "buttonRemove";
         buttonRemove.textContent = "-";
-    
+
         buttonRemove.addEventListener("click", () => newDiv.remove());
-    
+
         newDiv.appendChild(newP);
         newDiv.appendChild(buttonRemove);
-    
+
         // Agregar el nuevo bloque al contenedor
         searchResultsCreateBook.insertAdjacentElement("afterend", newDiv);
         autorCreateBook.value = "";
@@ -195,11 +205,11 @@ formCreateBook.addEventListener("submit", async (event) => {
     const imagen = imagenInput.files[0];
 
     const addedAuthors = document.querySelectorAll(".autorPlus");
-    
+
     if (precio.includes(",")) {
         precio = precio.replace(",", ".");
     }
-        
+
     formData.append("titulo", titulo);
     formData.append("descripcion", descripcion);
     formData.append("precio", precio);
@@ -224,9 +234,9 @@ formCreateBook.addEventListener("submit", async (event) => {
                     libros/autor?libro=${resultBook[0].id}&autor=${autorCreateBook.dataset.autorId}
                 `, { method: "POST" });
             };
-           
+
             if (addedAuthors) {
-                addedAuthors.forEach(async (div) => {              
+                addedAuthors.forEach(async (div) => {
                     const responseAddedAuthors = await fetch(`
                         libros/autor?libro=${resultBook[0].id}&autor=${div.id}
                     `, { method: "POST" });
