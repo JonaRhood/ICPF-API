@@ -106,9 +106,9 @@ function renderResults(Books) {
 
 // Lógica para el botón + de Autores
 buttonPlusAuthorCreateBook.addEventListener("click", (e) => {
+    e.preventDefault();
     if (autorCreateBook.dataset.autorId !== undefined && autorCreateBook.dataset.autorId !== "") {
         console.log(autorCreateBook.dataset.autorId);
-        e.preventDefault();
     
         const newDiv = document.createElement("div");
         newDiv.id = autorCreateBook.dataset.autorId;
@@ -250,6 +250,7 @@ formCreateBook.addEventListener("submit", async (event) => {
             imagenButton.innerHTML = "Seleccionar Imagen";
             imagenButton.style.backgroundColor = "#eaeaea";
             autorCreateBook.dataset.autorId = ""
+            addedAuthors.forEach(div => div.remove());
             formCreateBook.reset();
             setTimeout(() => {
                 messageCreateBook.style.display = "none";

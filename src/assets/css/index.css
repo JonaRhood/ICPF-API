@@ -129,7 +129,7 @@ button {
 }
 
 .textAreaBook {
-    height: 5vh !important;
+    height: 10vh !important;
     min-height: 5vh !important;
 }
 
@@ -191,6 +191,15 @@ button:hover {
     justify-content: space-between;
 }
 
+.autorPlusModBook {
+    border: 0.5px solid gray;
+    display: flex;
+    height: 22px;
+    background-color: rgb(200, 225, 205);
+    margin-bottom: 2%;
+    justify-content: space-between;
+}
+
 .pAuthors {
     display: flex;
     align-items: center;
@@ -222,10 +231,10 @@ button:hover {
 
 .fieldsetCategoria label {
     display: flex;
-    align-items: center; 
-    gap: 8px; 
-    margin-bottom: 5px; 
-    white-space: nowrap; 
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+    white-space: nowrap;
 }
 
 .fieldsetCategoria label:hover {
@@ -235,7 +244,7 @@ button:hover {
 
 .fieldsetCategoria input[type="checkbox"]:hover {
     cursor: pointer;
-    
+
 }
 
 /* Modificar Autor CSS */
@@ -272,18 +281,27 @@ button:hover {
     left: 30px;
 }
 
+/* Modificar libro */
+#imageVisualizationModBook {
+    position: absolute;
+    height: 45vh;
+    transform: translateX(-320px) translateY(-54px);
+    border: 10px solid lightgray;
+}
+
 /* ANIMACIONES */
 .noImage {
     animation-name: alertImage;
     animation-duration: 0.5s;
-    animation-timing-function: linear; 
-    animation-iteration-count: 3; 
+    animation-timing-function: linear;
+    animation-iteration-count: 3;
 }
 
 @keyframes alertImage {
     0% {
         background-color: #ff9e9e;
     }
+
     100% {
         background-color: #eaeaea;
     }

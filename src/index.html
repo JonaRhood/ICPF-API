@@ -165,7 +165,9 @@
                     <div class="divFormOut">
                         <div class="divFormLeft">
                             <label for="tituloModBook">
-                                Título:
+                                Título: <div style="display: inline; color: rgb(0, 119, 255);">(Buscar Libro por
+                                    Título)
+                                </div>
                             </label>
                             <input type="text" id="tituloModBook" name="tituloModBook" required maxlength="500"
                                 autocomplete="off" placeholder="Buscar Libro por Título">
@@ -210,12 +212,12 @@
                     <label for="imagenModBook">
                         Imagen: <div style="display: inline; color: gray;">(Vertical / Retrato)</div>
                     </label>
-                    <div id="imagenButtonModBook" class="imageButton">
+                    <div id="imagenButtonModBook" class="imageButton" style="color: gray;">
                         Seleccionar Imagen
                     </div>
                     <input type="file" accept="image/*" id="imagenModBook" name="imagenModBook" maxlength="500"
-                        style="display: none;" autocomplete="off">
-                    <img id="imageVisualization" style="display: none;">
+                        style="display: none;" autocomplete="off" disabled>
+                    <img id="imageVisualizationModBook" style="display: none;">
 
                     <label for="descripcionModBook">
                         Descripción:

@@ -20,11 +20,14 @@ const get = () => pool.query(`
         l.paginas AS libro_paginas,
         l.imagen AS libro_imagen,
         JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
-    			'id', a.id,
-    			'nombre', a.nombre,
-    			'apellidos', a.apellidos
-				)) AS autores,
-        JSONB_AGG(DISTINCT c.categoria) AS categorias
+    		'id', a.id,
+    		'nombre', a.nombre,
+    		'apellidos', a.apellidos
+		)) AS autores,
+        JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
+            'id', c.id,
+            'categoria', c.categoria
+        )) AS categorias
     FROM libros l
     JOIN libros_autores la ON l.id = la.libro_id
     JOIN autores a ON la.autor_id = a.id
@@ -55,8 +58,11 @@ const getById = (id) => pool.query(`
     			'id', a.id,
     			'nombre', a.nombre,
     			'apellidos', a.apellidos
-				)) AS autores,
-        JSONB_AGG(DISTINCT c.categoria) AS categorias
+		)) AS autores,
+        JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
+            'id', c.id,
+            'categoria', c.categoria
+        )) AS categorias
     FROM libros l
     JOIN libros_autores la ON l.id = la.libro_id
     JOIN autores a ON la.autor_id = a.id
@@ -182,11 +188,11 @@ const updateAuthor = async (libroId, autorOldId, autorNewId) => {
 }
 
 // DELETE autor de libro
-const removeAuthor = async (libroId, autorId) => {
+const removeAuthors = async (libroId) => {
     try {
         const result = pool.query(
-            `DELETE FROM libros_autores WHERE libro_id = $1 AND autor_id = $2`,
-            [ libroId, autorId ]
+            `DELETE FROM libros_autores WHERE libro_id = $1`,
+            [ libroId ]
         );
         return result;
     } catch (error) {
@@ -224,11 +230,11 @@ const updateCategory = async (libroId, categoriaOldId, catrgoriaNewId) => {
 }
 
 // DELETE autor de libro
-const removeCategory= async (libroId, categoriaId) => {
+const removeCategories= async (libroId) => {
     try {
         const result = pool.query(
-            `DELETE FROM libros_categorias WHERE libro_id = $1 AND categoria_id = $2`,
-            [ libroId, categoriaId ]
+            `DELETE FROM libros_categorias WHERE libro_id = $1`,
+            [ libroId ]
         );
         return result;
     } catch (error) {
@@ -248,8 +254,8 @@ module.exports = {
     remove,
     assignAuthor,
     updateAuthor,
-    removeAuthor,
+    removeAuthors,
     assignCategory,
     updateCategory,
-    removeCategory
+    removeCategories
 };

@@ -8,8 +8,8 @@
 const { 
     get, getById, create, getByName,
     update, updateImage, remove, assignAuthor,
-    updateAuthor, removeAuthor, assignCategory, 
-    updateCategory, removeCategory
+    updateAuthor, removeAuthors, assignCategory, 
+    updateCategory, removeCategories,
  } = require('../model/libros.js');
 
 // GET libros
@@ -138,12 +138,10 @@ exports.updateNewAuthor = async (req, res) => {
 }
 
 // DELETE autor de libro
-exports.removeAuthorFromBook = async (req, res) => {
+exports.removeAuthorsFromBook = async (req, res) => {
     const libroId = req.query.libro;
-    const autorId = req.query.autor;
-    
     try {
-        const task = await removeAuthor(libroId, autorId);
+        const task = await removeAuthors(libroId);
         return res.status(200).send("Autor Removido");
     } catch (err) {
         return res.status(404).json({ error: err.detail })
@@ -179,12 +177,10 @@ exports.updateNewCategory = async (req, res) => {
 }
 
 // DELETE autor de libro
-exports.removeCategoryFromBook = async (req, res) => {
+exports.removeCategoriesFromBook = async (req, res) => {
     const libroId = req.query.libro;
-    const categoriaId = req.query.categoria;
-    
     try {
-        const task = await removeCategory(libroId, categoriaId);
+        const task = await removeCategories(libroId);
         return res.status(200).send("Categoria Removida");
     } catch (err) {
         return res.status(404).json({ error: err.detail })
