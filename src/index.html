@@ -15,12 +15,21 @@
     <div id="bodyDiv">
         <div id="divLeft">
             <div id="divClient">
-                <!-- Crear Autor-->
+                <!-- Base de Datosr-->
                 <div id="secondDivClient" class="mainDivLeft">
-                    <h2>Base de Datos</h2>
+                    <div id="divTitleDB">
+                        <h2>Base de Datos</h2>
+                        <div id="menuDB">
+                            <ul>
+                                <li id="ventaButton">Venta</li>
+                                <li id="stadsButton">Estadísticas</li>
+                            </ul>
+                        </div>
+                    </div>
                     <div id="firstDivDB">
                         <label for="buscarTituloDB">Buscar por Título:</label>
-                        <input type="text" name="buscarTituloDB" id="buscarTituloDB" placeholder="Buscar Libro por Título" autocomplete="off">
+                        <input type="text" name="buscarTituloDB" id="buscarTituloDB"
+                            placeholder="Buscar Libro por Título" autocomplete="off">
                     </div>
                     <div class="divTableDB">
                         <table class="tableDB">
@@ -29,18 +38,18 @@
                                     <th id="tablePrecio">Precio</th>
                                     <th id="tableStock">Stock</th>
                                     <th id="tableTitulo">Título</th>
-                                    <th id="TableAutor">Autor/es</th>
+                                    <th id="tableAutor">Autor/es</th>
                                     <th id="tableCategoria">Categorías</th>
                                 </tr>
                             </thead>
                             <tbody class="tableBodyDB">
                             </tbody>
                         </table>
-                        
+
                     </div>
                 </div>
             </div>
-    
+
             <div id="divAuthor">
                 <!-- Crear Autor-->
                 <div id="divCreateAuthor" class="mainDiv">
@@ -51,13 +60,13 @@
                         </label>
                         <input type="text" id="nombreCreateAuthor" name="nombreCreateAuthor" required maxlength="100"
                             autocomplete="off">
-    
+
                         <label for="apellidosCreateAuthor" class="labelCreateAuthor">
                             Apellidos:
                         </label>
-                        <input type="text" id="apellidosCreateAuthor" name="apellidosCreateAuthor" required maxlength="100"
-                            autocomplete="off">
-    
+                        <input type="text" id="apellidosCreateAuthor" name="apellidosCreateAuthor" required
+                            maxlength="100" autocomplete="off">
+
                         <label for="imagenCreateAuthor" class="labelCreateAuthor">
                             Imagen: <div style="display: inline; color: gray;">(Vertical / Retrato)</div>
                         </label>
@@ -66,18 +75,18 @@
                         </div>
                         <input type="file" accept="image/*" id="imagenCreateAuthor" name="imagenCreateAuthor" required
                             maxlength="500" style="display: none;" autocomplete="off">
-    
+
                         <label for="descripcionCreateAuthor" class="labelCreateAuthor">
                             Descripción:
                         </label>
                         <textarea type="text" id="descripcionCreateAuthor" class="descripcionTextArea"
                             name="descripcionCreateAuthor" required maxlength="1000"></textarea>
-    
+
                         <button type="submit">Crear Autor</button>
                         <div id="messageCreateAuthor" class="message"></div>
                     </form>
                 </div>
-    
+
                 <!-- Modificar Author -->
                 <div id="divModAuthor" class="mainDiv">
                     <h2>Modificar Autor</h2>
@@ -87,14 +96,15 @@
                         </label>
                         <input type="text" id="nombreModAuthor" name="nombreModAuthor" required maxlength="100" disabled
                             autocomplete="off">
-    
+
                         <label for="apellidosModAuthor">
                             Apellidos: <div style="display: inline; color: rgb(0, 119, 255);">(Buscar Autor)</div>
                         </label>
                         <input type="text" id="apellidosModAuthor" placeholder="Buscar Autor por apellidos"
                             name="apellidosModAuthor" required maxlength="100" autocomplete="off">
-                        <ul id="searchResultsModAuthor" class="listAuthorUl" style="list-style-type: none; padding: 0px;"></ul>
-    
+                        <ul id="searchResultsModAuthor" class="listAuthorUl"
+                            style="list-style-type: none; padding: 0px;"></ul>
+
                         <label for="imagenModAuthor">
                             Imagen: <div style="display: inline; color: gray;">(Vertical / Retrato)</div>
                         </label>
@@ -104,13 +114,13 @@
                         <input type="file" accept="image/*" id="imagenModAuthor" name="imagenModAuthor" disabled
                             maxlength="500" style="display: none;" autocomplete="off">
                         <img id="imageVisualization" style="display: flex;">
-    
+
                         <label for="descripcionModAuthor">
                             Descripción:
                         </label>
                         <textarea type="text" id="descripcionModAuthor" class="descripcionTextArea"
                             name="descripcionModAuthor" required maxlength="1000" disabled></textarea>
-    
+
                         <button type="submit">Modificar Autor</button>
                         <div id="messageModAuthor" class="message"></div>
                     </form>
@@ -261,8 +271,39 @@
         </div>
     </div>
 
+    <!-- Modales -->
+     <div id="modals">
+         <div id="modalVentas" style="display: flex;">
+             <div>
+                 <label for="buscarVentas">Buscar por Título:</label>
+                 <input type="text" autocomplete="off" placeholder="Buscar por Título">
+             </div>
+             <div>
+                 <table class="tableDB">
+                     <thead class="tableHeadDB">
+                         <tr>
+                             <th id="tableVentasPrecio">Precio</th>
+                             <th id="tableVentasStock">Stock</th>
+                             <th id="tableVentasTitulo">Título</th>
+                             <th id="tableVentasAutor">Autor/es</th>
+                         </tr>
+                     </thead>
+                     <tbody class="tableBodyDB">
+                     </tbody>
+                 </table>
+             </div>
+             <div>
+                 <span>Total: </span>
+                 <button id="submitVentas">Vender</button>
+             </div>
+         </div>
+     
+         <div id="modalStads" style="display: none;"></div>
+     </div>
+
     <!-- Scripts -->
     <script type="module" src="./assets//js/index/db.js"></script>
+    <script type="module" src="./assets//js/index/ventaButton.js"></script>
     <script type="module" src="./assets/js/index/createAuthor.js"></script>
     <script type="module" src="./assets/js/index/modAuthor.js"></script>
     <script type="module" src="./assets/js/index/createBook.js"></script>

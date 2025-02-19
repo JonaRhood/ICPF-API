@@ -5,12 +5,12 @@
  * 
  */
 
-const { 
-    get, getById, create, getByName,
+const {
+    get, getById, getByName, getByColumn, create,
     update, updateImage, remove, assignAuthor,
-    updateAuthor, removeAuthors, assignCategory, 
+    updateAuthor, removeAuthors, assignCategory,
     updateCategory, removeCategories,
- } = require('../model/libros.js');
+} = require('../model/libros.js');
 
 // GET libros
 exports.read = async (req, res) => {
@@ -44,10 +44,34 @@ exports.readByName = async (req, res) => {
             return res.status(404).json({ success: false, error: "Autor no encontrado" });
         }
         return res.json(task.rows);
-    } catch(error) {
+    } catch (error) {
         return res.status(400).json({ error: err });
     }
 }
+
+exports.readByColumn = async (req, res) => {
+    const column = req.query.columna;
+    const type = req.query.tipo;
+
+    const validColumns = ['l.titulo', 'l.precio', 'l.cantidad', 'l.paginas'];
+    const validTypes = ['ASC', 'DESC'];
+
+    if (!validColumns.includes(column)) {
+        return res.status(400).json({ error: "Columna no válida" });
+    }
+
+    if (!validTypes.includes(type)) {
+        return res.status(400).json({ error: "Tipo de orden no válido" });
+    }
+
+    try {
+        const task = await getByColumn(column, type);
+        return res.json(task.rows)
+    } catch (err) {
+        return res.status(400).json({ error: err });
+    }
+};
+
 
 // POST libro
 exports.createBook = async (req, res) => {

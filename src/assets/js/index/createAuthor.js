@@ -3,6 +3,8 @@
 /**
  * Crear Autor
  */
+
+// Asignaciones DOM
 const formCreateAuthor = document.querySelector("#formCreateAuthor");
 const messageCreateAuthor = document.querySelector("#messageCreateAuthor");
 const imagenButton = document.querySelector("#imagenButtonCreateAuthor");

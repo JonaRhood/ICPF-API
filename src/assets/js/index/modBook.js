@@ -3,7 +3,10 @@
 /**
  * Crear Libro
  */
+// Imports
+import { updateTable } from "./db.js";
 
+// Asignaciones DOM
 const formModBook = document.querySelector("#formModBook");
 const messageModBook = document.querySelector("#messageModBook");
 const tituloModBook = document.querySelector("#tituloModBook");
@@ -154,7 +157,7 @@ function renderBookResults(Books) {
                 imagenButton.style.backgroundColor = "#eaeaea";
                 imagenInput.disabled = false;
                 descripcionModBook.disabled = false;
-                
+
                 tituloModBook.value = result[0].libro_titulo;
                 paginasModBook.value = result[0].libro_paginas;
                 cantidadModBook.value = result[0].libro_cantidad;
@@ -178,28 +181,28 @@ function renderBookResults(Books) {
                         const newDiv = document.createElement("div");
                         newDiv.id = author.id;
                         newDiv.className = "autorPlusModBook"
-    
+
                         const newP = document.createElement("p");
                         newP.className = "pAuthors"
                         newP.textContent = "Autor: " + author.nombre + " " + author.apellidos;
-    
+
                         const buttonRemove = document.createElement("div");
                         buttonRemove.className = "buttonRemove";
                         buttonRemove.textContent = "-";
-    
+
                         buttonRemove.addEventListener("click", () => {
                             newDiv.remove()
                             listAuthors = listAuthors.filter(author => author != newDiv.id)
                         });
-    
+
                         newDiv.appendChild(newP);
                         newDiv.appendChild(buttonRemove);
-    
+
                         // Agregar el nuevo bloque al contenedor
                         searchResultsModBook.insertAdjacentElement("afterend", newDiv);
                         autorModBook.value = "";
                         autorModBook.dataset.autorId = "";
-    
+
                         listAuthors.push(author.id);
                     }
                 })
@@ -282,7 +285,7 @@ buttonPlusAuthorModBook.addEventListener("click", (e) => {
     e.preventDefault();
 
     const authorsList = document.querySelectorAll(".autorPlusModBook");
-    
+
     for (const div of authorsList) {
         if (autorModBook.dataset.autorId == div.id) {
             console.log("SAME");
@@ -413,7 +416,6 @@ formModBook.addEventListener("submit", async (event) => {
 
         // Fetch para asignar autores y categorias al libro modificado
         if (updateBook.ok) {
-
             const deleteAuthorsFromBook = await fetch(`/libros/autor?libro=${libroId}`, {
                 method: "DELETE",
             });
@@ -425,7 +427,7 @@ formModBook.addEventListener("submit", async (event) => {
                         method: "POST"
                     });
                 };
-    
+
                 if (newAuthors) {
                     for (const div of newAuthors) {
                         await fetch(`/libros/autor?libro=${libroId}&autor=${div.id}`, {
@@ -443,8 +445,8 @@ formModBook.addEventListener("submit", async (event) => {
                     if (input.checked) {
                         const addCategoriesToBook = await fetch(
                             `/libros/categoria?libro=${libroId}&categoria=${input.value}`, {
-                                method: 'POST'
-                            });
+                            method: 'POST'
+                        });
                     }
                 }
             }
@@ -465,8 +467,9 @@ formModBook.addEventListener("submit", async (event) => {
             cantidadModBook.disabled = true;
             precioModBook.disabled = true;
             imagenInput.disabled = true;
-            categorias.forEach(input => {input.checked = false; input.disabled = true});
+            categorias.forEach(input => { input.checked = false; input.disabled = true });
             newAuthors.forEach(div => div.remove());
+            updateTable();
             setTimeout(() => {
                 messageModBook.style.display = "none";
             }, 3000);

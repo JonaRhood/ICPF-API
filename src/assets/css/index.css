@@ -40,9 +40,6 @@ body {
     width: 100%;
     height: 50%;
     gap: 1%;
-    overflow: hidden;
-    overflow-y: auto;
-    overflow-x: auto;
 }
 
 #divBook {
@@ -89,10 +86,14 @@ form {
 
 #divCreateAuthor {
     width: 50%;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 #divModAuthor {
     width: 50%;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 #divCreateBook {
@@ -317,6 +318,26 @@ button:hover {
 
 /* Table DataBase */
 
+#divTitleDB {
+    display: flex;
+    justify-content: space-between;
+}
+
+#menuDB ul {
+    display: flex;
+    list-style: none;
+    color: blue;
+    text-decoration: underline;
+    gap: 5%;
+    padding: 0;
+    justify-content: flex-end;
+}
+
+#menuDB ul li:hover {
+    cursor: pointer;
+    color: #5f7aff;
+}
+
 #firstDivDB {
     display: flex;
     margin-bottom: 1%
@@ -337,7 +358,7 @@ button:hover {
 
 .divTableDB {
     border: 0.5px solid gray;
-    height: 37vh;
+    height: 35vh;
     background-color: #ffffff;
     font-size: 1vw;
     overflow: hidden;
@@ -373,3 +394,77 @@ button:hover {
 .tableBodyDB tr:nth-child(even) {
     background-color: #f2f2f2;
 }
+
+#tablePrecio:hover {
+    cursor: pointer;
+    background-color: #ffc967;
+}
+
+#tableStock:hover {
+    cursor: pointer;
+    background-color: #ffc967;
+}
+
+#tableTitulo:hover {
+    cursor: pointer;
+    background-color: #ffc967;
+}
+
+/* Modal Venta */
+#modals {
+    z-index: 15;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modalVentas {
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    padding: 20px;
+    width: 45vw;
+    height: 40vh;
+    top: 25%;
+    left: 25%;
+    z-index: 20;
+}
+
+#modalVentas div:nth-child(1) {
+    display: flex;
+    gap: 2%;
+}
+
+#modalVentas div:nth-child(2) {
+   border: .5px solid gray;
+    height: 30vh;
+    background-color: #f6f6f6;
+}
+
+#modalVentas div:nth-child(3) {
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-between
+}
+
+#submitVentas {
+    margin: 0;
+    padding: .5% 2%;
+}
+
+#modalVentas div input {
+    width: 70%;
+}
+
+#tableVentasPrecio {
+    width: 10%;
+}
+
+#tableVentasStock {
+    width: 11%;
+}
+

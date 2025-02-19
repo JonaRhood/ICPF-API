@@ -4,6 +4,8 @@
  * Crear Libro
  */
 
+import { updateTable } from "./db.js";
+
 const formCreateBook = document.querySelector("#formCreateBook");
 const messageCreateBook = document.querySelector("#messageCreateBook");
 const tituloCreateBook = document.querySelector("#tituloCreateBook");
@@ -262,6 +264,7 @@ formCreateBook.addEventListener("submit", async (event) => {
             autorCreateBook.dataset.autorId = ""
             addedAuthors.forEach(div => div.remove());
             formCreateBook.reset();
+            updateTable();
             setTimeout(() => {
                 messageCreateBook.style.display = "none";
             }, 3000);

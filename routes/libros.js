@@ -11,8 +11,8 @@
 const express = require('express');
 const { imageProcessor } = require("../middleware/imageProcessor.js")
 const { 
-    read, readById, readByName, createBook,
-    updateBook, updateBookImage, deleteBookById, 
+    read, readById, readByName, readByColumn,
+    createBook, updateBook, updateBookImage, deleteBookById, 
     addAuthor, updateNewAuthor, removeAuthorsFromBook, 
     addCategory, updateNewCategory, removeCategoriesFromBook
 } = require('../controller/libros.js');
@@ -24,6 +24,7 @@ const router = express.Router()
  */
 router.get('/', read);
 router.get('/buscar', readByName);
+router.get('/columna', readByColumn);
 router.get('/:id', readById);
 router.post('/', imageProcessor('libros'), createBook);
 router.post('/autor', addAuthor);

@@ -85,6 +85,40 @@ const getByName = (titulo) => pool.query(
     [`%${titulo}%`]
 );
 
+const getByColumn = (column, type) => pool.query(
+    `SELECT 
+        l.id AS libro_id,
+        l.titulo AS libro_titulo,
+        l.descripcion AS libro_descripcion,
+        l.precio AS libro_precio,
+        l.cantidad AS libro_cantidad,
+        l.paginas AS libro_paginas,
+        l.imagen AS libro_imagen,
+        JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
+    		'id', a.id,
+    		'nombre', a.nombre,
+    		'apellidos', a.apellidos
+		)) AS autores,
+        JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
+            'id', c.id,
+            'categoria', c.categoria
+        )) AS categorias
+    FROM libros l
+    LEFT JOIN libros_autores la ON l.id = la.libro_id
+    LEFT JOIN autores a ON la.autor_id = a.id
+    LEFT JOIN libros_categorias lc ON l.id = lc.libro_id
+    LEFT JOIN categorias c ON lc.categoria_id = c.id
+    GROUP BY 
+        l.id, 
+        l.titulo, 
+        l.descripcion, 
+        l.precio, 
+        l.cantidad, 
+        l.paginas, 
+        l.imagen
+    ORDER BY ${column} ${type};`
+)
+
 // POST libro
 const create = async (body, imageName) => {
     try {
@@ -248,6 +282,7 @@ module.exports = {
     get,
     getById,
     getByName,
+    getByColumn,
     create,
     update,
     updateImage,

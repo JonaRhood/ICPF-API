@@ -3,6 +3,8 @@
 /**
  * Modificar Autor
  */
+
+// Asignaciones DOM
 const formModAuthor = document.querySelector("#formModAuthor");
 const messageModAuthor = document.querySelector("#messageModAuthor");
 const nombreModAuthor = document.querySelector("#nombreModAuthor");
