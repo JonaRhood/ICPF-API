@@ -434,18 +434,25 @@ button:hover {
     z-index: 20;
 }
 
-#modalVentas div:nth-child(1) {
+#divBuscarVentas {
     display: flex;
     gap: 2%;
+    margin-bottom: 2%;
 }
 
-#modalVentas div:nth-child(2) {
-   border: .5px solid gray;
+#divTableVentas {
+    border: .5px solid gray;
     height: 30vh;
-    background-color: #f6f6f6;
+    background-color: #fefefe;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
-#modalVentas div:nth-child(3) {
+#tableVentas {
+    height: auto;
+}
+
+#divSubmitVentas {
     margin-top: 2%;
     display: flex;
     justify-content: space-between
@@ -458,6 +465,7 @@ button:hover {
 
 #modalVentas div input {
     width: 70%;
+    margin: 0;
 }
 
 #tableVentasPrecio {
@@ -468,3 +476,34 @@ button:hover {
     width: 11%;
 }
 
+#divButtonVentasX {
+    display: flex;
+    justify-content: space-between
+    
+}
+
+#buttonVentasX {
+    margin: 0;
+}
+
+#divBuscarVentas div {
+    width: 70%;
+}
+
+#tituloVentas {
+    width: 100% !important;
+}
+
+#searchResultsVentas {
+    position: absolute;
+    z-index: 50;
+}
+
+#tableBodyVentas tr td:nth-child(5) {
+    background-color: #ffe2e2;
+}
+
+#tableBodyVentas tr td:nth-child(5):hover {
+    background-color: #f7c8c8;
+    cursor: pointer;
+}

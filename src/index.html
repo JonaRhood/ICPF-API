@@ -225,7 +225,6 @@
                             </div>
                             <ul id="searchResultsModBook" class="listAuthorUl"
                                 style="list-style-type: none; padding: 0px;"></ul>
-
                             <label for="paginasModBook">
                                 Nª de Páginas:
                             </label>
@@ -272,34 +271,42 @@
     </div>
 
     <!-- Modales -->
-     <div id="modals">
-         <div id="modalVentas" style="display: flex;">
-             <div>
-                 <label for="buscarVentas">Buscar por Título:</label>
-                 <input type="text" autocomplete="off" placeholder="Buscar por Título">
-             </div>
-             <div>
-                 <table class="tableDB">
-                     <thead class="tableHeadDB">
-                         <tr>
-                             <th id="tableVentasPrecio">Precio</th>
-                             <th id="tableVentasStock">Stock</th>
-                             <th id="tableVentasTitulo">Título</th>
-                             <th id="tableVentasAutor">Autor/es</th>
-                         </tr>
-                     </thead>
-                     <tbody class="tableBodyDB">
-                     </tbody>
-                 </table>
-             </div>
-             <div>
-                 <span>Total: </span>
-                 <button id="submitVentas">Vender</button>
-             </div>
-         </div>
-     
-         <div id="modalStads" style="display: none;"></div>
-     </div>
+    <div id="modals" style="display: none;">
+        <div id="modalVentas" style="display: none;">
+            <div class="xButton" id="divButtonVentasX">
+                <h2>Venta de Libros</h2>
+                <button id="buttonVentasX">X</button>
+            </div>
+            <div id="divBuscarVentas">
+                <label for="buscarVentas">Buscar por Título:</label>
+                <div style="position: relative">
+                    <input type="text" id="tituloVentas" autocomplete="off" placeholder="Buscar por Título">
+                    <ul id="searchResultsVentas" class="listAuthorUl" style="list-style-type: none; padding: 0px;"></ul>
+                </div>
+            </div>
+            <div id="divTableVentas">
+                <table class="tableDB" id="tableVentas">
+                    <thead class="tableHeadDB">
+                        <tr>
+                            <th id="tableVentasPrecio">Precio</th>
+                            <th id="tableVentasStock">Stock</th>
+                            <th id="tableVentasTitulo">Título</th>
+                            <th id="tableVentasAutor">Autor/es</th>
+                            <th id="tableVentasAutor">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tableBodyDB" id="tableBodyVentas">
+                    </tbody>
+                </table>
+            </div>
+            <div id="divSubmitVentas">
+                <span>Total: <strong><span id="ventasTotal"></span> €</strong></span>
+                <button id="submitVentas">Vender</button>
+            </div>
+        </div>
+
+        <div id="modalStads" style="display: none;"></div>
+    </div>
 
     <!-- Scripts -->
     <script type="module" src="./assets//js/index/db.js"></script>
