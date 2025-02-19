@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -16,39 +16,28 @@
         <div id="divLeft">
             <div id="divClient">
                 <!-- Crear Autor-->
-                <div id="secondDivClient" class="mainDiv">
-                    <h2>Crear Autor</h2>
-                    <form action="/autores" method="post" id="formCreateAuthor" enctype="multipart/form-data">
-                        <label for="nombreCreateAuthor" class="labelCreateAuthor">
-                            Nombre:
-                        </label>
-                        <input type="text" id="nombreCreateAuthor" name="nombreCreateAuthor" required maxlength="100"
-                            autocomplete="off">
-    
-                        <label for="apellidosCreateAuthor" class="labelCreateAuthor">
-                            Apellidos:
-                        </label>
-                        <input type="text" id="apellidosCreateAuthor" name="apellidosCreateAuthor" required maxlength="100"
-                            autocomplete="off">
-    
-                        <label for="imagenCreateAuthor" class="labelCreateAuthor">
-                            Imagen: <div style="display: inline; color: gray;">(Vertical / Retrato)</div>
-                        </label>
-                        <div id="imagenButtonCreateAuthor" class="imageButton">
-                            Seleccionar Imagen
-                        </div>
-                        <input type="file" accept="image/*" id="imagenCreateAuthor" name="imagenCreateAuthor" required
-                            maxlength="500" style="display: none;" autocomplete="off">
-    
-                        <label for="descripcionCreateAuthor" class="labelCreateAuthor">
-                            Descripción:
-                        </label>
-                        <textarea type="text" id="descripcionCreateAuthor" class="descripcionTextArea"
-                            name="descripcionCreateAuthor" required maxlength="1000"></textarea>
-    
-                        <button type="submit">Crear Autor</button>
-                        <div id="messageCreateAuthor" class="message"></div>
-                    </form>
+                <div id="secondDivClient" class="mainDivLeft">
+                    <h2>Base de Datos</h2>
+                    <div id="firstDivDB">
+                        <label for="buscarTituloDB">Buscar por Título:</label>
+                        <input type="text" name="buscarTituloDB" id="buscarTituloDB" placeholder="Buscar Libro por Título" autocomplete="off">
+                    </div>
+                    <div class="divTableDB">
+                        <table class="tableDB">
+                            <thead class="tableHeadDB">
+                                <tr>
+                                    <th id="tablePrecio">Precio</th>
+                                    <th id="tableStock">Stock</th>
+                                    <th id="tableTitulo">Título</th>
+                                    <th id="TableAutor">Autor/es</th>
+                                    <th id="tableCategoria">Categorías</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tableBodyDB">
+                            </tbody>
+                        </table>
+                        
+                    </div>
                 </div>
             </div>
     
@@ -104,7 +93,7 @@
                         </label>
                         <input type="text" id="apellidosModAuthor" placeholder="Buscar Autor por apellidos"
                             name="apellidosModAuthor" required maxlength="100" autocomplete="off">
-                        <ul id="searchResultsModAuthor" style="list-style-type: none; padding: 0px;"></ul>
+                        <ul id="searchResultsModAuthor" class="listAuthorUl" style="list-style-type: none; padding: 0px;"></ul>
     
                         <label for="imagenModAuthor">
                             Imagen: <div style="display: inline; color: gray;">(Vertical / Retrato)</div>
@@ -273,6 +262,7 @@
     </div>
 
     <!-- Scripts -->
+    <script type="module" src="./assets//js/index/db.js"></script>
     <script type="module" src="./assets/js/index/createAuthor.js"></script>
     <script type="module" src="./assets/js/index/modAuthor.js"></script>
     <script type="module" src="./assets/js/index/createBook.js"></script>

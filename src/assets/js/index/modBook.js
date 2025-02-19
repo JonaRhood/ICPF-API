@@ -150,12 +150,11 @@ function renderBookResults(Books) {
                     input.checked = false;
                 });
 
-
                 imagenButton.style.color = "black";
                 imagenButton.style.backgroundColor = "#eaeaea";
                 imagenInput.disabled = false;
                 descripcionModBook.disabled = false;
-
+                
                 tituloModBook.value = result[0].libro_titulo;
                 paginasModBook.value = result[0].libro_paginas;
                 cantidadModBook.value = result[0].libro_cantidad;
@@ -173,32 +172,36 @@ function renderBookResults(Books) {
 
                 const resultAuthors = result[0].autores;
                 resultAuthors.forEach(author => {
-                    const newDiv = document.createElement("div");
-                    newDiv.id = author.id;
-                    newDiv.className = "autorPlusModBook"
-
-                    const newP = document.createElement("p");
-                    newP.className = "pAuthors"
-                    newP.textContent = "Autor: " + author.nombre + " " + author.apellidos;
-
-                    const buttonRemove = document.createElement("div");
-                    buttonRemove.className = "buttonRemove";
-                    buttonRemove.textContent = "-";
-
-                    buttonRemove.addEventListener("click", () => {
-                        newDiv.remove()
-                        listAuthors = listAuthors.filter(author => author != newDiv.id)
-                    });
-
-                    newDiv.appendChild(newP);
-                    newDiv.appendChild(buttonRemove);
-
-                    // Agregar el nuevo bloque al contenedor
-                    searchResultsModBook.insertAdjacentElement("afterend", newDiv);
-                    autorModBook.value = "";
-                    autorModBook.dataset.autorId = "";
-
-                    listAuthors.push(author.id);
+                    if (author.id == null) {
+                        return;
+                    } else {
+                        const newDiv = document.createElement("div");
+                        newDiv.id = author.id;
+                        newDiv.className = "autorPlusModBook"
+    
+                        const newP = document.createElement("p");
+                        newP.className = "pAuthors"
+                        newP.textContent = "Autor: " + author.nombre + " " + author.apellidos;
+    
+                        const buttonRemove = document.createElement("div");
+                        buttonRemove.className = "buttonRemove";
+                        buttonRemove.textContent = "-";
+    
+                        buttonRemove.addEventListener("click", () => {
+                            newDiv.remove()
+                            listAuthors = listAuthors.filter(author => author != newDiv.id)
+                        });
+    
+                        newDiv.appendChild(newP);
+                        newDiv.appendChild(buttonRemove);
+    
+                        // Agregar el nuevo bloque al contenedor
+                        searchResultsModBook.insertAdjacentElement("afterend", newDiv);
+                        autorModBook.value = "";
+                        autorModBook.dataset.autorId = "";
+    
+                        listAuthors.push(author.id);
+                    }
                 })
 
                 imagenButton.addEventListener("mouseover", () => imageVisualizationModBook.style.display = "flex");

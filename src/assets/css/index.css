@@ -26,15 +26,13 @@ body {
     gap: 1%;
 }
 
-#secondDivClient {
-    height: 100%;
-}
-
 #divClient {
     height: 50%;
     border: .5px solid gray;
     overflow: hidden;
     overflow-y: auto;
+    background-color: rgba(255, 243, 234, 0.5);
+    padding: 20px;
 }
 
 #divAuthor {
@@ -53,8 +51,6 @@ body {
     width: 56%;
     flex-direction: column;
 }
-
-
 
 .mainDiv {
     border: 1px solid rgba(125, 125, 125, 0.5);
@@ -275,18 +271,6 @@ button:hover {
     color: gray;
 }
 
-#searchResultsModAuthor {
-    border: 1px solid #b4b4b4;
-    background-color: white;
-    height: 261px;
-    width: 350px;
-    transform: translateY(117px);
-    position: absolute;
-    display: none;
-    flex-direction: column;
-    overflow-y: auto;
-}
-
 .author-result {
     border: 0.5px solid #e5e5e5;
     transition: background-color ease-in-out 0.1s;
@@ -329,4 +313,63 @@ button:hover {
     100% {
         background-color: #eaeaea;
     }
+}
+
+/* Table DataBase */
+
+#firstDivDB {
+    display: flex;
+    margin-bottom: 1%
+}
+
+#buscarTituloDB {
+    margin: 0 2%;
+    width: 70%;
+}
+
+#tablePrecio {
+    width: 10%;
+}
+
+#tableCategoria {
+    width: 11%;
+}
+
+.divTableDB {
+    border: 0.5px solid gray;
+    height: 37vh;
+    background-color: #ffffff;
+    font-size: 1vw;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.tableDB {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+}
+
+.tableHeadDB {
+    position: sticky !important;
+    top: 0px;
+    z-index: 10;
+}
+
+.tableHeadDB tr th {
+    outline: 1px solid gray;
+    position: sticky !important;
+    top: 0px;
+    text-align: left;
+    background-color: rgb(245 212 186);
+    padding: 5px;
+}
+
+.tableBodyDB tr td {
+    border: .5px solid gray;
+    padding: 5px;
+}
+
+.tableBodyDB tr:nth-child(even) {
+    background-color: #f2f2f2;
 }

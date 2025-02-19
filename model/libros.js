@@ -29,10 +29,10 @@ const get = () => pool.query(`
             'categoria', c.categoria
         )) AS categorias
     FROM libros l
-    JOIN libros_autores la ON l.id = la.libro_id
-    JOIN autores a ON la.autor_id = a.id
-    JOIN libros_categorias lc ON l.id = lc.libro_id
-    JOIN categorias c ON lc.categoria_id = c.id
+    LEFT JOIN libros_autores la ON l.id = la.libro_id
+    LEFT JOIN autores a ON la.autor_id = a.id
+    LEFT JOIN libros_categorias lc ON l.id = lc.libro_id
+    LEFT JOIN categorias c ON lc.categoria_id = c.id
     GROUP BY 
         l.id, 
         l.titulo, 
@@ -41,7 +41,7 @@ const get = () => pool.query(`
         l.cantidad, 
         l.paginas, 
         l.imagen
-    ORDER BY l.id;
+    ORDER BY l.titulo ASC;
 `);
 
 // GET libro por id
@@ -64,10 +64,10 @@ const getById = (id) => pool.query(`
             'categoria', c.categoria
         )) AS categorias
     FROM libros l
-    JOIN libros_autores la ON l.id = la.libro_id
-    JOIN autores a ON la.autor_id = a.id
-    JOIN libros_categorias lc ON l.id = lc.libro_id
-    JOIN categorias c ON lc.categoria_id = c.id
+    LEFT JOIN libros_autores la ON l.id = la.libro_id
+    LEFT JOIN autores a ON la.autor_id = a.id
+    LEFT JOIN libros_categorias lc ON l.id = lc.libro_id
+    LEFT JOIN categorias c ON lc.categoria_id = c.id
     WHERE l.id = $1
     GROUP BY 
         l.id, 
