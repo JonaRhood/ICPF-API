@@ -428,8 +428,8 @@ button:hover {
     background-color: white;
     padding: 20px;
     width: 45vw;
-    height: 40vh;
-    top: 25%;
+    height: 60vh;
+    top: 15%;
     left: 25%;
     z-index: 20;
 }
@@ -442,7 +442,7 @@ button:hover {
 
 #divTableVentas {
     border: .5px solid gray;
-    height: 30vh;
+    height: 48vh;
     background-color: #fefefe;
     overflow: hidden;
     overflow-y: auto;
@@ -472,8 +472,28 @@ button:hover {
     width: 10%;
 }
 
+#tableBodyVentas td:nth-child(1) {
+    text-align: center;
+}
+
+#tableBodyVentas td:nth-child(2) {
+    text-align: center;
+}
+
+#tableBodyVentas td:nth-child(5) {
+    text-align: center;
+}
+
 #tableVentasStock {
-    width: 11%;
+    width: 1%;
+}
+
+#tableVentasCantidad {
+    width: 1%;
+}
+
+#tableVentasEliminar {
+    width: 1%;
 }
 
 #divButtonVentasX {
@@ -500,11 +520,11 @@ button:hover {
     width: 100%;
 }
 
-#tableBodyVentas tr td:nth-child(5) {
+#tableBodyVentas tr td:nth-child(6) {
     background-color: #ffe2e2;
 }
 
-#tableBodyVentas tr td:nth-child(5):hover {
+#tableBodyVentas tr td:nth-child(6):hover {
     background-color: #f7c8c8;
     cursor: pointer;
 }

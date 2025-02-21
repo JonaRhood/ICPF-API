@@ -114,6 +114,17 @@ const fetchBookDetails = async (bookId) => {
     try {
         const response = await fetch(`/libros/${bookId}`);
         const result = await response.json();
+
+        // Lógica para evitar duplicados en la lista
+        const tableBodyVentasTr = document.querySelectorAll("#tableBodyVentas tr");
+        for (const tr of tableBodyVentasTr) {
+            if (result[0].libro_id == tr.id) {
+                setTimeout(() => {
+                    searchResultsVentas.style.display = "none"; 
+                }, 100)
+                return;
+            }
+        }
         
         if (response.ok) {
             const tr = document.createElement("tr");
@@ -133,15 +144,22 @@ const fetchBookDetails = async (bookId) => {
                 .map(autor => `${autor.nombre} ${autor.apellidos}`)
                 .join(", ")
 
-            const td5 = document.createElement("td");
-            td5.textContent = "-";
-            td5.style.textAlign = "center";
+            const td5 = document.createElement("td")
+            const td5Input = document.createElement("input");
+            td5Input.type = "number"
+            td5Input.value = "1";
+            td5.appendChild(td5Input);
+
+            const td6 = document.createElement("td");
+            td6.textContent = "-";
+            td6.style.textAlign = "center";
             
             tr.appendChild(td1)
             tr.appendChild(td2)
             tr.appendChild(td3)
             tr.appendChild(td4)
             tr.appendChild(td5)
+            tr.appendChild(td6)
             
             tableBodyVentas.appendChild(tr);
 
@@ -150,8 +168,24 @@ const fetchBookDetails = async (bookId) => {
             total += parseFloat(result[0].libro_precio);
             ventasTotal.textContent = total.toFixed(2); 
 
+            // Lógica para manejar la cantidad
+            td5Input.addEventListener("input", (e) => {
+                e.preventDefault();
+                if (e.target.value <= 0) {
+                    e.target.value = 1
+                }
+                total = (parseFloat(e.target.value) * result[0].libro_precio);
+                ventasTotal.textContent = total.toFixed(2);
+            })
+
+            td5Input.addEventListener("blur", (e) => {
+                if (e.target.value === "" || e.target.value <= 0) {
+                    e.target.value = 1
+                }
+            })
+
             // Lógica para la eliminación de la lista 
-            td5.addEventListener("click", (e) => {
+            td6.addEventListener("click", (e) => {
                 tableBodyVentas.removeChild(tr);
                 total -= parseFloat(result[0].libro_precio);
                 ventasTotal.textContent = total.toFixed(2); 
