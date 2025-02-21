@@ -143,10 +143,24 @@ const update = async (id, body) => {
 
         return result
     } catch (err) {
-        console.error("Error al actualizar libro:", err);
+        console.error("Error al actualizar libro: ", err);
         throw err;
     }
 };
+
+// PUT cantidad stock libros
+const updateCantidad = async (libroId, cantidad) => {
+    try {
+        const result = await pool.query(
+            `UPDATE libros SET cantidad = $2 WHERE id = $1 RETURNING *`,
+            [ libroId, cantidad ]
+        )
+        return result
+    } catch(err) {
+        console.error("Error al actualizar la cantidad del libro: ", err)
+        throw err;
+    }
+} 
 
 // PUT imagen de un libro
 const updateImage = async (id, imageName) => {
@@ -285,6 +299,7 @@ module.exports = {
     getByColumn,
     create,
     update,
+    updateCantidad,
     updateImage,
     remove,
     assignAuthor,

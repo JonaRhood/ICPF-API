@@ -21,17 +21,21 @@
 /**
  * IMPORTS
  */
+// Imports de Tecnologías
 const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const pool = require('./model/database.js');
+const { passport, sessionMiddleware } = require('./session/session.js');
+require('dotenv').config();
+const { isAuthenticated, librarySuperUserAuthenticated } = require('./middleware/middleware.js');
+
+// Imports de Rutas
 const librosRoutes = require('./routes/libros.js');
 const usuariosRoutes = require('./routes/usuarios.js');
 const autoresRoutes = require('./routes/autores.js');
 const categoriasRoutes = require('./routes/categorias.js');
-const { passport, sessionMiddleware } = require('./session/session.js');
-require('dotenv').config();
-const { isAuthenticated, librarySuperUserAuthenticated } = require('./middleware/middleware.js');
+const libreriaRoutes = require('./routes/libreria.js');
 
 /**
  * INICIALIZACION DEL SERVIDOR
@@ -124,6 +128,7 @@ app.use('/libros', librosRoutes);
 app.use('/usuarios', usuariosRoutes);
 app.use('/autores', autoresRoutes);
 app.use('/categorias', categoriasRoutes);
+app.use('/libreria', libreriaRoutes);
 
 // Rutas del servidor
 app.get('/login_libreria', (req, res) => {

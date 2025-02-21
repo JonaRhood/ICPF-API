@@ -497,6 +497,7 @@ button:hover {
 #searchResultsVentas {
     position: absolute;
     z-index: 50;
+    width: 100%;
 }
 
 #tableBodyVentas tr td:nth-child(5) {

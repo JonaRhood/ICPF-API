@@ -38,7 +38,7 @@ CREATE TABLE carritos_libros (
 );
 
 -- Tabla de pedidos
-CREATE TABLE pedidos (
+CREATE TABLE pedidosOnline (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     carrito_id INTEGER NOT NULL,
@@ -76,4 +76,18 @@ CREATE TABLE libros_categorias (
     PRIMARY KEY (libro_id, categoria_id),
     FOREIGN KEY (libro_id) REFERENCES libros(id) ON DELETE RESTRICT,
     FOREIGN KEY (categoria_id) REFERENCES categorias(id) ON DELETE RESTRICT
+);
+
+CREATE TABLE pedidos (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE pedidos_libros (
+    pedido_id INTEGER NOT NULL,
+    libro_id INTEGER NOT NULL,
+    cantidad INTEGER NOT NULL DEFAULT 1;
+    PRIMARY KEY (pedido_id, libro_id),
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE RESTRICT,
+    FOREIGN KEY (libro_id) REFERENCES libros(id) ON DELETE RESTRICT,
 );

@@ -7,9 +7,9 @@
 
 const {
     get, getById, getByName, getByColumn, create,
-    update, updateImage, remove, assignAuthor,
-    updateAuthor, removeAuthors, assignCategory,
-    updateCategory, removeCategories,
+    update, updateCantidad, updateImage, remove, 
+    assignAuthor, updateAuthor, removeAuthors, 
+    assignCategory, updateCategory, removeCategories,
 } = require('../model/libros.js');
 
 // GET libros
@@ -98,6 +98,19 @@ exports.updateBook = async (req, res) => {
         return res.status(200).json(task.rows)
     } catch (err) {
         return res.status(400).json({ error: err.detail });
+    }
+}
+
+// PUT cantidad stock de libro
+exports.updateByQuantity = async (req, res) => {
+    const { libroId, cantidad } = req.query
+    console.log(libroId,cantidad);
+    
+    try {
+        const task = await updateCantidad(libroId, cantidad)
+        return res.status(200).json(task.rows)
+    } catch(err) {
+        return res.status(400).json({ error: err.detail })
     }
 }
 
