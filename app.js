@@ -8,18 +8,6 @@
 "use strict";
 
 /**
- * TASKS
- */
-// TODO Añadir CORS
-// TODO Sanitizar DB
-// TODO Instalar libreria "helmet" (Solo funciona en oficial)
-// TODO Instalar libreria express-validator o validatorjs para prevenir SQL injections
-// TODO Instalar libreria "csurf" para prevenir CSRF en forms.
-// TODO Organizar código para path: login, registro y logout
-// TODO ESlint
-// TODO Crear Alertas personalizadas
-
-/**
  * IMPORTS
  */
 // Imports de Tecnologías
@@ -28,6 +16,8 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 const pool = require('./model/database.js');
 const { passport, sessionMiddleware } = require('./session/session.js');
+const helmet = require("helmet");
+const cors = require("cors");
 require('dotenv').config();
 const { isAuthenticated, librarySuperUserAuthenticated } = require('./middleware/middleware.js');
 
@@ -62,6 +52,18 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Middleware CORS para protección Cross-Origin Resource Sharing
+app.use(cors());
+
+// Middleware Helmet para la seguridad HTTPS y CSP
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
+        }
+    })
+);
+
 /**
  * PATHS
  */
@@ -87,7 +89,7 @@ app.post("/login", (req, res, next) => {
             console.log("Usuario autenticado correctamente:", user);
 
             // Redireccionamiento al autenticar
-            if (referer.includes("/login_libreria") && user.email === process.env.SUPERUSER_LIBRARY) { 
+            if (referer.includes("/login_libreria") && user.email === process.env.SUPERUSER_LIBRARY) {
                 return res.json({ redirect: "/inicio_libreria" });
             } else {
                 return res.json({ message: "Autenticación exitosa" });
@@ -136,7 +138,7 @@ app.get('/login_libreria', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'login.html'));
 });
 
-app.get('/inicio_libreria', /* librarySuperUserAuthenticated */ (req, res) => {
+app.get('/inicio_libreria', librarySuperUserAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'index.html'));
 });
 
@@ -151,3 +153,11 @@ app.get('/health', (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor escuchando en http://localhost:${port}`);
 });
+
+/**
+ * TASKS
+ */
+
+// TODO Instalar libreria express-validator o validatorjs para prevenir SQL injections
+// TODO Instalar libreria "csurf" para prevenir CSRF en forms de login.
+// TODO ESlint
