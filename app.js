@@ -17,6 +17,7 @@
 // TODO Instalar libreria "csurf" para prevenir CSRF en forms.
 // TODO Organizar código para path: login, registro y logout
 // TODO ESlint
+// TODO Crear Alertas personalizadas
 
 /**
  * IMPORTS

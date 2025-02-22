@@ -13,25 +13,6 @@ const {
     rentableBooks,
 } = require('../model/libreria.js');
 
-exports.createPedidoLibreria = async (req, res) => {
-    try {
-        const task = await createPedido();
-        return res.status(201).json(task.rows);
-    } catch(err) {
-        return res.status(400).json({ error: err.detail });
-    }
-};
-
-exports.assingBookToPedido = async (req, res) => {
-    const { pedidoId, libroId } = req.query;
-    try {
-        const task = await bookToPedido(pedidoId, libroId);
-        return res.status(201).json(task.rows);
-    } catch(err) {
-        return res.status(400).json({ error: err });
-    }
-}
-
 exports.readIncomeByYear = async (req, res) => {
     try {
         const task = await incomeByYear()
@@ -74,5 +55,24 @@ exports.readByRentableBooks = async (req, res) => {
         return res.status(200).json(task.rows)
     } catch(err) {
         return res.status(404).json({ error: err })
+    }
+}
+
+exports.createPedidoLibreria = async (req, res) => {
+    try {
+        const task = await createPedido();
+        return res.status(201).json(task.rows);
+    } catch(err) {
+        return res.status(400).json({ error: err.detail });
+    }
+};
+
+exports.assingBookToPedido = async (req, res) => {
+    const { pedidoId, libroId, cantidad } = req.query;
+    try {
+        const task = await bookToPedido(pedidoId, libroId, cantidad);
+        return res.status(201).json(task.rows);
+    } catch(err) {
+        return res.status(400).json({ error: err });
     }
 }

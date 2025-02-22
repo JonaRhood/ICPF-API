@@ -14,30 +14,7 @@ const pool = require('./database.js');
  * MODELOS
  */
 
-// Creación de nueva categoría
-const createPedido = async () => {
-    try {
-        const result = await pool.query(
-            'INSERT INTO pedidos DEFAULT VALUES RETURNING *;'
-        );
-        return result;
-    } catch (err) {
-        throw err;
-    }
-};
-
-const bookToPedido = async (pedidoId, bookId) => {
-    try {
-        const result = await pool.query(
-            `INSERT INTO pedidos_libros (pedido_id, libro_id) VALUES ($1, $2) RETURNING *;`,
-            [pedidoId, bookId]
-        );
-        return result;
-    } catch (err) {
-        throw err;
-    }
-}
-
+// Análisis de las ventas por Año
 const incomeByYear = async () => {
     try {
         const result = await pool.query(
@@ -56,6 +33,7 @@ const incomeByYear = async () => {
     }
 }
 
+// Análisis de las ventas por Mes
 const incomeByMonth = async () => {
     try {
         const result = await pool.query(
@@ -75,6 +53,7 @@ const incomeByMonth = async () => {
     }
 }
 
+// Análisis de los Best Sellers por Año
 const yearBestSellers = async () => {
     try {
         const result = await pool.query(
@@ -94,6 +73,7 @@ const yearBestSellers = async () => {
     }
 }
 
+// Análisis de los Best Sellers por Mes
 const monthBestSellers = async () => {
     try {
         const result = await pool.query(
@@ -114,6 +94,7 @@ const monthBestSellers = async () => {
     }
 }
 
+// Análisis de los libros más rentables
 const rentableBooks = async () => {
     try {
         const result = await pool.query(
@@ -130,6 +111,32 @@ const rentableBooks = async () => {
         throw err
     }
 }
+
+// Crear un nuevo Pedido
+const createPedido = async () => {
+    try {
+        const result = await pool.query(
+            'INSERT INTO pedidos DEFAULT VALUES RETURNING *;'
+        );
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
+
+// Assignar Libro y Cantidad al Pedido
+const bookToPedido = async (pedidoId, bookId, cantidad) => {
+    try {
+        const result = await pool.query(
+            `INSERT INTO pedidos_libros (pedido_id, libro_id, cantidad) VALUES ($1, $2, $3) RETURNING *;`,
+            [ pedidoId, bookId, cantidad ]
+        );
+        return result;
+    } catch (err) {
+        throw err;
+    }
+}
+
 
 
 

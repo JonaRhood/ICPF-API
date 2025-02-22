@@ -172,6 +172,8 @@ const fetchBookDetails = async (bookId) => {
                 e.preventDefault();
                 if (e.target.value <= 0) {
                     e.target.value = 1
+                } else if (e.target.value > parseInt(td2.textContent, 10)) {
+                    e.target.value = parseInt(td2.textContent, 10)
                 }
                 updateTotal()
             })
@@ -215,12 +217,8 @@ const updateTotal = () => {
         total += sum;
     })
 
-    ventasTotal.textContent = total.toFixed(2);
-
-    console.log(data);
-    
+    ventasTotal.textContent = total.toFixed(2);   
 }
-
 
 // Lógica para el submit de las ventas
 submitVentas.addEventListener("click", async (e) => {
@@ -229,23 +227,52 @@ submitVentas.addEventListener("click", async (e) => {
     const data = [];
     
     tableTrs.forEach(tr => {
-        const id = tr.id; 
-        const input = tr.querySelector("td input"); 
+        const id = parseFloat(tr.id); 
+        const input = tr.querySelector("td input");
+        const stock = tr.querySelector("td:nth-child(2)")
+        
         
         data.push({
-            id: id,
-            stock: parseInt(input.value)
+            bookId: id,
+            quantity: parseInt(input.value, 10),
+            stock: parseFloat(stock.textContent)
         });
     });
     
     console.log(data);    
 
     try {
+        // Crear nuevo pediido
+        const createOrder = await fetch(`/libreria/pedido`, { method: "POST" });
+        const resultOrder = await createOrder.json();
+        const orderId = resultOrder[0].id;
+
+        for (const tr of data) {
+            // Assignar libros al pedido
+            const assignBookToOrder = await fetch(
+                `/libreria/assign?pedidoId=${orderId}&libroId=${tr.bookId}&cantidad=${tr.quantity}`,{
+                    method: "POST"
+                }
+            )
+            // Actualizar el Stock de los libros
+            const updatedQuantity = tr.stock - tr.quantity;
+            const updateStock = await fetch(`
+                /libros/cantidad?libroId=${tr.bookId}&cantidad=${updatedQuantity}`, {
+                    method: "PUT"
+                }
+            );
+        }
+
+        // Resetear valores de la tabla
+        tableTrs.forEach(tr => {
+            tr.remove(); 
+        });        
+        tituloVentas.value = ""
+        updateTotal()
         
     } catch(error) {
         console.error("Error al hacer la venta: ", error);
     }
-    
 })
 
 // Cierra el div de los autores al hacer click fuera de él
