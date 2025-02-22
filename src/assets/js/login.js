@@ -31,3 +31,5 @@ loginForm.addEventListener("submit", async (event) => {
         console.error("Error en la solicitud:", error);
     }
 });
+
+// TODO Crear Alertas personalizadas
