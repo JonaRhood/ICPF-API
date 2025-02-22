@@ -10,7 +10,7 @@
 /**
  * TASKS
  */
-// TODO Habilitar cookie secure "true" en session.
+// TODO Habilitar cookie secure "true" en session en producción.
 
 /**
  * IMPORTS

@@ -192,4 +192,5 @@ app.listen(port, () => {
  */
 
 // TODO Instalar libreria express-validator o validatorjs para prevenir SQL injections
+// TODO Habilitar seguridad en producción
 // TODO ESlint
