@@ -272,6 +272,7 @@
 
     <!-- Modales -->
     <div id="modals" style="display: none;">
+        <!-- Modal de Ventas -->
         <div id="modalVentas" style="display: none;">
             <div class="xButton" id="divButtonVentasX">
                 <h2>Venta de Libros</h2>
@@ -305,17 +306,45 @@
                 <button id="submitVentas">Vender</button>
             </div>
         </div>
-
-        <div id="modalStads" style="display: none;"></div>
+        
+        <!-- Modal de estadísticas -->
+        <div id="modalStads" style="display: none;">
+            <div class="xButton" id="divButtonStadsX">
+                <h2>Tabla de Estadísticas</h2>
+                <button id="buttonStadsX">X</button>
+            </div>
+            <div id="divStadsContent">
+                <div id="divCanvasStads">
+                    <h3>Estadísticas de Ventas</h3>
+                    <canvas id="myChart"></canvas>
+                    <div id="yearlyIncome">Total Anual (<span id="yearlyStadsYear"></span>): <strong><span id="yearlyTotal"></span> €</strong></div>
+                </div>
+                <div id="divBookStads">
+                    <h3>Estadísticas de Libros</h3>
+                    <table class="tableDB" id="tableVentas">
+                        <thead class="tableHeadDB">
+                            <tr>
+                                <th id="tableVentasTitulo">Título</th>
+                                <th id="tableVentasEliminar">Vendidos</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tableBodyDB" id="tableStadsBooks">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->
     <script type="module" src="./assets//js/index/db.js"></script>
-    <script type="module" src="./assets//js/index/ventaButton.js"></script>
+    <script type="module" src="./assets//js/index/orders.js"></script>
+    <script type="module" src="./assets//js/index/statistics.js"></script>
     <script type="module" src="./assets/js/index/createAuthor.js"></script>
     <script type="module" src="./assets/js/index/modAuthor.js"></script>
     <script type="module" src="./assets/js/index/createBook.js"></script>
     <script type="module" src="./assets/js/index/modBook.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>

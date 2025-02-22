@@ -87,7 +87,6 @@ const updateTable = async () => {
 if (!window.buscarInputListenerAdded) {
     buscarInput.addEventListener("input", (e) => {
         e.preventDefault();
-        console.log(e.target.value);
 
         const titlesTd = document.querySelectorAll(".tableBodyDB tr td:nth-child(3)");  
         const value = e.target.value.toLowerCase();  

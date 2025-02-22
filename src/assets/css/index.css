@@ -496,10 +496,9 @@ button:hover {
     width: 1%;
 }
 
-#divButtonVentasX {
+.xButton {
     display: flex;
-    justify-content: space-between
-    
+    justify-content: space-between  
 }
 
 #buttonVentasX {
@@ -527,4 +526,35 @@ button:hover {
 #tableBodyVentas tr td:nth-child(6):hover {
     background-color: #f7c8c8;
     cursor: pointer;
+}
+
+/* Modal Stads */
+#modalStads {
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    padding: 20px;
+    width: 45vw;
+    height: 60vh;
+    top: 15%;
+    left: 25%;
+    z-index: 20;
+}
+
+#buttonStadsX {
+    margin: 0;
+}
+
+#divStadsContent {
+    border: 1px solid lightgray;
+    height: 55vh;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 2%;
+}
+
+#divCanvasStads {
+    margin-bottom: 3%;
 }

@@ -24,6 +24,7 @@ const incomeByYear = async () => {
             FROM pedidos_libros pl
             JOIN pedidos p ON pl.pedido_id = p.id
             JOIN libros l ON pl.libro_id = l.id
+            WHERE EXTRACT(YEAR FROM p.fecha) = EXTRACT(YEAR FROM CURRENT_DATE) -- Filtrar solo el año actual
             GROUP BY año
             ORDER BY año DESC;`
         )
@@ -44,11 +45,12 @@ const incomeByMonth = async () => {
             FROM pedidos_libros pl
             JOIN pedidos p ON pl.pedido_id = p.id
             JOIN libros l ON pl.libro_id = l.id
+            WHERE EXTRACT(YEAR FROM p.fecha) = EXTRACT(YEAR FROM CURRENT_DATE)
             GROUP BY año, mes
-            ORDER BY año DESC, mes DESC;`
+            ORDER BY mes ASC;`
         )
         return result;
-    } catch(err) {
+    } catch (err) {
         throw err
     }
 }
@@ -64,11 +66,13 @@ const yearBestSellers = async () => {
             FROM pedidos_libros pl
             JOIN pedidos p ON pl.pedido_id = p.id
             JOIN libros l ON pl.libro_id = l.id
+            WHERE EXTRACT(YEAR FROM p.fecha) = EXTRACT(YEAR FROM CURRENT_DATE)
             GROUP BY año, l.id, l.titulo
-            ORDER BY año DESC, total_vendido DESC;`
+            ORDER BY total_vendido DESC
+            LIMIT 20;`
         )
         return result;
-    } catch(err) {
+    } catch (err) {
         throw err
     }
 }
@@ -89,7 +93,7 @@ const monthBestSellers = async () => {
             ORDER BY año DESC, mes DESC, total_vendido DESC;`
         )
         return result;
-    } catch(err) {
+    } catch (err) {
         throw err
     }
 }
@@ -107,7 +111,7 @@ const rentableBooks = async () => {
             ORDER BY ingresos_totales DESC`
         )
         return result;
-    } catch(err) {
+    } catch (err) {
         throw err
     }
 }
@@ -129,7 +133,7 @@ const bookToPedido = async (pedidoId, bookId, cantidad) => {
     try {
         const result = await pool.query(
             `INSERT INTO pedidos_libros (pedido_id, libro_id, cantidad) VALUES ($1, $2, $3) RETURNING *;`,
-            [ pedidoId, bookId, cantidad ]
+            [pedidoId, bookId, cantidad]
         );
         return result;
     } catch (err) {

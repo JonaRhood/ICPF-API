@@ -237,9 +237,7 @@ submitVentas.addEventListener("click", async (e) => {
             quantity: parseInt(input.value, 10),
             stock: parseFloat(stock.textContent)
         });
-    });
-    
-    console.log(data);    
+    });    
 
     try {
         // Crear nuevo pediido
