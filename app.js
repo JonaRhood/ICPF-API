@@ -15,9 +15,11 @@ const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const pool = require('./model/database.js');
-const { passport, sessionMiddleware } = require('./session/session.js');
+const { passport, sessionMiddleware } = require('./middleware/session/session.js');
 const helmet = require("helmet");
 const cors = require("cors");
+const { doubleCsrf } = require("csrf-csrf");
+const cookieParser = require("cookie-parser");
 require('dotenv').config();
 const { isAuthenticated, librarySuperUserAuthenticated } = require('./middleware/middleware.js');
 
@@ -37,6 +39,9 @@ const port = process.env.PORT || 3000;
 /**
  * MIDDLEWARE
  */
+// Middleware para la correcta manipulacion de Cookies (CSRF)
+app.use(cookieParser());
+
 // Habilitar el servicio de archivos estáticos desde la carpeta /public y /assets
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/assets', express.static(path.join(__dirname, 'src/assets')));
@@ -53,7 +58,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Middleware CORS para protección Cross-Origin Resource Sharing
-app.use(cors());
+app.use(cors({
+    credentials: true,
+}));
 
 // Middleware Helmet para la seguridad HTTPS y CSP
 app.use(
@@ -64,12 +71,35 @@ app.use(
     })
 );
 
+// Middleware Para la seguridad CSRF
+// Opciones para doubleCsrf
+const doubleCsrfOptions = {
+    getSecret: () => process.env.CSRF_SECRET,  
+    cookieName: "csrfToken",  
+    size: 64,  
+    ignoredMethods: ["GET", "HEAD", "OPTIONS"],  
+    getTokenFromRequest: (req) => {
+        return req.body._csrf || req.headers["x-csrf-token"] || req.cookies.csrfToken;
+      },
+};
+
+const {
+    invalidCsrfTokenError,
+    generateToken,
+    validateRequest,
+    doubleCsrfProtection,
+} = doubleCsrf(doubleCsrfOptions);
+
+
 /**
  * PATHS
  */
 
 // Login y Logout, envio de solicitud en body de "username" y "password"
-app.post("/login", (req, res, next) => {
+app.post("/login", doubleCsrfProtection, (req, res, next) => {
+    console.log("Cookies recibidas:", req.cookies); // Verifica si csrfToken está presente
+    console.log("Header CSRF:", req.headers["x-csrf-token"]); 
+
     passport.authenticate("local", (err, user, info) => {
         // Path del cliente
         const referer = req.headers.referer || "";
@@ -133,7 +163,13 @@ app.use('/autores', autoresRoutes);
 app.use('/categorias', categoriasRoutes);
 app.use('/libreria', libreriaRoutes);
 
-// Rutas del servidor
+// Generador de Token CSRF
+app.get('/csrf', (req, res) => {
+    const token = generateToken(req, res);
+    res.status(200).json({ csrfToken: token })
+});
+
+// Rutas del cliente del servidor para la Libreria
 app.get('/login_libreria', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'login.html'));
 });
@@ -159,5 +195,4 @@ app.listen(port, () => {
  */
 
 // TODO Instalar libreria express-validator o validatorjs para prevenir SQL injections
-// TODO Instalar libreria "csurf" para prevenir CSRF en forms de login.
 // TODO ESlint

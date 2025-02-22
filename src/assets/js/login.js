@@ -1,19 +1,35 @@
 const loginForm = document.querySelector("#loginForm");
 const messageDiv = document.querySelector("#message");
 
+let csrf = ""
+const getCsrf = async () => {
+    try {
+        const csrfResponse = await fetch(`/csrf`);
+        const csrfToken = await csrfResponse.json()
+        csrf = csrfToken.csrfToken;
+    } catch(err) {
+        console.error("No se ha podido obtener CSRF Token: ", err)
+    }
+}
+
+getCsrf()
+
+
 loginForm.addEventListener("submit", async (event) => {
     const username = document.querySelector("#email").value;
     const password = document.querySelector("#password").value;
     event.preventDefault();
 
-    try {
+    try {        
         const response = await fetch("/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "x-csrf-token": csrf
             },
             body: JSON.stringify({ username, password }),
-        });
+            credentials: "include",
+        })
 
         const data = await response.json();
 
