@@ -97,9 +97,6 @@ const {
 
 // Login y Logout, envio de solicitud en body de "username" y "password"
 app.post("/login", doubleCsrfProtection, (req, res, next) => {
-    console.log("Cookies recibidas:", req.cookies); // Verifica si csrfToken está presente
-    console.log("Header CSRF:", req.headers["x-csrf-token"]); 
-
     passport.authenticate("local", (err, user, info) => {
         // Path del cliente
         const referer = req.headers.referer || "";
