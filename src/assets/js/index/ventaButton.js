@@ -165,17 +165,15 @@ const fetchBookDetails = async (bookId) => {
 
             searchResultsVentas.style.display = "none"; 
             
-            total += parseFloat(result[0].libro_precio);
-            ventasTotal.textContent = total.toFixed(2); 
+            updateTotal();
 
-            // Lógica para manejar la cantidad
+            // Lógica para manejar la cantidad total
             td5Input.addEventListener("input", (e) => {
                 e.preventDefault();
                 if (e.target.value <= 0) {
                     e.target.value = 1
                 }
-                total = (parseFloat(e.target.value) * result[0].libro_precio);
-                ventasTotal.textContent = total.toFixed(2);
+                updateTotal()
             })
 
             td5Input.addEventListener("blur", (e) => {
@@ -187,8 +185,7 @@ const fetchBookDetails = async (bookId) => {
             // Lógica para la eliminación de la lista 
             td6.addEventListener("click", (e) => {
                 tableBodyVentas.removeChild(tr);
-                total -= parseFloat(result[0].libro_precio);
-                ventasTotal.textContent = total.toFixed(2); 
+                updateTotal() 
             })
         }
 
@@ -197,11 +194,51 @@ const fetchBookDetails = async (bookId) => {
     }
 }
 
+// Función para calcular y actualizar el Total
+const updateTotal = () => {
+    total = 0;
+    const tableTr = document.querySelectorAll("#tableBodyVentas tr")
+    const data = []
+
+    tableTr.forEach(tr => {
+        const tablePrice = tr.querySelector("td:nth-child(1)")?.textContent.trim()
+        const tableQuantity = tr.querySelector("td input")?.value
+
+        data.push({
+            price: parseFloat(tablePrice),
+            quantity: parseInt(tableQuantity, 10) 
+        })
+    })
+
+    data.forEach(obj => {
+        const sum = obj.price * obj.quantity
+        total += sum;
+    })
+
+    ventasTotal.textContent = total.toFixed(2);
+
+    console.log(data);
+    
+}
+
+
 // Lógica para el submit de las ventas
 submitVentas.addEventListener("click", async (e) => {
     e.preventDefault();
-    const tableTrs = document.querySelectorAll("#tableBodyVentas tr")
-    const ids = Array.from(tableTrs).map(tr => tr.id);
+    const tableTrs = document.querySelectorAll("#tableBodyVentas tr");
+    const data = [];
+    
+    tableTrs.forEach(tr => {
+        const id = tr.id; 
+        const input = tr.querySelector("td input"); 
+        
+        data.push({
+            id: id,
+            stock: parseInt(input.value)
+        });
+    });
+    
+    console.log(data);    
 
     try {
         
