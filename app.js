@@ -63,7 +63,7 @@ app.use(passport.session());
 
 // Middleware CORS para protección Cross-Origin Resource Sharing
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://aws-0-eu-west-3.pooler.supabase.com:6543'],
+    origin: ['http://localhost:3000', 'https://aws-0-eu-west-3.pooler.supabase.com:6543', 'https://icpf-api-production.up.railway.app'],
     credentials: true,
 }));
 
@@ -71,7 +71,7 @@ app.use(cors({
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
-            scriptSrc: ["'self'", "https://cdn.jsdelivr.net", 'https://aws-0-eu-west-3.pooler.supabase.com:6543'],
+            scriptSrc: ["'self'", "https://cdn.jsdelivr.net", 'https://aws-0-eu-west-3.pooler.supabase.com:6543', 'https://icpf-api-production.up.railway.app'],
         }
     })
 );
@@ -187,7 +187,7 @@ app.get('/health', (req, res) => {
  * LISTENER
  */
 app.listen(port, () => {
-    console.log(`Servidor escuchando en http://localhost:${port}`);
+    console.log(`Servidor escuchando en ${process.env.URL}${port}`);
 });
 
 /**
