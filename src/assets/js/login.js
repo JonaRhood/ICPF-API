@@ -40,7 +40,7 @@ loginForm.addEventListener("submit", async (event) => {
             }
         } else {
             console.log("Error en la Autenticación: " + data.message);
-            message.textContent = "Fallo en la autenticación"
+            messageDiv.textContent = "Fallo en la autenticación"
         }
 
     } catch (error) {

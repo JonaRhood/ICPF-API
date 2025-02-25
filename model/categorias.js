@@ -1,7 +1,7 @@
 /**
  *
  * ./model/userRegistration.js
- * @fileoverview Modelo de las rutas para el registro de usuarios (MVC Model View Controller)
+ * @fileoverview Modelo de las rutas de categorias (MVC Model View Controller)
  * 
  */
 
@@ -27,6 +27,7 @@ const create = async (body) => {
         );
         return result;
     } catch (err) {
+        console.error('Error al crear categoría:', err);
         throw err;
     }
 };
@@ -37,7 +38,8 @@ const remove = async (id) => {
         const result = await pool.query(`DELETE FROM categorias WHERE id = $1`, [id]);
         return result;
     } catch(error) {
-        throw err;
+        console.log("Error em el modelo: ", error)
+        throw error;
     }
 }
 

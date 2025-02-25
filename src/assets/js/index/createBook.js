@@ -12,7 +12,6 @@ const tituloCreateBook = document.querySelector("#tituloCreateBook");
 const autorCreateBook = document.querySelector("#autorCreateBook");
 const paginasCreateBook = document.querySelector("#paginasCreateBook");
 const precioCreateBook = document.querySelector("#precioCreateBook")
-const categoriaCreateBook = document.querySelector("#categoriaCreateBook")
 const fieldsetCategoria = document.querySelector("#fieldsetCategoriaCreateBook");
 const cantidadCreateBook = document.querySelector("#cantidadCreateBook")
 const imagenButton = document.querySelector("#imagenButtonCreateBook");
@@ -171,16 +170,12 @@ imagenButton.addEventListener("click", () => {
 });
 
 // Lógica para la subida de Imagen en el Cliente
-let imageChanged = false;
-
 imagenInput.addEventListener("change", (event) => {
     const file = event.target.files[0];
 
     if (file) {
         imagenButton.textContent = "Archivo subido: " + file.name;
         imagenButton.style.backgroundColor = "#C8E1CD";
-        imageVisualization.src = "";
-        imageChanged = true;
     } else {
         imagenButton.innerHTML = "Seleccionar Imagen";
         imagenButton.style.backgroundColor = "#eaeaea";
@@ -201,7 +196,7 @@ formCreateBook.addEventListener("submit", async (event) => {
 
     const titulo = tituloCreateBook.value
     const descripcion = descripcionCreateBook.value;
-    const precio = precioCreateBook.value
+    let precio = precioCreateBook.value
     const cantidad = cantidadCreateBook.value
     const paginas = paginasCreateBook.value
     const imagen = imagenInput.files[0];
@@ -232,14 +227,14 @@ formCreateBook.addEventListener("submit", async (event) => {
         // Fetch para asignar autores y categorias al nuevo libro
         if (responseBook.ok) {
             if (autorCreateBook.value !== "") {
-                const responseAuthors = await fetch(`
+                await fetch(`
                     libros/autor?libro=${resultBook[0].id}&autor=${autorCreateBook.dataset.autorId}
                 `, { method: "POST" });
             };
 
             if (addedAuthors) {
                 addedAuthors.forEach(async (div) => {
-                    const responseAddedAuthors = await fetch(`
+                    await fetch(`
                         libros/autor?libro=${resultBook[0].id}&autor=${div.id}
                     `, { method: "POST" });
                 })
@@ -248,7 +243,7 @@ formCreateBook.addEventListener("submit", async (event) => {
             const fieldsetCategoriaChecks = document.querySelectorAll("#fieldsetCategoriaCreateBook input[type='checkbox']");
             fieldsetCategoriaChecks.forEach(async (input) => {
                 if (input.checked) {
-                    const responseCategories = await fetch(`
+                    await fetch(`
                         libros/categoria?libro=${resultBook[0].id}&categoria=${input.value}
                     `, { method: "POST" })
                 }

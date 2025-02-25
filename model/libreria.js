@@ -30,6 +30,7 @@ const incomeByYear = async () => {
         )
         return result;
     } catch (err) {
+        console.error("Error en el Modelo", err)
         throw err;
     }
 }
@@ -51,6 +52,7 @@ const incomeByMonth = async () => {
         )
         return result;
     } catch (err) {
+        console.error("Error en el Modelo", err)
         throw err
     }
 }
@@ -73,6 +75,7 @@ const yearBestSellers = async () => {
         )
         return result;
     } catch (err) {
+        console.error("Error en el Modelo", err)
         throw err
     }
 }
@@ -94,6 +97,7 @@ const monthBestSellers = async () => {
         )
         return result;
     } catch (err) {
+        console.error("Error en el Modelo", err)
         throw err
     }
 }
@@ -112,6 +116,7 @@ const rentableBooks = async () => {
         )
         return result;
     } catch (err) {
+        console.error("Error en el Modelo", err)
         throw err
     }
 }
@@ -124,6 +129,7 @@ const createPedido = async () => {
         );
         return result;
     } catch (err) {
+        console.log("Error al eliminar: ", err)
         throw err;
     }
 };
@@ -137,6 +143,7 @@ const bookToPedido = async (pedidoId, bookId, cantidad) => {
         );
         return result;
     } catch (err) {
+        console.error("Error en el Modelo", err)
         throw err;
     }
 }

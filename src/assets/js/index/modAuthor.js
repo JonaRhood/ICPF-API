@@ -62,7 +62,6 @@ function renderResults(authors) {
 
     // Añadir Event Listener a cada autor para poder hacer click
     const authorLis = document.querySelectorAll(".author-result");
-    let currentIndex = -1;
 
     authorLis.forEach((li, index, list) => {
         // Evento de click
@@ -181,6 +180,9 @@ formModAuthor.addEventListener("submit", async (event) => {
                 method: "PUT",
                 body: formData
             });
+            if (image.ok) {
+                console.log("Imagen actualizada correctamente");
+            }
         }
 
         if (response.ok) {

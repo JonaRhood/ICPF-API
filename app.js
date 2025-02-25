@@ -20,8 +20,9 @@ const helmet = require("helmet");
 const cors = require("cors");
 const { doubleCsrf } = require("csrf-csrf");
 const cookieParser = require("cookie-parser");
+const morgan = require("morgan")
 require('dotenv').config();
-const { isAuthenticated, librarySuperUserAuthenticated } = require('./middleware/middleware.js');
+const {  librarySuperUserAuthenticated } = require('./middleware/middleware.js');
 
 // Imports de Rutas
 const librosRoutes = require('./routes/libros.js');
@@ -39,6 +40,9 @@ const port = process.env.PORT || 3000;
 /**
  * MIDDLEWARE
  */
+// Morgan para asistencia en Logs
+app.use(morgan('dev'));
+
 // Middleware para la correcta manipulacion de Cookies (CSRF)
 app.use(cookieParser());
 
@@ -59,6 +63,7 @@ app.use(passport.session());
 
 // Middleware CORS para protección Cross-Origin Resource Sharing
 app.use(cors({
+    origin: ['http://localhost:3000', 'https://aws-0-eu-west-3.pooler.supabase.com:6543'],
     credentials: true,
 }));
 
@@ -66,7 +71,7 @@ app.use(cors({
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
-            scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
+            scriptSrc: ["'self'", "https://cdn.jsdelivr.net", 'https://aws-0-eu-west-3.pooler.supabase.com:6543'],
         }
     })
 );
@@ -84,9 +89,7 @@ const doubleCsrfOptions = {
 };
 
 const {
-    invalidCsrfTokenError,
     generateToken,
-    validateRequest,
     doubleCsrfProtection,
 } = doubleCsrf(doubleCsrfOptions);
 

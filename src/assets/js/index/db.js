@@ -88,10 +88,10 @@ if (!window.buscarInputListenerAdded) {
     buscarInput.addEventListener("input", (e) => {
         e.preventDefault();
 
-        const titlesTd = document.querySelectorAll(".tableBodyDB tr td:nth-child(3)");  
-        const value = e.target.value.toLowerCase();  
+        const titlesTd = document.querySelectorAll(".tableBodyDB tr td:nth-child(3)");
+        const value = e.target.value.toLowerCase();
 
-        let foundMatch = false;  
+        let foundMatch = false;
 
         titlesTd.forEach(td => {
             if (td.textContent.toLowerCase().includes(value)) {
@@ -104,16 +104,19 @@ if (!window.buscarInputListenerAdded) {
             console.log("No se encontraron coincidencias.");
         }
     });
-    window.buscarInputListenerAdded = true; 
+    window.buscarInputListenerAdded = true;
 }
 
 const fetchData = async (column, type) => {
     try {
         const response = await fetch(`/libros/columna?columna=${column}&tipo=${type}`);
         const result = await response.json();
-        deleteTable();
-        createTable(result);
-    } catch(error) {
+        if (response.ok) {
+            deleteTable();
+            createTable(result);
+            return response
+        }
+    } catch (error) {
         console.log("Error fetching data: ", error);
     }
 }
@@ -126,9 +129,11 @@ if (!window.precioButtonEventEmitter) {
         e.preventDefault();
         try {
             const response = await fetchData("l.precio", `${statePrecio}`);
-            statePrecio === "DESC" ? statePrecio = "ASC" : statePrecio = "DESC";
-            divTableDB.scrollTo(0, 0);
-        } catch(error) {
+            if (response.ok) {
+                statePrecio === "DESC" ? statePrecio = "ASC" : statePrecio = "DESC";
+                divTableDB.scrollTo(0, 0);
+            }
+        } catch (error) {
             console.log("Error al ordenar por Precio: ", error);
         }
     })
@@ -142,9 +147,11 @@ if (!window.stockButtonEventEmitter) {
         e.preventDefault();
         try {
             const response = await fetchData("l.cantidad", `${stateStock}`);
-            stateStock === "DESC" ? stateStock = "ASC" : stateStock = "DESC";
-            divTableDB.scrollTo(0, 0);
-        } catch(error) {
+            if (response.ok) {
+                stateStock === "DESC" ? stateStock = "ASC" : stateStock = "DESC";
+                divTableDB.scrollTo(0, 0);
+            }
+        } catch (error) {
             console.log("Error al ordenar por Cantidad: ", error);
         }
     })
@@ -158,9 +165,11 @@ if (!window.tituloButtonEventEmitter) {
         e.preventDefault();
         try {
             const response = await fetchData("l.titulo", `${tituloStock}`);
-            tituloStock === "DESC" ? tituloStock = "ASC" : tituloStock = "DESC";
-            divTableDB.scrollTo(0, 0);
-        } catch(error) {
+            if (response.ok) {
+                tituloStock === "DESC" ? tituloStock = "ASC" : tituloStock = "DESC";
+                divTableDB.scrollTo(0, 0);
+            }
+        } catch (error) {
             console.log("Error al ordenar por Título: ", error);
         }
     })

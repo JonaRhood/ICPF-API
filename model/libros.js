@@ -127,9 +127,9 @@ const create = async (body, imageName) => {
             [body.titulo, body.descripcion, body.precio, body.cantidad, body.paginas, `http://localhost:8000/imagenes/libros/${imageName}`]
         );
         return result
-    } catch (err) {
-        console.error("Error al insertar libro:", err);
-        throw err;
+    } catch (error) {
+        console.error("Error al insertar libro:", error);
+        throw error;
     }
 };
 
@@ -142,9 +142,9 @@ const update = async (id, body) => {
         );
 
         return result
-    } catch (err) {
-        console.error("Error al actualizar libro: ", err);
-        throw err;
+    } catch (error) {
+        console.error("Error al actualizar libro: ", error);
+        throw error;
     }
 };
 
@@ -156,9 +156,9 @@ const updateCantidad = async (libroId, cantidad) => {
             [ libroId, cantidad ]
         )
         return result
-    } catch(err) {
-        console.error("Error al actualizar la cantidad del libro: ", err)
-        throw err;
+    } catch(error) {
+        console.error("Error al actualizar la cantidad del libro: ", error)
+        throw error;
     }
 } 
 
@@ -180,6 +180,7 @@ const updateImage = async (id, imageName) => {
             if (fs.existsSync(filePath)) {
                 fs.unlinkSync(filePath);
             } else {
+                console.error("Error al eliminar imagen")
             }
         }
 
@@ -190,9 +191,9 @@ const updateImage = async (id, imageName) => {
         );
 
         return result
-    } catch (err) {
-        console.error("Error al actualizar libro:", err);
-        throw err;
+    } catch (error) {
+        console.error("Error al actualizar libro:", error);
+        throw error;
     }
 }
 
@@ -201,9 +202,9 @@ const remove = async (id) => {
     try {
         const result = await pool.query(`DELETE FROM libros WHERE id = $1`, [id]);
         return result;
-    } catch (err) {
-        console.log(err);
-        throw err;
+    } catch (error) {
+        console.log(error);
+        throw error;
     }
 }
 
@@ -216,8 +217,8 @@ const assignAuthor = async (libroId, autorId) => {
         );
         return result;
     } catch (error) {
-        console.log(err);
-        throw err;
+        console.log(error);
+        throw error;
     }
 };
 
@@ -230,8 +231,8 @@ const updateAuthor = async (libroId, autorOldId, autorNewId) => {
         );
         return result;
     } catch (error) {
-        console.log(err);
-        throw err;
+        console.log(error);
+        throw error;
     }
 }
 
@@ -239,13 +240,13 @@ const updateAuthor = async (libroId, autorOldId, autorNewId) => {
 const removeAuthors = async (libroId) => {
     try {
         const result = pool.query(
-            `DELETE FROM libros_autores WHERE libro_id = $1`,
+            `DELETE FROM libros_autores WHERE libro_id = $1 RETURNING *`,
             [ libroId ]
         );
         return result;
     } catch (error) {
-        console.log(err)
-        throw err;
+        console.log(error)
+        throw error;
     }
 }
 
@@ -258,8 +259,8 @@ const assignCategory = async (libroId, categoriaId) => {
         );
         return result;
     } catch (error) {
-        console.log(err);
-        throw err;
+        console.log(error);
+        throw error;
     }
 };
 
@@ -272,8 +273,8 @@ const updateCategory = async (libroId, categoriaOldId, catrgoriaNewId) => {
         );
         return result;
     } catch (error) {
-        console.log(err);
-        throw err;
+        console.log(error);
+        throw error;
     }
 }
 
@@ -281,13 +282,13 @@ const updateCategory = async (libroId, categoriaOldId, catrgoriaNewId) => {
 const removeCategories= async (libroId) => {
     try {
         const result = pool.query(
-            `DELETE FROM libros_categorias WHERE libro_id = $1`,
+            `DELETE FROM libros_categorias WHERE libro_id = $1 RETURNING *`,
             [ libroId ]
         );
         return result;
     } catch (error) {
-        console.log(err)
-        throw err;
+        console.log(error)
+        throw error;
     }
 }
 

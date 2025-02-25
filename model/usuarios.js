@@ -27,6 +27,7 @@ const create = async (body) => {
         );
         return result;
     } catch (err) {
+        console.error("Error en el Modelo", err)
         throw err;
     }
 };

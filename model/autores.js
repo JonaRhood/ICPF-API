@@ -109,6 +109,7 @@ const updateImage = async (id, imageName) => {
              if (fs.existsSync(filePath)) {
                 fs.unlinkSync(filePath);
             } else {
+                console.error("Error al eliminar Imagen")
             }
         }
 

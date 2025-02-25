@@ -12,7 +12,6 @@ const modals = document.querySelector("#modals")
 const modalStads = document.querySelector("#modalStads");
 const buttonStadsX = document.querySelector("#buttonStadsX");
 const ctxMonth = document.querySelector('#myChart');
-const yearlyIncome = document.querySelector("#yearlyIncome");
 const yearlyStadsYear = document.querySelector("#yearlyStadsYear");
 const yearlyTotal = document.querySelector("#yearlyTotal")
 const tableStadsBooks = document.querySelector("#tableStadsBooks")
@@ -83,7 +82,6 @@ const stadsOrdersInitializer = async () => {
 
         const responseYear = await fetch(`libreria/year`)
         const resultYear = await responseYear.json();
-        console.log(resultYear);
 
         if (responseYear.ok) {
             yearlyStadsYear.textContent = resultYear[0].año;
@@ -104,7 +102,6 @@ const stadsBooksInitializer = async () => {
     try {
         const responseBooks = await fetch(`/libreria/year/best`);
         const resultBooks = await responseBooks.json();
-        console.log(resultBooks)
         
         if (responseBooks.ok) {
             resultBooks.forEach(result => {

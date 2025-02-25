@@ -185,7 +185,7 @@ const fetchBookDetails = async (bookId) => {
             })
 
             // Lógica para la eliminación de la lista 
-            td6.addEventListener("click", (e) => {
+            td6.addEventListener("click", () => {
                 tableBodyVentas.removeChild(tr);
                 updateTotal() 
             })
@@ -247,14 +247,14 @@ submitVentas.addEventListener("click", async (e) => {
 
         for (const tr of data) {
             // Assignar libros al pedido
-            const assignBookToOrder = await fetch(
+            await fetch(
                 `/libreria/assign?pedidoId=${orderId}&libroId=${tr.bookId}&cantidad=${tr.quantity}`,{
                     method: "POST"
                 }
             )
             // Actualizar el Stock de los libros
             const updatedQuantity = tr.stock - tr.quantity;
-            const updateStock = await fetch(`
+            await fetch(`
                 /libros/cantidad?libroId=${tr.bookId}&cantidad=${updatedQuantity}`, {
                     method: "PUT"
                 }

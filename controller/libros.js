@@ -44,7 +44,7 @@ exports.readByName = async (req, res) => {
             return res.status(404).json({ success: false, error: "Autor no encontrado" });
         }
         return res.json(task.rows);
-    } catch (error) {
+    } catch (err) {
         return res.status(400).json({ error: err });
     }
 }
@@ -179,7 +179,7 @@ exports.removeAuthorsFromBook = async (req, res) => {
     const libroId = req.query.libro;
     try {
         const task = await removeAuthors(libroId);
-        return res.status(200).send("Autor Removido");
+        return res.status(200).json({ autores_removidos: task.rows });
     } catch (err) {
         return res.status(404).json({ error: err.detail })
     }
@@ -218,7 +218,7 @@ exports.removeCategoriesFromBook = async (req, res) => {
     const libroId = req.query.libro;
     try {
         const task = await removeCategories(libroId);
-        return res.status(200).send("Categoria Removida");
+        return res.status(200).json({ categorias_removidas: task.rows });
     } catch (err) {
         return res.status(404).json({ error: err.detail })
     }

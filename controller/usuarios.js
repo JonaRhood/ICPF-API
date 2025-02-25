@@ -8,11 +8,9 @@
 /**
  * IMPORTS
  */
-const bcrypt = require('bcrypt');
 const { 
     get, 
     getUser, 
-    create, 
 } = require('../model/usuarios.js');
 
 /**

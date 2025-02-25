@@ -18,7 +18,7 @@ const imageProcessor = (category) => (req, res, next) => {
     req.body = {};
     let fileProcessed = false; 
 
-    bb.on('file', (fieldname, file, filename, encoding, mimetype) => {
+    bb.on('file', (fieldname, file) => {
         const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
         const webpFilePath = path.join(__dirname, '..', 'public', 'imagenes', category === 'autores' ? 'autores' : 'libros', uniqueName + '.webp');
 

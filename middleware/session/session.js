@@ -29,7 +29,7 @@ require('dotenv').config();
  */
 // Sessión con express-session
 const sessionMiddleware = session({
-    genid: function (req) {
+    genid: function () {
         return uuidv4();
     },
     store: new PgSession({ pool }),

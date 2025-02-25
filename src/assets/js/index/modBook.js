@@ -13,7 +13,6 @@ const tituloModBook = document.querySelector("#tituloModBook");
 const autorModBook = document.querySelector("#autorModBook");
 const paginasModBook = document.querySelector("#paginasModBook");
 const precioModBook = document.querySelector("#precioModBook")
-const categoriaModBook = document.querySelectorAll(".categoriaModBook")
 const fieldsetCategoria = document.querySelector("#fieldsetCategoriaModBook");
 const cantidadModBook = document.querySelector("#cantidadModBook")
 const imagenButton = document.querySelector("#imagenButtonModBook");
@@ -24,7 +23,7 @@ const searchResultsTitleModBook = document.querySelector("#searchResultsTitleMod
 const searchResultsModBook = document.querySelector("#searchResultsModBook");
 const buttonPlusAuthorModBook = document.querySelector("#buttonPlusAuthorModBook");
 
-window.listAuthors = [];
+let listAuthors = [];
 
 // Lógica para la búsqueda de libros
 tituloModBook.addEventListener("input", async (event) => {
@@ -165,8 +164,8 @@ function renderBookResults(Books) {
                 descripcionModBook.value = result[0].libro_descripcion;
 
                 const resultCategory = result[0].categorias;
-                categorias.forEach((input, i) => {
-                    resultCategory.forEach((cat, i) => {
+                categorias.forEach((input) => {
+                    resultCategory.forEach((cat) => {
                         if (input.value == cat.id) {
                             input.checked = true;
                         }
@@ -272,7 +271,7 @@ function renderAuthorResults(Books) {
     });
 
     // Pasa del input a la lista de autores con el arrowdown 
-    autorCreateBook.addEventListener("keydown", (event) => {
+    autorModBook.addEventListener("keydown", (event) => {
         if (event.key === "ArrowDown") {
             event.preventDefault();
             AuthorsLis[0]?.focus();
@@ -357,7 +356,7 @@ imagenInput.addEventListener("change", (event) => {
     if (file) {
         imagenButton.textContent = "Archivo subido: " + file.name;
         imagenButton.style.backgroundColor = "#C8E1CD";
-        imageVisualization.src = "";
+        imageVisualizationModBook.src = "";
         imageChanged = true;
     } else {
         imagenButton.innerHTML = "Seleccionar Imagen";
@@ -373,7 +372,7 @@ formModBook.addEventListener("submit", async (event) => {
 
     const titulo = tituloModBook.value
     const descripcion = descripcionModBook.value;
-    const precio = precioModBook.value
+    let precio = precioModBook.value
     const cantidad = cantidadModBook.value
     const paginas = paginasModBook.value
     const imagen = imagenInput.files[0];
@@ -412,6 +411,9 @@ formModBook.addEventListener("submit", async (event) => {
                 method: "PUT",
                 body: formData
             })
+            if (updateImage.ok) {
+                console.log("Imagen actualizada correctamente");
+            }
         };
 
         // Fetch para asignar autores y categorias al libro modificado
@@ -426,6 +428,9 @@ formModBook.addEventListener("submit", async (event) => {
                         `/libros/autor?libro=${libroId}&autor=${autorModBook.dataset.autorId}`, {
                         method: "POST"
                     });
+                    if (addNewAuthorFromInput.ok) {
+                        console.log("Nuevos autores assignados al libro");
+                    }
                 };
 
                 if (newAuthors) {
@@ -447,6 +452,9 @@ formModBook.addEventListener("submit", async (event) => {
                             `/libros/categoria?libro=${libroId}&categoria=${input.value}`, {
                             method: 'POST'
                         });
+                        if (addCategoriesToBook.ok) {
+                            console.log("Categorías añadidas al libro")
+                        }
                     }
                 }
             }
