@@ -11,6 +11,7 @@ const buscarInput = document.querySelector("#buscarTituloDB");
 const precioButton = document.querySelector("#tablePrecio");
 const stockButton = document.querySelector("#tableStock");
 const tituloButton = document.querySelector("#tableTitulo");
+const generalLoader = document.querySelector("#divClient .generalLoader");
 
 // Lógica para cargar los libros en la tabla del cliente
 if (!window.contentLoadedEventListener) {
@@ -20,6 +21,7 @@ if (!window.contentLoadedEventListener) {
             const result = await response.json()
             if (response.ok) {
                 createTable(result);
+                generalLoader.style.display = "none";
             }
         } catch (error) {
             console.log("Error al recibir los datos para la Base de Datos: ", error);

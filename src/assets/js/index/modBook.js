@@ -22,6 +22,7 @@ const descripcionModBook = document.querySelector("#descripcionModBook");
 const searchResultsTitleModBook = document.querySelector("#searchResultsTitleModBook");
 const searchResultsModBook = document.querySelector("#searchResultsModBook");
 const buttonPlusAuthorModBook = document.querySelector("#buttonPlusAuthorModBook");
+const generalLoader = document.querySelector("#divModBook .generalLoader");
 
 let listAuthors = [];
 
@@ -336,6 +337,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 ${categoria.categoria} &nbsp&nbsp`;
                 fieldsetCategoria.appendChild(label);
             });
+            generalLoader.style.display = "none";
         }
     } catch (error) {
         console.error("Error al cargar categorias:", error)

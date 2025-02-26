@@ -19,6 +19,7 @@ const imagenInput = document.querySelector("#imagenCreateBook");
 const descripcionCreateBook = document.querySelector("#descripcionCreateBook");
 const searchResultsCreateBook = document.querySelector("#searchResultsCreateBook");
 const buttonPlusAuthorCreateBook = document.querySelector("#buttonPlusAuthorCreateBook");
+const generalLoader = document.querySelector("#divCreateBook .generalLoader");
 
 // Lógica para eliminar cualquier value del autor input
 autorCreateBook.addEventListener("click", () => autorCreateBook.value = "");
@@ -26,7 +27,6 @@ autorCreateBook.addEventListener("click", () => autorCreateBook.value = "");
 // Lógica para la búsqueda de autores
 autorCreateBook.addEventListener("input", async (event) => {
     event.preventDefault();
-
 
     const value = event.target.value;
 
@@ -158,6 +158,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 ${categoria.categoria} &nbsp&nbsp`;
                 fieldsetCategoria.appendChild(label);
             });
+            generalLoader.style.display = "none";
         }
     } catch (error) {
         console.error("Error al cargar categorias:", error)
