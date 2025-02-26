@@ -68,7 +68,8 @@
                 <!-- Crear Autor-->
                 <div id="divCreateAuthor" class="mainDiv" style="position: relative">
                     <h2>Crear Autor</h2>
-                    <div class="generalLoader" id="loaderCreateAuthor" style="background-color: rgba(250, 244, 239, 0.6); top: 0; left:0; display: none;">
+                    <div class="generalLoader" id="loaderCreateAuthor"
+                        style="background-color: rgba(250, 244, 239, 0.6); display: none;">
                         <div class="loader">
                             <div class="cell d-0"></div>
                             <div class="cell d-1"></div>
@@ -117,7 +118,8 @@
                 <!-- Modificar Author -->
                 <div id="divModAuthor" class="mainDiv" style="position: relative;">
                     <h2>Modificar Autor</h2>
-                    <div class="generalLoader" id="loaderModAuthor" style="background-color: rgba(250, 244, 239, 0.6); top: 0; left:0; display: none;">
+                    <div class="generalLoader" id="loaderModAuthor"
+                        style="background-color: rgba(250, 244, 239, 0.6); display: none;">
                         <div class="loader">
                             <div class="cell d-0"></div>
                             <div class="cell d-1"></div>
@@ -145,7 +147,8 @@
                                 name="apellidosModAuthor" required maxlength="100" autocomplete="off">
                             <ul id="searchResultsModAuthor" class="listAuthorUl"
                                 style="list-style-type: none; padding: 0px;">
-                                <div class="generalLoader loaderCategory" id="loaderSearchAuthorModAuthor" style="background-color: white;">
+                                <div class="generalLoader loaderCategory" id="loaderSearchAuthorModAuthor"
+                                    style="background-color: white;">
                                     <div class="loader">
                                         <div class="cell d-0"></div>
                                         <div class="cell d-1"></div>
@@ -168,8 +171,6 @@
                         </div>
                         <input type="file" accept="image/*" id="imagenModAuthor" name="imagenModAuthor" disabled
                             maxlength="500" style="display: none;" autocomplete="off">
-                        <img id="imageVisualization" style="display: flex;">
-
                         <label for="descripcionModAuthor">
                             Descripción:
                         </label>
@@ -180,6 +181,11 @@
                         <div id="messageModAuthor" class="message"></div>
                     </form>
                 </div>
+                <div class="divImgVisualizator" id="imageVisualizatorModal"  style="display: none;">
+                    <div>
+                        <img id="imageVisualization">
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -187,7 +193,8 @@
             <!-- Crear Libro -->
             <div id="divCreateBook" class="mainDiv" style="position: relative;">
                 <h2>Crear Libro</h2>
-                <div class="generalLoader" id="loaderCreateBook" style="background-color: rgba(250, 244, 239, 0.6); top: 0; left:0; display: none;">
+                <div class="generalLoader" id="loaderCreateBook"
+                    style="background-color: rgba(250, 244, 239, 0.6); display: none;">
                     <div class="loader">
                         <div class="cell d-0"></div>
                         <div class="cell d-1"></div>
@@ -222,7 +229,8 @@
                                 </div>
                                 <ul id="searchResultsCreateBook" class="listAuthorUl"
                                     style="list-style-type: none; padding: 0px;">
-                                    <div class="generalLoader loaderCategory" id="loaderSearchAuthorCreateBook" style="background-color: white;">
+                                    <div class="generalLoader loaderCategory" id="loaderSearchAuthorCreateBook"
+                                        style="background-color: white;">
                                         <div class="loader">
                                             <div class="cell d-0"></div>
                                             <div class="cell d-1"></div>
@@ -281,7 +289,6 @@
                     </div>
                     <input type="file" accept="image/*" id="imagenCreateBook" name="imagenCreateBook" maxlength="500"
                         style="display: none;" autocomplete="off">
-                    <img id="imageVisualization" style="display: none;">
 
                     <label for="descripcionCreateBook" class="labelCreateAuthor">
                         Descripción:
@@ -297,7 +304,8 @@
             <!-- Modificar Libro -->
             <div id="divModBook" class="mainDiv" style="position: relative">
                 <h2>Modificar Libro</h2>
-                <div class="generalLoader" id="loaderModBook" style="background-color: rgba(250, 244, 239, 0.6); top: 0; left:0; display: none;">
+                <div class="generalLoader" id="loaderModBook"
+                    style="background-color: rgba(250, 244, 239, 0.6); display: none;">
                     <div class="loader">
                         <div class="cell d-0"></div>
                         <div class="cell d-1"></div>
@@ -323,7 +331,8 @@
                                     autocomplete="off" placeholder="Buscar Libro por Título">
                                 <ul id="searchResultsTitleModBook" class="listAuthorUl"
                                     style="list-style-type: none; padding: 0px;">
-                                    <div class="generalLoader loaderCategory" id="loaderSearchBookModBook" style="background-color: white;">
+                                    <div class="generalLoader loaderCategory" id="loaderSearchBookModBook"
+                                        style="background-color: white;">
                                         <div class="loader">
                                             <div class="cell d-0"></div>
                                             <div class="cell d-1"></div>
@@ -351,7 +360,8 @@
                                 </div>
                                 <ul id="searchResultsModBook" class="listAuthorUl"
                                     style="list-style-type: none; padding: 0px;">
-                                    <div class="generalLoader loaderCategory" id="loaderSearchAuthorModBook" style="background-color: white;">
+                                    <div class="generalLoader loaderCategory" id="loaderSearchAuthorModBook"
+                                        style="background-color: white;">
                                         <div class="loader">
                                             <div class="cell d-0"></div>
                                             <div class="cell d-1"></div>
@@ -409,7 +419,6 @@
                     </div>
                     <input type="file" accept="image/*" id="imagenModBook" name="imagenModBook" maxlength="500"
                         style="display: none;" autocomplete="off" disabled>
-                    <img id="imageVisualizationModBook" style="display: none;">
 
                     <label for="descripcionModBook">
                         Descripción:
@@ -422,6 +431,11 @@
                 </form>
             </div>
         </div>
+        <div class="divImgVisualizator" id="imageVisualizatorModalModBook" style="display: none;">
+            <div>
+                <img id="imageVisualizationModBook">
+            </div>
+        </div>
     </div>
 
     <!-- Modales -->
@@ -432,7 +446,8 @@
                 <h2>Venta de Libros</h2>
                 <button id="buttonVentasX">X</button>
             </div>
-            <div class="generalLoader" id="loaderVentas" style="background-color: rgba(250, 244, 239, 0.6); top: 0; left:0; display: none;">
+            <div class="generalLoader" id="loaderVentas"
+                style="background-color: rgba(250, 244, 239, 0.6); display: none;">
                 <div class="loader">
                     <div class="cell d-0"></div>
                     <div class="cell d-1"></div>
@@ -450,7 +465,8 @@
                 <div style="position: relative">
                     <input type="text" id="tituloVentas" autocomplete="off" placeholder="Buscar por Título">
                     <ul id="searchResultsVentas" class="listAuthorUl" style="list-style-type: none; padding: 0px;">
-                        <div class="generalLoader loaderCategory" id="loaderSearchVentas" style="background-color: white;">
+                        <div class="generalLoader loaderCategory" id="loaderSearchVentas"
+                            style="background-color: white;">
                             <div class="loader">
                                 <div class="cell d-0"></div>
                                 <div class="cell d-1"></div>

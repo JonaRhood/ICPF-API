@@ -7,6 +7,7 @@
 import { updateTable } from "./db.js";
 
 // Asignaciones DOM
+const divModBook = document.querySelector("#divModBook");
 const formModBook = document.querySelector("#formModBook");
 const messageModBook = document.querySelector("#messageModBook");
 const tituloModBook = document.querySelector("#tituloModBook");
@@ -18,6 +19,7 @@ const cantidadModBook = document.querySelector("#cantidadModBook")
 const imagenButton = document.querySelector("#imagenButtonModBook");
 const imagenInput = document.querySelector("#imagenModBook");
 const imageVisualizationModBook = document.querySelector("#imageVisualizationModBook");
+const imageVisualizatorModalModBook = document.querySelector("#imageVisualizatorModalModBook");
 const descripcionModBook = document.querySelector("#descripcionModBook");
 const searchResultsTitleModBook = document.querySelector("#searchResultsTitleModBook");
 const searchResultsModBook = document.querySelector("#searchResultsModBook");
@@ -243,8 +245,8 @@ function renderBookResults(Books) {
                     }
                 })
 
-                imagenButton.addEventListener("mouseover", () => imageVisualizationModBook.style.display = "flex");
-                imagenButton.addEventListener("mouseout", () => imageVisualizationModBook.style.display = "none");
+                imagenButton.addEventListener("mouseover", () => imageVisualizatorModalModBook.style.display = "flex");
+                imagenButton.addEventListener("mouseout", () => imageVisualizatorModalModBook.style.display = "none");
                 imageVisualizationModBook.src = result[0].libro_imagen;
 
                 imagenButton.innerHTML = "Cambiar Imagen<br>(Previsualizar al pasar el ratón)"
@@ -406,6 +408,8 @@ imagenInput.addEventListener("change", (event) => {
 formModBook.addEventListener("submit", async (event) => {
     event.preventDefault();
     loaderModBook.style.display = "flex";
+    divModBook.scrollTo(0, 0);
+    divModBook.style.overflow = "hidden"
 
     const formData = new FormData();
 
@@ -517,6 +521,7 @@ formModBook.addEventListener("submit", async (event) => {
             categorias.forEach(input => { input.checked = false; input.disabled = true });
             newAuthors.forEach(div => div.remove());
             loaderModBook.style.display = "none";
+            divModBook.style.overflow = "auto"
             updateTable();
             setTimeout(() => {
                 messageModBook.style.display = "none";

@@ -12,6 +12,7 @@ const apellidosModAuthor = document.querySelector("#apellidosModAuthor");
 const imagenButton = document.querySelector("#imagenButtonModAuthor");
 const imagenInput = document.querySelector("#imagenModAuthor");
 const imageVisualization = document.querySelector("#imageVisualization");
+const imageVisualizatorModal = document.querySelector("#imageVisualizatorModal");
 const descripcionModAuthor = document.querySelector("#descripcionModAuthor");
 const searchResultsModAuthor = document.querySelector("#searchResultsModAuthor");
 const generalLoader = document.querySelector("#loaderSearchAuthorModAuthor");
@@ -131,8 +132,8 @@ function renderResults(authors) {
                 nombreModAuthor.value = result[0].autor_nombre;
                 apellidosModAuthor.value = result[0].autor_apellidos;
 
-                imagenButton.addEventListener("mouseover", () => imageVisualization.style.display = "flex");
-                imagenButton.addEventListener("mouseout", () => imageVisualization.style.display = "none");
+                imagenButton.addEventListener("mouseover", () => imageVisualizatorModal.style.display = "flex");
+                imagenButton.addEventListener("mouseout", () => imageVisualizatorModal.style.display = "none");
                 imageVisualization.src = result[0].autor_imagen;
 
                 imagenButton.innerHTML = "Cambiar Imagen<br>(Previsualizar al pasar el ratón)"

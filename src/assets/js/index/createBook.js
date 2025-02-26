@@ -6,6 +6,7 @@
 // Imports
 import { updateTable } from "./db.js";
 
+const divCreateBook = document.querySelector("#divCreateBook");
 const formCreateBook = document.querySelector("#formCreateBook");
 const messageCreateBook = document.querySelector("#messageCreateBook");
 const tituloCreateBook = document.querySelector("#tituloCreateBook");
@@ -205,14 +206,18 @@ imagenInput.addEventListener("change", (event) => {
 // Lógica para el envio de datos al Servidor API una vez se ennvia el formulario
 formCreateBook.addEventListener("submit", async (event) => {
     event.preventDefault();
-    loaderCreateBook.style.display = "flex";
 
     if (imagenInput.files.length === 0) {
         imagenButton.classList.add("noImage");
         setTimeout(() => {
             imagenButton.classList.remove("noImage")
         }, 3000)
+        return;
     }
+
+    loaderCreateBook.style.display = "flex";
+    divCreateBook.scrollTo(0, 0);
+    divCreateBook.style.overflow = "hidden";
 
     const formData = new FormData();
 
@@ -282,6 +287,7 @@ formCreateBook.addEventListener("submit", async (event) => {
             addedAuthors.forEach(div => div.remove());
             formCreateBook.reset();
             loaderCreateBook.style.display = "none";
+            divCreateBook.style.overflow = "auto";
             updateTable();
             setTimeout(() => {
                 messageCreateBook.style.display = "none";
