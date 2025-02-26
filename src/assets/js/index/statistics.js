@@ -17,6 +17,17 @@ const yearlyTotal = document.querySelector("#yearlyTotal")
 const tableStadsBooks = document.querySelector("#tableStadsBooks")
 const stadsLoadingDiv = document.querySelector("#stadsLoadingDiv");
 
+
+// Lógica para cerrar el modal
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        modals.style.display = "none";
+        modalStads.style.display = "none";
+        tableStadsBooks.querySelectorAll("tr").forEach(tr => tr.remove());
+        stadsLoadingDiv.style.display = "flex";
+    }
+})
+
 // Lógica para mostrar el módulo de estadísticas
 stadsButton.addEventListener("click", async (e) => {
     e.preventDefault();

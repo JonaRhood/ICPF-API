@@ -18,6 +18,15 @@ const tableBodyVentas = document.querySelector("#tableBodyVentas");
 const ventasTotal = document.querySelector("#ventasTotal");
 const submitVentas = document.querySelector("#submitVentas");
 const loaderSearchVentas = document.querySelector("#loaderSearchVentas");
+const loaderVentas = document.querySelector("#loaderVentas");
+
+// Lógica para cerrar el modal
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        modals.style.display = "none";
+        modalVentas.style.display = "none";
+    }
+})
 
 // Lógica para las ventas
 ventaButton.addEventListener("click", (e) => {
@@ -244,6 +253,8 @@ const updateTotal = () => {
 // Lógica para el submit de las ventas
 submitVentas.addEventListener("click", async (e) => {
     e.preventDefault();
+    loaderVentas.style.display = "flex";
+
     const tableTrs = document.querySelectorAll("#tableBodyVentas tr");
     const data = [];
     
@@ -287,6 +298,7 @@ submitVentas.addEventListener("click", async (e) => {
             tr.remove(); 
         });        
         tituloVentas.value = ""
+        loaderVentas.style.display = "none";
         updateTotal()
         updateTable()
         

@@ -112,12 +112,14 @@ if (!window.buscarInputListenerAdded) {
 }
 
 const fetchData = async (column, type) => {
+    generalLoader.style.display = "flex";
     try {
         const response = await fetch(`/libros/columna?columna=${column}&tipo=${type}`);
         const result = await response.json();
         if (response.ok) {
             deleteTable();
             createTable(result);
+            generalLoader.style.display = "none";
             return response
         }
     } catch (error) {

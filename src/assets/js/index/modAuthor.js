@@ -15,6 +15,7 @@ const imageVisualization = document.querySelector("#imageVisualization");
 const descripcionModAuthor = document.querySelector("#descripcionModAuthor");
 const searchResultsModAuthor = document.querySelector("#searchResultsModAuthor");
 const generalLoader = document.querySelector("#loaderSearchAuthorModAuthor");
+const loaderModAuthor = document.querySelector("#loaderModAuthor")
 
 // Lógica para la búsqueda de autores
 let typingTimer;
@@ -170,6 +171,7 @@ imagenInput.addEventListener("change", (event) => {
 // Lógica para el envio de datos al Servidor API una vez se ennvia el formulario
 formModAuthor.addEventListener("submit", async (event) => {
     event.preventDefault();
+    loaderModAuthor.style.display = "flex"
 
     const formData = new FormData();
     const nombre = document.querySelector("#nombreModAuthor").value;
@@ -213,6 +215,7 @@ formModAuthor.addEventListener("submit", async (event) => {
             nombreModAuthor.disabled = true;
             descripcionModAuthor.disabled = true;
             imagenInput.disabled = true;
+            loaderModAuthor.style.display = "none"
             setTimeout(() => {
                 messageModAuthor.style.display = "none";
             }, 3000);

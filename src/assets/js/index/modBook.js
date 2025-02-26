@@ -25,6 +25,7 @@ const buttonPlusAuthorModBook = document.querySelector("#buttonPlusAuthorModBook
 const loaderCategoryModBook = document.querySelector("#loaderCategoryModBook");
 const loaderSearchBookModBook = document.querySelector("#loaderSearchBookModBook");
 const loaderSearchAuthorModBook = document.querySelector("#loaderSearchAuthorModBook");
+const loaderModBook = document.querySelector("#loaderModBook");
 
 let listAuthors = [];
 
@@ -404,6 +405,7 @@ imagenInput.addEventListener("change", (event) => {
 // Lógica para el envio de datos al Servidor API una vez se ennvia el formulario
 formModBook.addEventListener("submit", async (event) => {
     event.preventDefault();
+    loaderModBook.style.display = "flex";
 
     const formData = new FormData();
 
@@ -514,6 +516,7 @@ formModBook.addEventListener("submit", async (event) => {
             imagenInput.disabled = true;
             categorias.forEach(input => { input.checked = false; input.disabled = true });
             newAuthors.forEach(div => div.remove());
+            loaderModBook.style.display = "none";
             updateTable();
             setTimeout(() => {
                 messageModBook.style.display = "none";

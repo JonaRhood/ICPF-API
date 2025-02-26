@@ -9,6 +9,7 @@ const formCreateAuthor = document.querySelector("#formCreateAuthor");
 const messageCreateAuthor = document.querySelector("#messageCreateAuthor");
 const imagenButton = document.querySelector("#imagenButtonCreateAuthor");
 const imagenInput = document.querySelector("#imagenCreateAuthor");
+const loaderCreateAuthor = document.querySelector("#loaderCreateAuthor");
 
 // Lógica para el botón del Hidden Input
 imagenButton.addEventListener("click", () => {
@@ -31,6 +32,7 @@ imagenInput.addEventListener("change", (event) => {
 // Lógica para el envio de datos al Servidor API
 formCreateAuthor.addEventListener("submit", async (event) => {
     event.preventDefault();
+    loaderCreateAuthor.style.display = "flex";
 
     const formData = new FormData();
 
@@ -57,6 +59,7 @@ formCreateAuthor.addEventListener("submit", async (event) => {
             imagenButton.innerHTML = "Seleccionar Imagen";
             imagenButton.style.backgroundColor = "#eaeaea";
             formCreateAuthor.reset();
+            loaderCreateAuthor.style.display = "none";
             setTimeout(() => {
                 messageCreateAuthor.textContent = "";
             }, 3000);

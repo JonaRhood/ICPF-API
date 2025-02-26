@@ -10,7 +10,20 @@
 
 <body>
     <!-- Formulario -->
-    <div id="mainDiv">
+    <div id="mainDiv" style="position: relative;">
+        <div class="generalLoader" id="loaderLogin" style="background-color: rgba(250, 244, 239, 0.6); top: 0; left:0; display: none;">
+            <div class="loader">
+                <div class="cell d-0"></div>
+                <div class="cell d-1"></div>
+                <div class="cell d-2"></div>
+                <div class="cell d-1"></div>
+                <div class="cell d-2"></div>
+                <div class="cell d-2"></div>
+                <div class="cell d-3"></div>
+                <div class="cell d-3"></div>
+                <div class="cell d-4"></div>
+            </div>
+        </div>
         <h1>Libreria ICPF</h1>
         <form action="/login" method="post" id="loginForm">
             <label for="email">Email:</label>

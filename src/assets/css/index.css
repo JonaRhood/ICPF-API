@@ -734,7 +734,7 @@ button:hover {
 .generalLoader {
     position: absolute;
     z-index: 50;
-    background-color: #faf4ef;
+    background-color: rgb(250, 244, 239);
     top: 30px;
     width: 100%;
     height: 95%;

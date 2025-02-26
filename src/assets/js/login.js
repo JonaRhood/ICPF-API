@@ -1,5 +1,6 @@
 const loginForm = document.querySelector("#loginForm");
 const messageDiv = document.querySelector("#message");
+const loaderLogin = document.querySelector("#loaderLogin");
 
 let csrf = ""
 const getCsrf = async () => {
@@ -16,10 +17,11 @@ getCsrf()
 
 
 loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    loaderLogin.style.display = "flex";
     const username = document.querySelector("#email").value;
     const password = document.querySelector("#password").value;
-    event.preventDefault();
-
+    
     try {        
         const response = await fetch("/login", {
             method: "POST",
@@ -39,6 +41,7 @@ loginForm.addEventListener("submit", async (event) => {
                 window.location.href = data.redirect;
             }
         } else {
+            loaderLogin.style.display = "none";
             console.log("Error en la Autenticación: " + data.message);
             messageDiv.textContent = "Fallo en la autenticación"
         }

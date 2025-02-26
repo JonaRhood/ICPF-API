@@ -21,6 +21,7 @@ const searchResultsCreateBook = document.querySelector("#searchResultsCreateBook
 const buttonPlusAuthorCreateBook = document.querySelector("#buttonPlusAuthorCreateBook");
 const loaderCategoryCreateBook = document.querySelector("#loaderCategoryCreateBook");
 const loaderSearchAuthorCreateBook = document.querySelector("#loaderSearchAuthorCreateBook")
+const loaderCreateBook = document.querySelector("#loaderCreateBook");
 
 // Lógica para eliminar cualquier value del autor input
 autorCreateBook.addEventListener("click", () => autorCreateBook.value = "");
@@ -204,6 +205,8 @@ imagenInput.addEventListener("change", (event) => {
 // Lógica para el envio de datos al Servidor API una vez se ennvia el formulario
 formCreateBook.addEventListener("submit", async (event) => {
     event.preventDefault();
+    loaderCreateBook.style.display = "flex";
+
     if (imagenInput.files.length === 0) {
         imagenButton.classList.add("noImage");
         setTimeout(() => {
@@ -278,6 +281,7 @@ formCreateBook.addEventListener("submit", async (event) => {
             autorCreateBook.dataset.autorId = ""
             addedAuthors.forEach(div => div.remove());
             formCreateBook.reset();
+            loaderCreateBook.style.display = "none";
             updateTable();
             setTimeout(() => {
                 messageCreateBook.style.display = "none";

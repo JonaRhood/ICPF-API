@@ -17,7 +17,7 @@
             <div id="divClient">
                 <!-- Base de Datosr-->
                 <div id="secondDivClient" class="mainDivLeft">
-                    <div class="generalLoader">
+                    <div class="generalLoader" style="background-color: rgba(250, 244, 239, 0.6);">
                         <div class="loader">
                             <div class="cell d-0"></div>
                             <div class="cell d-1"></div>
@@ -66,8 +66,21 @@
 
             <div id="divAuthor">
                 <!-- Crear Autor-->
-                <div id="divCreateAuthor" class="mainDiv">
+                <div id="divCreateAuthor" class="mainDiv" style="position: relative">
                     <h2>Crear Autor</h2>
+                    <div class="generalLoader" id="loaderCreateAuthor" style="background-color: rgba(250, 244, 239, 0.6); top: 0; left:0; display: none;">
+                        <div class="loader">
+                            <div class="cell d-0"></div>
+                            <div class="cell d-1"></div>
+                            <div class="cell d-2"></div>
+                            <div class="cell d-1"></div>
+                            <div class="cell d-2"></div>
+                            <div class="cell d-2"></div>
+                            <div class="cell d-3"></div>
+                            <div class="cell d-3"></div>
+                            <div class="cell d-4"></div>
+                        </div>
+                    </div>
                     <form action="/autores" method="post" id="formCreateAuthor" enctype="multipart/form-data">
                         <label for="nombreCreateAuthor" class="labelCreateAuthor">
                             Nombre:
@@ -102,8 +115,21 @@
                 </div>
 
                 <!-- Modificar Author -->
-                <div id="divModAuthor" class="mainDiv">
+                <div id="divModAuthor" class="mainDiv" style="position: relative;">
                     <h2>Modificar Autor</h2>
+                    <div class="generalLoader" id="loaderModAuthor" style="background-color: rgba(250, 244, 239, 0.6); top: 0; left:0; display: none;">
+                        <div class="loader">
+                            <div class="cell d-0"></div>
+                            <div class="cell d-1"></div>
+                            <div class="cell d-2"></div>
+                            <div class="cell d-1"></div>
+                            <div class="cell d-2"></div>
+                            <div class="cell d-2"></div>
+                            <div class="cell d-3"></div>
+                            <div class="cell d-3"></div>
+                            <div class="cell d-4"></div>
+                        </div>
+                    </div>
                     <form action="/autores" method="post" id="formModAuthor">
                         <label for="nombreModAuthor">
                             Nombre:
@@ -159,8 +185,21 @@
 
         <div id="divBook">
             <!-- Crear Libro -->
-            <div id="divCreateBook" class="mainDiv">
+            <div id="divCreateBook" class="mainDiv" style="position: relative;">
                 <h2>Crear Libro</h2>
+                <div class="generalLoader" id="loaderCreateBook" style="background-color: rgba(250, 244, 239, 0.6); top: 0; left:0; display: none;">
+                    <div class="loader">
+                        <div class="cell d-0"></div>
+                        <div class="cell d-1"></div>
+                        <div class="cell d-2"></div>
+                        <div class="cell d-1"></div>
+                        <div class="cell d-2"></div>
+                        <div class="cell d-2"></div>
+                        <div class="cell d-3"></div>
+                        <div class="cell d-3"></div>
+                        <div class="cell d-4"></div>
+                    </div>
+                </div>
                 <form action="/autores" method="post" id="formCreateBook">
                     <div class="divFormOut">
                         <div class="divFormLeft">
@@ -256,8 +295,21 @@
             </div>
 
             <!-- Modificar Libro -->
-            <div id="divModBook" class="mainDiv">
+            <div id="divModBook" class="mainDiv" style="position: relative">
                 <h2>Modificar Libro</h2>
+                <div class="generalLoader" id="loaderModBook" style="background-color: rgba(250, 244, 239, 0.6); top: 0; left:0; display: none;">
+                    <div class="loader">
+                        <div class="cell d-0"></div>
+                        <div class="cell d-1"></div>
+                        <div class="cell d-2"></div>
+                        <div class="cell d-1"></div>
+                        <div class="cell d-2"></div>
+                        <div class="cell d-2"></div>
+                        <div class="cell d-3"></div>
+                        <div class="cell d-3"></div>
+                        <div class="cell d-4"></div>
+                    </div>
+                </div>
                 <form action="/autores" method="post" id="formModBook">
                     <div class="divFormOut">
                         <div class="divFormLeft">
@@ -375,10 +427,23 @@
     <!-- Modales -->
     <div id="modals" style="display: none;">
         <!-- Modal de Ventas -->
-        <div id="modalVentas" style="display: none;">
+        <div id="modalVentas" style="display: none;" style="position: relative;">
             <div class="xButton" id="divButtonVentasX">
                 <h2>Venta de Libros</h2>
                 <button id="buttonVentasX">X</button>
+            </div>
+            <div class="generalLoader" id="loaderVentas" style="background-color: rgba(250, 244, 239, 0.6); top: 0; left:0; display: none;">
+                <div class="loader">
+                    <div class="cell d-0"></div>
+                    <div class="cell d-1"></div>
+                    <div class="cell d-2"></div>
+                    <div class="cell d-1"></div>
+                    <div class="cell d-2"></div>
+                    <div class="cell d-2"></div>
+                    <div class="cell d-3"></div>
+                    <div class="cell d-3"></div>
+                    <div class="cell d-4"></div>
+                </div>
             </div>
             <div id="divBuscarVentas">
                 <label for="buscarVentas">Buscar por Título:</label>

@@ -61,3 +61,112 @@ button:hover {
         width: 100%;
     }
 }
+
+
+/* General Loader */
+.loader {
+    --cell-size: 10px;
+    --cell-spacing: 1px;
+    --cells: 3;
+    --total-size: calc(var(--cells) * (var(--cell-size) + 2 * var(--cell-spacing)));
+    display: flex;
+    flex-wrap: wrap;
+    width: var(--total-size);
+    height: var(--total-size);
+}
+
+.cell {
+    flex: 0 0 var(--cell-size);
+    margin: var(--cell-spacing);
+    background-color: transparent;
+    box-sizing: border-box;
+    border-radius: 4px;
+    animation: 1.5s ripple ease infinite;
+}
+
+.cell.d-1 {
+    animation-delay: 100ms;
+}
+
+.cell.d-2 {
+    animation-delay: 200ms;
+}
+
+.cell.d-3 {
+    animation-delay: 300ms;
+}
+
+.cell.d-4 {
+    animation-delay: 400ms;
+}
+
+.cell:nth-child(1) {
+    --cell-color: #FFDDD1;
+}
+
+.cell:nth-child(2) {
+    --cell-color: #FFCCB3;
+}
+
+.cell:nth-child(3) {
+    --cell-color: #fec5a8;
+}
+
+.cell:nth-child(4) {
+    --cell-color: #f8b28a;
+}
+
+.cell:nth-child(5) {
+    --cell-color: #ffbb8d;
+}
+
+.cell:nth-child(6) {
+    --cell-color: #ffae73;
+}
+
+.cell:nth-child(7) {
+    --cell-color: #fdb07d;
+}
+
+.cell:nth-child(8) {
+    --cell-color: #ff9f5a;
+}
+
+.cell:nth-child(9) {
+    --cell-color: #ff8d37;
+}
+
+@keyframes ripple {
+    0% {
+        background-color: transparent;
+    }
+
+    30% {
+        background-color: var(--cell-color);
+    }
+
+    60% {
+        background-color: transparent;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+.generalLoader {
+    position: absolute;
+    z-index: 50;
+    background-color: rgb(250, 244, 239);
+    top: 30px;
+    width: 100%;
+    height: 95%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loaderCategory {
+    top: 0;
+    height: 100%;
+}
