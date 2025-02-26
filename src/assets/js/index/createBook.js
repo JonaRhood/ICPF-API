@@ -19,23 +19,29 @@ const imagenInput = document.querySelector("#imagenCreateBook");
 const descripcionCreateBook = document.querySelector("#descripcionCreateBook");
 const searchResultsCreateBook = document.querySelector("#searchResultsCreateBook");
 const buttonPlusAuthorCreateBook = document.querySelector("#buttonPlusAuthorCreateBook");
-const generalLoader = document.querySelector("#divCreateBook .generalLoader");
+const loaderCategoryCreateBook = document.querySelector("#loaderCategoryCreateBook");
+const loaderSearchAuthorCreateBook = document.querySelector("#loaderSearchAuthorCreateBook")
 
 // Lógica para eliminar cualquier value del autor input
 autorCreateBook.addEventListener("click", () => autorCreateBook.value = "");
 
 // Lógica para la búsqueda de autores
+let typingTimer;
+const typingInterval = 500;
 autorCreateBook.addEventListener("input", async (event) => {
     event.preventDefault();
+    resetTypingTimer();
+})
 
-    const value = event.target.value;
-
+const fetchAuthors = async (value) => {
     try {
+        searchResultsCreateBook.style.display = "flex"
+        loaderSearchAuthorCreateBook.style.display = "flex"
         const response = await fetch(`/autores/buscar?apellidos=${value}`);
         const result = await response.json();
         if (response.ok) {
-            searchResultsCreateBook.style.display = "flex"
             renderResults(result);
+            loaderSearchAuthorCreateBook.style.display = "none"
         } else {
             searchResultsCreateBook.style.display = "none";
         }
@@ -43,11 +49,23 @@ autorCreateBook.addEventListener("input", async (event) => {
     } catch (error) {
         console.log("Error al recibir autores: ", error);
     }
-})
+}
+
+const resetTypingTimer = () => {
+    clearTimeout(typingTimer); 
+    typingTimer = setTimeout(() => {
+        const value = autorCreateBook.value;
+        if (value) {
+            fetchAuthors(value); 
+        } else {
+            searchResultsCreateBook.style.display = "none";
+        }
+    }, typingInterval);
+};
 
 // Función para renderizar resultados en la búsqueda
 function renderResults(Books) {
-    searchResultsCreateBook.innerHTML = ""; // Limpiar resultados previos
+    searchResultsCreateBook.querySelectorAll("li").forEach(item => item.remove()); // Limpiar resultados previos
     if (Books.length === 0) {
         searchResultsCreateBook.style.display = "none";
         return;
@@ -158,7 +176,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 ${categoria.categoria} &nbsp&nbsp`;
                 fieldsetCategoria.appendChild(label);
             });
-            generalLoader.style.display = "none";
+            loaderCategoryCreateBook.style.display = "none";
         }
     } catch (error) {
         console.error("Error al cargar categorias:", error)

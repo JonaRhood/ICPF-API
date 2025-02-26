@@ -193,6 +193,10 @@ button:hover {
     margin-bottom: 0;
 }
 
+.searchContent {
+    position: relative;
+}
+
 .listAuthorUl {
     display: none;
     flex-direction: column;
@@ -200,6 +204,13 @@ button:hover {
     overflow-y: auto;
     background-color: white;
     border: 0.5px solid gray;
+    position: absolute;
+    width: 100%;
+    z-index: 50;
+}
+
+#tituloModBook {
+    width: 97%;
 }
 
 .autorPlus {

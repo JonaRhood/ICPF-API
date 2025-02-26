@@ -114,11 +114,26 @@
                         <label for="apellidosModAuthor">
                             Apellidos: <div style="display: inline; color: rgb(0, 119, 255);">(Buscar Autor)</div>
                         </label>
-                        <input type="text" id="apellidosModAuthor" placeholder="Buscar Autor por apellidos"
-                            name="apellidosModAuthor" required maxlength="100" autocomplete="off">
-                        <ul id="searchResultsModAuthor" class="listAuthorUl"
-                            style="list-style-type: none; padding: 0px;"></ul>
-
+                        <div class="searchContent">
+                            <input type="text" id="apellidosModAuthor" placeholder="Buscar Autor por apellidos"
+                                name="apellidosModAuthor" required maxlength="100" autocomplete="off">
+                            <ul id="searchResultsModAuthor" class="listAuthorUl"
+                                style="list-style-type: none; padding: 0px;">
+                                <div class="generalLoader loaderCategory" id="loaderSearchAuthorCreateBook">
+                                    <div class="loader">
+                                        <div class="cell d-0"></div>
+                                        <div class="cell d-1"></div>
+                                        <div class="cell d-2"></div>
+                                        <div class="cell d-1"></div>
+                                        <div class="cell d-2"></div>
+                                        <div class="cell d-2"></div>
+                                        <div class="cell d-3"></div>
+                                        <div class="cell d-3"></div>
+                                        <div class="cell d-4"></div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
                         <label for="imagenModAuthor">
                             Imagen: <div style="display: inline; color: gray;">(Vertical / Retrato)</div>
                         </label>
@@ -160,13 +175,29 @@
                                     Apellidos)
                                 </div>
                             </label>
-                            <div class="divInputButton">
-                                <input type="text" id="autorCreateBook" placeholder="Buscar Autor por apellidos"
-                                    name="autorCreateBook" maxlength="200" autocomplete="off">
-                                <button id="buttonPlusAuthorCreateBook" class="buttonPlus" tabindex="1">+</button>
+                            <div class="searchContent">
+                                <div class="divInputButton">
+                                    <input type="text" id="autorCreateBook" placeholder="Buscar Autor por apellidos"
+                                        name="autorCreateBook" maxlength="200" autocomplete="off">
+                                    <button id="buttonPlusAuthorCreateBook" class="buttonPlus" tabindex="1">+</button>
+                                </div>
+                                <ul id="searchResultsCreateBook" class="listAuthorUl"
+                                    style="list-style-type: none; padding: 0px;">
+                                    <div class="generalLoader loaderCategory" id="loaderSearchAuthorCreateBook">
+                                        <div class="loader">
+                                            <div class="cell d-0"></div>
+                                            <div class="cell d-1"></div>
+                                            <div class="cell d-2"></div>
+                                            <div class="cell d-1"></div>
+                                            <div class="cell d-2"></div>
+                                            <div class="cell d-2"></div>
+                                            <div class="cell d-3"></div>
+                                            <div class="cell d-3"></div>
+                                            <div class="cell d-4"></div>
+                                        </div>
+                                    </div>
+                                </ul>
                             </div>
-                            <ul id="searchResultsCreateBook" class="listAuthorUl"
-                                style="list-style-type: none; padding: 0px;"></ul>
 
                             <label for="paginasCreateBook" class="labelCreateAuthor">
                                 Nª de Páginas:
@@ -187,7 +218,7 @@
                                 name="precioCreateBook" required autocomplete="off">
                             <fieldset id="fieldsetCategoriaCreateBook" class="fieldsetCategoria">
                                 <legend class="labelCreateAuthor">Categoria/s:</legend>
-                                <div class="generalLoader loaderCategory">
+                                <div class="generalLoader loaderCategory" id="loaderCategoryCreateBook">
                                     <div class="loader">
                                         <div class="cell d-0"></div>
                                         <div class="cell d-1"></div>
@@ -235,23 +266,54 @@
                                     Título)
                                 </div>
                             </label>
-                            <input type="text" id="tituloModBook" name="tituloModBook" required maxlength="500"
-                                autocomplete="off" placeholder="Buscar Libro por Título">
-                            <ul id="searchResultsTitleModBook" class="listAuthorUl"
-                                style="list-style-type: none; padding: 0px;"></ul>
-
+                            <div class="searchContent">
+                                <input type="text" id="tituloModBook" name="tituloModBook" required maxlength="500"
+                                    autocomplete="off" placeholder="Buscar Libro por Título">
+                                <ul id="searchResultsTitleModBook" class="listAuthorUl"
+                                    style="list-style-type: none; padding: 0px;">
+                                    <div class="generalLoader loaderCategory" id="loaderSearchBookModBook" style="background-color: white;">
+                                        <div class="loader">
+                                            <div class="cell d-0"></div>
+                                            <div class="cell d-1"></div>
+                                            <div class="cell d-2"></div>
+                                            <div class="cell d-1"></div>
+                                            <div class="cell d-2"></div>
+                                            <div class="cell d-2"></div>
+                                            <div class="cell d-3"></div>
+                                            <div class="cell d-3"></div>
+                                            <div class="cell d-4"></div>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
                             <label for="autorModBook">
                                 Autor: <div style="display: inline; color: rgb(0, 119, 255);">(Buscar Autor por
                                     Apellidos)
                                 </div>
                             </label>
-                            <div class="divInputButton">
-                                <input type="text" id="autorModBook" placeholder="Buscar Autor por Apellidos"
-                                    name="autorModBook" maxlength="200" autocomplete="off" disabled>
-                                <button id="buttonPlusAuthorModBook" class="buttonPlus" tabindex="1">+</button>
+                            <div class="searchContent">
+                                <div class="divInputButton">
+                                    <input type="text" id="autorModBook" placeholder="Buscar Autor por Apellidos"
+                                        name="autorModBook" maxlength="200" autocomplete="off" disabled>
+                                    <button id="buttonPlusAuthorModBook" class="buttonPlus" tabindex="1">+</button>
+                                </div>
+                                <ul id="searchResultsModBook" class="listAuthorUl"
+                                    style="list-style-type: none; padding: 0px;">
+                                    <div class="generalLoader loaderCategory" id="loaderSearchAuthorModBook" style="background-color: white;">
+                                        <div class="loader">
+                                            <div class="cell d-0"></div>
+                                            <div class="cell d-1"></div>
+                                            <div class="cell d-2"></div>
+                                            <div class="cell d-1"></div>
+                                            <div class="cell d-2"></div>
+                                            <div class="cell d-2"></div>
+                                            <div class="cell d-3"></div>
+                                            <div class="cell d-3"></div>
+                                            <div class="cell d-4"></div>
+                                        </div>
+                                    </div>
+                                </ul>
                             </div>
-                            <ul id="searchResultsModBook" class="listAuthorUl"
-                                style="list-style-type: none; padding: 0px;"></ul>
                             <label for="paginasModBook">
                                 Nª de Páginas:
                             </label>
@@ -271,7 +333,7 @@
                                 required autocomplete="off" disabled>
                             <fieldset id="fieldsetCategoriaModBook" class="fieldsetCategoria">
                                 <legend>Categoria/s:</legend>
-                                <div class="generalLoader loaderCategory">
+                                <div class="generalLoader loaderCategory" id="loaderCategoryModBook">
                                     <div class="loader">
                                         <div class="cell d-0"></div>
                                         <div class="cell d-1"></div>

@@ -14,33 +14,50 @@ const imagenInput = document.querySelector("#imagenModAuthor");
 const imageVisualization = document.querySelector("#imageVisualization");
 const descripcionModAuthor = document.querySelector("#descripcionModAuthor");
 const searchResultsModAuthor = document.querySelector("#searchResultsModAuthor");
+const generalLoader = document.querySelector("#divModAuthor .generalLoader");
 
 // Lógica para la búsqueda de autores
+let typingTimer;
+const typingInterval = 500;
 apellidosModAuthor.addEventListener("input", async (event) => {
     event.preventDefault();
+    resetTypingTimer();
+})
 
-    const value = event.target.value;
-
+const fetchAutores = async (value) => {
     try {
+        searchResultsModAuthor.style.display = "flex";
+        generalLoader.style.display = "flex"
         const response = await fetch(`/autores/buscar?apellidos=${value}`);
         const result = await response.json();
         if (response.ok) {
-            searchResultsModAuthor.style.display = "flex"
             renderResults(result);
+            generalLoader.style.display = "none"
         } else {
             searchResultsModAuthor.style.display = "none";
         }
-
     } catch (error) {
         console.log("Error al recibir autores: ", error);
     }
-})
+};
+
+const resetTypingTimer = () => {
+    clearTimeout(typingTimer); // Limpiar el temporizador anterior
+    typingTimer = setTimeout(() => {
+        const value = apellidosModAuthor.value;
+        if (value) {
+            fetchAutores(value); // Ejecutar la búsqueda solo si hay valor
+        } else {
+            searchResultsModAuthor.style.display = "none";
+        }
+    }, typingInterval); // Establecer el temporizador para 2 segundos
+};
 
 // Función para renderizar resultados en la búsqueda
 let authorId = null;
 
 function renderResults(authors) {
-    searchResultsModAuthor.innerHTML = ""; // Limpiar resultados previos
+    searchResultsModAuthor.querySelectorAll("li").forEach(item => item.remove());
     if (authors.length === 0) {
         searchResultsModAuthor.style.display = "none";
         return;

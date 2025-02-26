@@ -22,22 +22,29 @@ const descripcionModBook = document.querySelector("#descripcionModBook");
 const searchResultsTitleModBook = document.querySelector("#searchResultsTitleModBook");
 const searchResultsModBook = document.querySelector("#searchResultsModBook");
 const buttonPlusAuthorModBook = document.querySelector("#buttonPlusAuthorModBook");
-const generalLoader = document.querySelector("#divModBook .generalLoader");
+const loaderCategoryModBook = document.querySelector("#loaderCategoryModBook");
+const loaderSearchBookModBook = document.querySelector("#loaderSearchBookModBook");
+const loaderSearchAuthorModBook = document.querySelector("#loaderSearchAuthorModBook");
 
 let listAuthors = [];
 
 // Lógica para la búsqueda de libros
+let typingTimer;
+const typingInterval = 500;
 tituloModBook.addEventListener("input", async (event) => {
     event.preventDefault();
+    resetTypingTimerBooks();
+})
 
-    const value = event.target.value;
-
+const fetchBooks = async (value) => {
     try {
+        searchResultsTitleModBook.style.display = "flex"
+        loaderSearchBookModBook.style.display = "flex"
         const response = await fetch(`/libros/buscar?titulo=${value}`);
         const result = await response.json();
         if (response.ok) {
-            searchResultsTitleModBook.style.display = "flex"
             renderBookResults(result);
+            loaderSearchBookModBook.style.display = "none"
         } else {
             searchResultsTitleModBook.style.display = "none";
         }
@@ -45,24 +52,39 @@ tituloModBook.addEventListener("input", async (event) => {
     } catch (error) {
         console.log("Error al recibir autores: ", error);
     }
-})
+}
 
-// Lógica para eliminar cualquier value del autor input
+const resetTypingTimerBooks = () => {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+        const value = tituloModBook.value;
+        if (value) {
+            fetchBooks(value);
+        } else {
+            searchResultsTitleModBook.style.display = "none";
+        }
+    }, typingInterval);
+};
+
+// Lógica para eliminar cualquier value del autor y del book input
 autorModBook.addEventListener("click", () => autorModBook.value = "");
+tituloModBook.addEventListener("click", () => tituloModBook.value = "");
 
 // Lógica para la búsqueda de autores
 autorModBook.addEventListener("input", async (event) => {
     event.preventDefault();
+    resetTypingTimerAuthors()
+})
 
-
-    const value = event.target.value;
-
+const fetchAuthors = async (value) => {
     try {
+        searchResultsModBook.style.display = "flex"
+        loaderSearchAuthorModBook.style.display = "flex"
         const response = await fetch(`/autores/buscar?apellidos=${value}`);
         const result = await response.json();
         if (response.ok) {
-            searchResultsModBook.style.display = "flex"
             renderAuthorResults(result);
+            loaderSearchAuthorModBook.style.display = "none"
         } else {
             searchResultsModBook.style.display = "none";
         }
@@ -70,11 +92,24 @@ autorModBook.addEventListener("input", async (event) => {
     } catch (error) {
         console.log("Error al recibir autores: ", error);
     }
-})
+}
+
+
+const resetTypingTimerAuthors = () => {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+        const value = autorModBook.value;
+        if (value) {
+            fetchAuthors(value);
+        } else {
+            searchResultsModBook.style.display = "none";
+        }
+    }, typingInterval);
+};
 
 // Función para renderizar resultados en la búsqueda
 function renderBookResults(Books) {
-    searchResultsTitleModBook.innerHTML = ""; // Limpiar resultados previos
+    searchResultsTitleModBook.querySelectorAll("li").forEach(item => item.remove()); // Limpiar resultados previos
     if (Books.length === 0) {
         searchResultsTitleModBook.style.display = "none";
         return;
@@ -222,7 +257,7 @@ function renderBookResults(Books) {
 
 // Función para renderizar resultados en la búsqueda
 function renderAuthorResults(Books) {
-    searchResultsModBook.innerHTML = ""; // Limpiar resultados previos
+    searchResultsModBook.querySelectorAll("li").forEach(item => item.remove()); // Limpiar resultados previos
     if (Books.length === 0) {
         searchResultsModBook.style.display = "none";
         return;
@@ -337,7 +372,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 ${categoria.categoria} &nbsp&nbsp`;
                 fieldsetCategoria.appendChild(label);
             });
-            generalLoader.style.display = "none";
+            loaderCategoryModBook.style.display = "none";
         }
     } catch (error) {
         console.error("Error al cargar categorias:", error)
