@@ -15,14 +15,16 @@ const ctxMonth = document.querySelector('#myChart');
 const yearlyStadsYear = document.querySelector("#yearlyStadsYear");
 const yearlyTotal = document.querySelector("#yearlyTotal")
 const tableStadsBooks = document.querySelector("#tableStadsBooks")
+const stadsLoadingDiv = document.querySelector("#stadsLoadingDiv");
 
 // Lógica para mostrar el módulo de estadísticas
-stadsButton.addEventListener("click", (e) => {
+stadsButton.addEventListener("click", async (e) => {
     e.preventDefault();
-    stadsOrdersInitializer();
-    stadsBooksInitializer();
     modals.style.display = "flex";
     modalStads.style.display = "flex";
+    await stadsOrdersInitializer();
+    await stadsBooksInitializer();
+    stadsLoadingDiv.style.display = "none";
 });
 
 // Lógica para cerrar el módulo de estadísticas 
@@ -32,6 +34,7 @@ buttonStadsX.addEventListener("click", (e) => {
     modalStads.style.display = "none";
     Chart.getChart('myChart').destroy();
     tableStadsBooks.querySelectorAll("tr").forEach(tr => tr.remove());
+    stadsLoadingDiv.style.display = "flex";
 });
 
 

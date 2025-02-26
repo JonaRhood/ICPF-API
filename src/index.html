@@ -307,9 +307,18 @@
                 <button id="submitVentas">Vender</button>
             </div>
         </div>
-        
+
         <!-- Modal de estadísticas -->
         <div id="modalStads" style="display: none;">
+            <div id="stadsLoadingDiv">
+                <div class="loading-wave">
+                    <div class="loading-bar"></div>
+                    <div class="loading-bar"></div>
+                    <div class="loading-bar"></div>
+                    <div class="loading-bar"></div>
+                </div>
+                <div id="stadsLoadingText"><span>Cargando...</span></div>
+            </div>
             <div class="xButton" id="divButtonStadsX">
                 <h2>Tabla de Estadísticas</h2>
                 <button id="buttonStadsX">X</button>
@@ -318,7 +327,8 @@
                 <div id="divCanvasStads">
                     <h3>Estadísticas de Ventas</h3>
                     <canvas id="myChart"></canvas>
-                    <div id="yearlyIncome">Total Anual (<span id="yearlyStadsYear"></span>): <strong><span id="yearlyTotal"></span> €</strong></div>
+                    <div id="yearlyIncome">Total Anual (<span id="yearlyStadsYear"></span>): <strong><span
+                                id="yearlyTotal"></span> €</strong></div>
                 </div>
                 <div id="divBookStads">
                     <h3>Estadísticas de Libros</h3>
