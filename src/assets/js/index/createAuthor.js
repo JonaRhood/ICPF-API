@@ -30,6 +30,8 @@ imagenInput.addEventListener("change", (event) => {
 
 // Lógica para el envio de datos al Servidor API
 formCreateAuthor.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
     const formData = new FormData();
 
     const nombre = document.querySelector("#nombreCreateAuthor").value;
@@ -37,7 +39,7 @@ formCreateAuthor.addEventListener("submit", async (event) => {
     const imagen = document.querySelector("#imagenCreateAuthor").files[0];
     const descripcion = document.querySelector("#descripcionCreateAuthor").value;
 
-    event.preventDefault();
+    document.body.style.cursor = 'wait';
 
     formData.append("nombre", nombre);
     formData.append("apellidos", apellidos);
@@ -57,6 +59,7 @@ formCreateAuthor.addEventListener("submit", async (event) => {
             imagenButton.innerHTML = "Seleccionar Imagen";
             imagenButton.style.backgroundColor = "#eaeaea";
             formCreateAuthor.reset();
+            document.body.style.cursor = 'default';
             setTimeout(() => {
                 messageCreateAuthor.textContent = "";
             }, 3000);
