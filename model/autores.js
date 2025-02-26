@@ -10,6 +10,7 @@
 const pool = require('./database.js');
 const fs = require('fs');
 const path = require('path');
+require("dotenv").config()
 
 const get = () => pool.query(`
     SELECT
@@ -69,7 +70,7 @@ const create = async (body, imageName) => {
     try {
         const result = await pool.query(
             `INSERT INTO autores (nombre, apellidos, imagen, descripcion) VALUES ($1, $2, $3, $4) RETURNING *`,
-            [ body.nombre, body.apellidos, `http://localhost:8000/imagenes/autores/${imageName}`, body.descripcion ]
+            [ body.nombre, body.apellidos, `${process.env.COMPLETE_URL}/imagenes/autores/${imageName}`, body.descripcion ]
         );
         return result
     } catch(err) {
@@ -116,7 +117,7 @@ const updateImage = async (id, imageName) => {
         // Subida de la nueva Imagen
         const result = await pool.query(
             `UPDATE autores SET imagen = $1 WHERE id = $2 RETURNING *`,
-            [ `http://localhost:8000/imagenes/autores/${imageName}`, id ]
+            [ `${process.env.COMPLETE_URL}/imagenes/autores/${imageName}`, id ]
         );
 
         return result
