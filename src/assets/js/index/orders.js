@@ -4,6 +4,9 @@
  * 
  */
 
+// imports
+import { updateTable } from "./db.js";
+
 // Asignaciones del DOM
 const ventaButton = document.querySelector("#ventaButton");
 const modals = document.querySelector("#modals")
@@ -14,6 +17,7 @@ const searchResultsVentas = document.querySelector("#searchResultsVentas");
 const tableBodyVentas = document.querySelector("#tableBodyVentas");
 const ventasTotal = document.querySelector("#ventasTotal");
 const submitVentas = document.querySelector("#submitVentas");
+const loaderSearchVentas = document.querySelector("#loaderSearchVentas");
 
 // Lógica para las ventas
 ventaButton.addEventListener("click", (e) => {
@@ -29,17 +33,22 @@ buttonVentasX.addEventListener("click", (e) => {
 })
 
 // Lógica para la búsqueda de libros
+let typingTimer;
+const typingInterval = 500;
 tituloVentas.addEventListener("input", async (event) => {
     event.preventDefault();
+    resetTypingTimer();
+})
 
-    const value = event.target.value;
-
+const fetchBooks = async (value) => {
     try {
+        searchResultsVentas.style.display = "flex"
+        loaderSearchVentas.style.display = "flex"
         const response = await fetch(`/libros/buscar?titulo=${value}`);
         const result = await response.json();
         if (response.ok) {
-            searchResultsVentas.style.display = "flex"
             renderBookResults(result);
+            loaderSearchVentas.style.display = "none"
         } else {
             searchResultsVentas.style.display = "none";
         }
@@ -47,11 +56,23 @@ tituloVentas.addEventListener("input", async (event) => {
     } catch (error) {
         console.log("Error al recibir autores: ", error);
     }
-})
+}
+
+const resetTypingTimer = () => {
+    clearTimeout(typingTimer); // Limpiar el temporizador anterior
+    typingTimer = setTimeout(() => {
+        const value = tituloVentas.value;
+        if (value) {
+            fetchBooks(value); // Ejecutar la búsqueda solo si hay valor
+        } else {
+            searchResultsVentas.style.display = "none";
+        }
+    }, typingInterval); // Establecer el temporizador para 2 segundos
+};
 
 // Función para renderizar resultados en la búsqueda
 function renderBookResults(Books) {
-    searchResultsVentas.innerHTML = ""; // Limpiar resultados previos
+    searchResultsVentas.querySelectorAll("li").forEach(item => item.remove()); // Limpiar resultados previos
     if (Books.length === 0) {
         searchResultsVentas.style.display = "none";
         return;
@@ -267,6 +288,7 @@ submitVentas.addEventListener("click", async (e) => {
         });        
         tituloVentas.value = ""
         updateTotal()
+        updateTable()
         
     } catch(error) {
         console.error("Error al hacer la venta: ", error);

@@ -423,7 +423,7 @@ button:hover {
 
 /* Modal Venta */
 #modals {
-    z-index: 15;
+    z-index: 100;
     display: flex;
     width: 100%;
     height: 100vh;
@@ -442,7 +442,7 @@ button:hover {
     height: 60vh;
     top: 15%;
     left: 25%;
-    z-index: 20;
+    z-index: 150;
 }
 
 #divBuscarVentas {
@@ -551,7 +551,7 @@ button:hover {
     height: 60vh;
     top: 15%;
     left: 25%;
-    z-index: 20;
+    z-index: 150;
 }
 
 #buttonStadsX {
@@ -746,4 +746,12 @@ button:hover {
 .loaderCategory {
     top: 0;
     height: 100%;
+}
+
+#loaderSearchVentas {
+    width: 100% !important;
+}
+
+#loaderSearchVentas .loader {
+    width: 40px
 }

@@ -14,7 +14,7 @@ const imagenInput = document.querySelector("#imagenModAuthor");
 const imageVisualization = document.querySelector("#imageVisualization");
 const descripcionModAuthor = document.querySelector("#descripcionModAuthor");
 const searchResultsModAuthor = document.querySelector("#searchResultsModAuthor");
-const generalLoader = document.querySelector("#divModAuthor .generalLoader");
+const generalLoader = document.querySelector("#loaderSearchAuthorModAuthor");
 
 // Lógica para la búsqueda de autores
 let typingTimer;

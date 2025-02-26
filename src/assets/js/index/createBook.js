@@ -3,7 +3,7 @@
 /**
  * Crear Libro
  */
-
+// Imports
 import { updateTable } from "./db.js";
 
 const formCreateBook = document.querySelector("#formCreateBook");
@@ -40,8 +40,8 @@ const fetchAuthors = async (value) => {
         const response = await fetch(`/autores/buscar?apellidos=${value}`);
         const result = await response.json();
         if (response.ok) {
-            renderResults(result);
             loaderSearchAuthorCreateBook.style.display = "none"
+            renderResults(result);
         } else {
             searchResultsCreateBook.style.display = "none";
         }

@@ -74,11 +74,13 @@ const deleteTable = () => {
 // Función para actualizar los resultados de la tabla
 const updateTable = async () => {
     try {
+        generalLoader.style.display = "flex"
         const response = await fetch(`/libros`);
         const result = await response.json()
         if (response.ok) {
             deleteTable();
             createTable(result);
+            generalLoader.style.display = "none"
         }
     } catch (error) {
         console.log("Error al recibir los datos para la Base de Datos: ", error);
