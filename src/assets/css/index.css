@@ -32,7 +32,6 @@ body {
     overflow: hidden;
     overflow-y: auto;
     background-color: rgba(255, 243, 234, 0.5);
-    padding: 20px;
 }
 
 #divAuthor {
@@ -761,6 +760,7 @@ button:hover {
 
 #secondDivClient {
     position: relative;
+    padding: 20px;
 }
 
 .generalLoader {
