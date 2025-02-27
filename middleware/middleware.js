@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { body } = require('express-validator');
 
 const isAuthenticated = (req, res, next) => {
     console.log('Is authenticated:', req.isAuthenticated()); 
@@ -20,7 +21,32 @@ const librarySuperUserAuthenticated = (req, res, next) => {
     }
 }
 
+// Función para validar los campos
+const validateForm = () => [
+    body('fieldname')
+        .custom((value) => {
+            if (typeof value === 'string') {
+                return true;
+            } else if (typeof value === 'number') {
+                return true;
+            } else {
+                throw new Error('El nombre del campo debe ser una cadena o un número.');
+            }
+        }),
+    body('value')
+        .custom((value) => {
+            if (typeof value === 'string') {
+                return true;
+            } else if (typeof value === 'number') {
+                return true;
+            } else {
+                throw new Error('El valor debe ser una cadena o un número.');
+            }
+        }),
+];
+
 module.exports = {
     isAuthenticated,
-    librarySuperUserAuthenticated
+    librarySuperUserAuthenticated,
+    validateForm,
 };

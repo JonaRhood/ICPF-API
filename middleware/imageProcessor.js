@@ -24,7 +24,7 @@ const imageProcessor = (category) => async (req, res, next) => {
     req.body = {};
     let fileProcessed = false;
 
-    bb.on("file", (fieldname, file, filename) => {
+    bb.on("file", (fieldname, file) => {
         const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}.webp`;
         const bucket = "icpf-imagenes"; // Nombre del bucket en Supabase
         const folder = category === "autores" ? "autores" : "libros";
@@ -37,7 +37,7 @@ const imageProcessor = (category) => async (req, res, next) => {
             try {
                 const buffer = await sharp(Buffer.concat(chunks)).webp().toBuffer();
 
-                const { data, error } = await supabase.storage
+                const { error } = await supabase.storage
                     .from(bucket)
                     .upload(filePath, buffer, {
                         contentType: "image/webp",
@@ -100,7 +100,7 @@ const deleteImageFromSupabase = async (imageUrl) => {
         console.log('Ruta extraída del archivo:', imagePath);
     
         // Intentar eliminar el archivo directamente
-        const { data, error } = await supabase
+        const { error } = await supabase
           .storage
           .from('icpf-imagenes')
           .remove([imagePath]);

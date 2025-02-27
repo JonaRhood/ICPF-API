@@ -11,7 +11,8 @@ module.exports = [
       globals: {
         ...globals.browser, // Si necesitas variables globales de navegador, las puedes mantener
         process: "readonly", // Permite la variable global 'process' de Node.js
-        __dirname: "readonly", // Permite la variable global '__dirname' de Node.js
+        __dirname: "readonly",
+        Buffer: "readonly", // Permite la variable global '__dirname' de Node.js
       },
     },
   },
