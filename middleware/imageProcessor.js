@@ -7,61 +7,73 @@
 
 "use strict";
 
-const path = require('path');
-const sharp = require('sharp');
-const fs = require('fs');
-const busboy = require('busboy');
+// Imports
+const sharp = require("sharp");
+const { createClient } = require("@supabase/supabase-js");
+const busboy = require("busboy");
 
-const imageProcessor = (category) => (req, res, next) => {
+// Configuración de Supabase
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ROLE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// El procesador de Imagenes transforma y comprime los archivos a .webp y los guarda en Supabase
+const imageProcessor = (category) => async (req, res, next) => {
     const bb = busboy({ headers: req.headers });
 
     req.body = {};
-    let fileProcessed = false; 
+    let fileProcessed = false;
 
-    bb.on('file', (fieldname, file) => {
-        const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
-        const webpFilePath = path.join(__dirname, '..', 'public', 'imagenes', category === 'autores' ? 'autores' : 'libros', uniqueName + '.webp');
+    bb.on("file", (fieldname, file, filename) => {
+        const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}.webp`;
+        const bucket = "icpf-imagenes"; // Nombre del bucket en Supabase
+        const folder = category === "autores" ? "autores" : "libros";
+        const filePath = `${folder}/${uniqueName}`;
 
-        const transformStream = sharp().webp();
+        const chunks = [];
+        file.on("data", (chunk) => chunks.push(chunk));
 
-        file.pipe(transformStream)
-            .pipe(fs.createWriteStream(webpFilePath))
-            .on('finish', () => {
-                console.log('Archivo WebP guardado:', webpFilePath);
+        file.on("end", async () => {
+            try {
+                const buffer = await sharp(Buffer.concat(chunks)).webp().toBuffer();
+
+                const { data, error } = await supabase.storage
+                    .from(bucket)
+                    .upload(filePath, buffer, {
+                        contentType: "image/webp",
+                    });
+
+                if (error) throw error;
+
+                // Obtener la URL pública
+                const { data: publicUrl } = supabase.storage.from(bucket).getPublicUrl(filePath);
+
                 req.file = {
-                    path: webpFilePath.replace(path.join(__dirname, '..', 'public'), ''),
-                    filename: uniqueName + '.webp',
-                    fieldname: fieldname
+                    url: publicUrl.publicUrl,
+                    filename: uniqueName,
+                    fieldname,
                 };
+
                 fileProcessed = true;
                 checkIfFinished();
-            })
-            .on('error', (err) => {
-                console.error('Error en la conversión:', err);
-                if (fs.existsSync(webpFilePath)) {
-                    fs.unlinkSync(webpFilePath);
-                }
+            } catch (err) {
+                console.error("Error al subir a Supabase:", err);
                 next(err);
-            });
-
-        file.on('limit', () => {
-            const err = new Error('Tamaño del archivo excedido.');
-            err.status = 413;
-            next(err);
+            }
         });
     });
 
-    bb.on('field', (fieldname, value) => {
+    bb.on("field", (fieldname, value) => {
         req.body[fieldname] = value;
     });
 
-    bb.on('finish', () => {
-        console.log('Subida de archivo completada.');
+    bb.on("finish", () => {
+        console.log("Subida de archivo completada.");
         checkIfFinished();
     });
 
-    bb.on('error', (err) => {
-        console.error('Error en la subida:', err);
+    bb.on("error", (err) => {
+        console.error("Error en la subida:", err);
         next(err);
     });
 
@@ -69,11 +81,42 @@ const imageProcessor = (category) => (req, res, next) => {
 
     function checkIfFinished() {
         if (fileProcessed) {
-            next(); 
+            next();
         }
     }
 };
 
+// Función para eliminar imagen de Supabase
+const deleteImageFromSupabase = async (imageUrl) => {
+    try {
+        // Extraer la ruta relativa del archivo desde la URL
+        const imagePath = imageUrl.split('supabase.co/storage/v1/object/public/icpf-imagenes/')[1];
+    
+        if (!imagePath) {
+            console.log('No se pudo extraer el path del archivo desde la URL:', imageUrl);
+            return;
+        }
+    
+        console.log('Ruta extraída del archivo:', imagePath);
+    
+        // Intentar eliminar el archivo directamente
+        const { data, error } = await supabase
+          .storage
+          .from('icpf-imagenes')
+          .remove([imagePath]);
+    
+        if (error) {
+            console.error('Error al eliminar la imagen:', error.message);
+            throw error;
+        } else {
+            console.log('Imagen eliminada correctamente:', imagePath);
+        }
+    } catch (err) {
+        console.error('Error en la eliminación de la imagen:', err);
+    }
+};
+
 module.exports = {
-    imageProcessor
+    imageProcessor,
+    deleteImageFromSupabase,
 };

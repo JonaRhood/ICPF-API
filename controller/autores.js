@@ -77,7 +77,7 @@ exports.updateAuthor = async (req, res) => {
 }
 
 exports.updateAuthorImage = async (req, res) => {
-    const imageName = req.file.filename;
+    const imageUrl = req.file.url;
     const id = req.params.id
 
     if (!req.file) {
@@ -85,7 +85,7 @@ exports.updateAuthorImage = async (req, res) => {
     }
 
     try {
-        const task = await updateImage(id, imageName);
+        const task = await updateImage(id, imageUrl);
         return res.json(task.rows)
     } catch (err) {
         return res.status(400).json({ error: err.detail });

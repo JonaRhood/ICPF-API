@@ -8,9 +8,8 @@
 "use strict";
 
 const pool = require('./database.js');
-const fs = require('fs');
-const path = require('path');
 require("dotenv").config()
+const { deleteImageFromSupabase } = require("../middleware/imageProcessor.js");
 
 const get = () => pool.query(`
     SELECT
@@ -70,10 +69,10 @@ const create = async (body, imageName) => {
     try {
         const result = await pool.query(
             `INSERT INTO autores (nombre, apellidos, imagen, descripcion) VALUES ($1, $2, $3, $4) RETURNING *`,
-            [ body.nombre, body.apellidos, `${process.env.COMPLETE_URL}/imagenes/autores/${imageName}`, body.descripcion ]
+            [body.nombre, body.apellidos, `${process.env.COMPLETE_URL}/imagenes/autores/${imageName}`, body.descripcion]
         );
         return result
-    } catch(err) {
+    } catch (err) {
         console.error("Error al insertar autor:", err);
         throw err;
     }
@@ -83,7 +82,7 @@ const update = async (id, body) => {
     try {
         const result = await pool.query(
             `UPDATE autores SET nombre = $1, apellidos = $2, descripcion = $3 WHERE id = $4 RETURNING *`,
-            [ body.nombre, body.apellidos, body.descripcion, id ]
+            [body.nombre, body.apellidos, body.descripcion, id]
         );
 
         return result
@@ -93,31 +92,19 @@ const update = async (id, body) => {
     }
 };
 
-const updateImage = async (id, imageName) => {
+const updateImage = async (id, imageUrl) => {
     try {
-        // Borrado de la antigua Imagen
-        const oldImageQuery = await pool.query(`SELECT imagen FROM autores WHERE id = $1`, [id]);
-        if (oldImageQuery.rows.length > 0) {
-             // Obtiene la URL de la imagen antigua
-            const oldImagePath = oldImageQuery.rows[0].imagen;
+        const { rows } = await pool.query(`SELECT imagen FROM autores WHERE id = $1`, [id]);
+        const oldImageUrl = rows[0]?.imagen;
 
-            // Extrae el path de la imagen antigua de la URL
-            const oldFileName = path.basename(oldImagePath);
-            const filePath = path.join(__dirname, '..', 'public', 'imagenes', 'autores', oldFileName);
-            console.log(filePath);
-
-            // Elimina imagen antigua
-             if (fs.existsSync(filePath)) {
-                fs.unlinkSync(filePath);
-            } else {
-                console.error("Error al eliminar Imagen")
-            }
+        if (oldImageUrl) {
+            await deleteImageFromSupabase(oldImageUrl);
         }
 
         // Subida de la nueva Imagen
         const result = await pool.query(
             `UPDATE autores SET imagen = $1 WHERE id = $2 RETURNING *`,
-            [ `${process.env.COMPLETE_URL}/imagenes/autores/${imageName}`, id ]
+            [imageUrl, id]
         );
 
         return result
@@ -131,7 +118,7 @@ const remove = async (id) => {
     try {
         const result = await pool.query(`DELETE FROM autores WHERE id = $1`, [id]);
         return result;
-    } catch(err) {
+    } catch (err) {
         console.log(err);
         throw err;
     }

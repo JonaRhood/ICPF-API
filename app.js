@@ -63,7 +63,7 @@ app.use(passport.session());
 
 // Middleware CORS para protección Cross-Origin Resource Sharing
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://aws-0-eu-west-3.pooler.supabase.com:6543', 'https://icpf-api-production.up.railway.app'],
+    origin: ['http://localhost:3000', 'https://aws-0-eu-west-3.pooler.supabase.com:6543', 'https://icpf-api-production.up.railway.app', 'https://iguiskudllwluojaxepj.supabase.co/'],
     credentials: true,
 }));
 
@@ -71,8 +71,10 @@ app.use(cors({
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
-            scriptSrc: ["'self'", "https://cdn.jsdelivr.net", 'https://aws-0-eu-west-3.pooler.supabase.com:6543', 'https://icpf-api-production.up.railway.app'],
-        }
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "https://cdn.jsdelivr.net", "https://aws-0-eu-west-3.pooler.supabase.com:6543", "https://icpf-api-production.up.railway.app"],
+            imgSrc: ["'self'", "data:", "https://iguiskudllwluojaxepj.supabase.co"],
+        },
     })
 );
 

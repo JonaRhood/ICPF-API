@@ -6,8 +6,7 @@
  */
 
 const pool = require('./database.js');
-const fs = require('fs');
-const path = require('path');
+const { deleteImageFromSupabase } = require("../middleware/imageProcessor.js");
 require("dotenv").config()
 
 // GET libros
@@ -164,31 +163,20 @@ const updateCantidad = async (libroId, cantidad) => {
 } 
 
 // PUT imagen de un libro
-const updateImage = async (id, imageName) => {
+const updateImage = async (id, imageUrl) => {
     try {
         // Borrado de la antigua Imagen
-        const oldImageQuery = await pool.query(`SELECT imagen FROM libros WHERE id = $1`, [id]);
-        if (oldImageQuery.rows.length > 0) {
-            // Obtiene la URL de la imagen antigua
-            const oldImagePath = oldImageQuery.rows[0].imagen;
+        const { rows } = await pool.query(`SELECT imagen FROM libros WHERE id = $1`, [id]);
+        const oldImageUrl = rows[0]?.imagen;
 
-            // Extrae el path de la imagen antigua de la URL
-            const oldFileName = path.basename(oldImagePath);
-            const filePath = path.join(__dirname, '..', 'public', 'imagenes', 'libros', oldFileName);
-            console.log(filePath);
-
-            // Elimina imagen antigua
-            if (fs.existsSync(filePath)) {
-                fs.unlinkSync(filePath);
-            } else {
-                console.error("Error al eliminar imagen")
-            }
+        if (oldImageUrl) {
+            await deleteImageFromSupabase(oldImageUrl);
         }
 
         // Subida de la nueva Imagen
         const result = await pool.query(
             `UPDATE libros SET imagen = $1 WHERE id = $2 RETURNING *`,
-            [`${process.env.COMPLETE_URL}/imagenes/libros/${imageName}`, id]
+            [ imageUrl, id]
         );
 
         return result
