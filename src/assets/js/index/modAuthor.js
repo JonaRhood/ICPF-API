@@ -161,7 +161,11 @@ imagenInput.addEventListener("change", (event) => {
     if (file) {
         imagenButton.textContent = "Archivo subido: " + file.name;
         imagenButton.style.backgroundColor = "#C8E1CD";
-        imageVisualization.src = "";
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imageVisualization.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
         imageChanged = true;
     } else {
         imagenButton.innerHTML = "Seleccionar Imagen";

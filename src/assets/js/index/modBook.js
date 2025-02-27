@@ -97,7 +97,6 @@ const fetchAuthors = async (value) => {
     }
 }
 
-
 const resetTypingTimerAuthors = () => {
     clearTimeout(typingTimer);
     typingTimer = setTimeout(() => {
@@ -396,7 +395,12 @@ imagenInput.addEventListener("change", (event) => {
     if (file) {
         imagenButton.textContent = "Archivo subido: " + file.name;
         imagenButton.style.backgroundColor = "#C8E1CD";
-        imageVisualizationModBook.src = "";
+        // Cuando la imagen se haya cargado, actualizar la visualización
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imageVisualizationModBook.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
         imageChanged = true;
     } else {
         imagenButton.innerHTML = "Seleccionar Imagen";

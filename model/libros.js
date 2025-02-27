@@ -120,11 +120,11 @@ const getByColumn = (column, type) => pool.query(
 )
 
 // POST libro
-const create = async (body, imageName) => {
+const create = async (body, imageUrl) => {
     try {
         const result = await pool.query(
             `INSERT INTO libros (titulo, descripcion, precio, cantidad, paginas, imagen) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-            [body.titulo, body.descripcion, body.precio, body.cantidad, body.paginas, `${process.env.COMPLETE_URL}/imagenes/libros/${imageName}`]
+            [body.titulo, body.descripcion, body.precio, body.cantidad, body.paginas, imageUrl]
         );
         return result
     } catch (error) {
@@ -176,7 +176,7 @@ const updateImage = async (id, imageUrl) => {
         // Subida de la nueva Imagen
         const result = await pool.query(
             `UPDATE libros SET imagen = $1 WHERE id = $2 RETURNING *`,
-            [ imageUrl, id]
+            [ imageUrl, id ]
         );
 
         return result

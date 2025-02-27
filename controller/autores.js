@@ -51,14 +51,14 @@ exports.readByName = async (req, res) => {
 }
 
 exports.createAuthor = async (req, res) => {
-    const imageName = req.file.filename;
+    const imageUrl = req.file.url;
 
     if (!req.file) {
         return res.status(400).json({ success: false, error: 'No se ha enviado ninguna imagen' });
     }
 
     try {
-        const task = await create(req.body, imageName);
+        const task = await create(req.body, imageUrl);
         return res.status(201).json(task.rows)
     } catch (err) {
         return res.status(400).json({ error: err.detail });

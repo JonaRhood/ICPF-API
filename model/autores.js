@@ -65,11 +65,11 @@ const getByName = (apellidos) => pool.query(
     [`%${apellidos}%`]
 );
 
-const create = async (body, imageName) => {
+const create = async (body, imageUrl) => {
     try {
         const result = await pool.query(
             `INSERT INTO autores (nombre, apellidos, imagen, descripcion) VALUES ($1, $2, $3, $4) RETURNING *`,
-            [body.nombre, body.apellidos, `${process.env.COMPLETE_URL}/imagenes/autores/${imageName}`, body.descripcion]
+            [body.nombre, body.apellidos, imageUrl, body.descripcion]
         );
         return result
     } catch (err) {
