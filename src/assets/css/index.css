@@ -112,7 +112,7 @@ label {
     margin-bottom: 3px;
 }
 
-.labelCreateAuthor::after {
+.labelCreateAuthor:not(.no-asterisk)::after {
     content: "*";
     font-size: 0.9rem;
     color: rgb(177, 5, 5);
