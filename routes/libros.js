@@ -10,6 +10,7 @@
  */
 const express = require('express');
 const { imageProcessor } = require("../middleware/imageProcessor.js")
+const { librarySuperUserAuthenticatedAPI } = require("../middleware/middleware.js");
 const { 
     read, readById, readByName, readByColumn,
     createBook, updateBook, updateByQuantity, 
@@ -27,16 +28,16 @@ router.get('/', read);
 router.get('/buscar', readByName);
 router.get('/columna', readByColumn);
 router.get('/:id', readById);
-router.post('/', imageProcessor('libros'), createBook);
-router.post('/autor', addAuthor);
-router.post('/categoria', addCategory);
-router.put('/autor', updateNewAuthor);
-router.put('/categoria', updateNewCategory);
-router.put('/cantidad', updateByQuantity);
-router.put('/:id/imagen', imageProcessor('libros'), updateBookImage);
-router.put('/:id', updateBook);
-router.delete('/autor', removeAuthorsFromBook);
-router.delete('/categoria', removeCategoriesFromBook);
-router.delete('/:id', deleteBookById)
+router.post('/', librarySuperUserAuthenticatedAPI, imageProcessor('libros'), createBook);
+router.post('/autor', librarySuperUserAuthenticatedAPI, addAuthor);
+router.post('/categoria', librarySuperUserAuthenticatedAPI, addCategory);
+router.put('/autor', librarySuperUserAuthenticatedAPI, updateNewAuthor);
+router.put('/categoria', librarySuperUserAuthenticatedAPI, updateNewCategory);
+router.put('/cantidad', librarySuperUserAuthenticatedAPI, updateByQuantity);
+router.put('/:id/imagen', librarySuperUserAuthenticatedAPI, imageProcessor('libros'), updateBookImage);
+router.put('/:id', librarySuperUserAuthenticatedAPI, updateBook);
+router.delete('/autor', librarySuperUserAuthenticatedAPI, removeAuthorsFromBook);
+router.delete('/categoria', librarySuperUserAuthenticatedAPI, removeCategoriesFromBook);
+router.delete('/:id', librarySuperUserAuthenticatedAPI, deleteBookById)
 
 module.exports = router;

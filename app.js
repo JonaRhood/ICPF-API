@@ -191,11 +191,3 @@ app.get('/health', (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor escuchando en ${process.env.URL}${port}`);
 });
-
-/**
- * TASKS
- */
-
-// TODO Instalar libreria express-validator o validatorjs para prevenir SQL injections
-// TODO Habilitar seguridad en producción
-// TODO ESlint

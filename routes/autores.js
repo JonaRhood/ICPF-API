@@ -12,6 +12,7 @@
  */
 const express = require('express');
 const { imageProcessor } = require('../middleware/imageProcessor.js');
+const { librarySuperUserAuthenticatedAPI } = require("../middleware/middleware.js");
 const { 
     read, readById, readByName, createAuthor, 
     updateAuthor, updateAuthorImage, deleteAuthorById 
@@ -25,9 +26,9 @@ const router = express.Router()
 router.get('/', read);
 router.get('/buscar', readByName);
 router.get('/:id', readById);
-router.post('/', imageProcessor('autores'), createAuthor);
-router.put('/:id', updateAuthor);
-router.put('/:id/imagen', imageProcessor('autores'), updateAuthorImage);
-router.delete('/:id', deleteAuthorById)
+router.post('/', librarySuperUserAuthenticatedAPI, imageProcessor('autores'), createAuthor);
+router.put('/:id', librarySuperUserAuthenticatedAPI, updateAuthor);
+router.put('/:id/imagen', librarySuperUserAuthenticatedAPI, imageProcessor('autores'), updateAuthorImage);
+router.delete('/:id', librarySuperUserAuthenticatedAPI, deleteAuthorById)
 
 module.exports = router;

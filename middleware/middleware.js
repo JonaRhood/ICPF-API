@@ -21,6 +21,18 @@ const librarySuperUserAuthenticated = (req, res, next) => {
     }
 }
 
+const librarySuperUserAuthenticatedAPI = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        if (req.user.email === process.env.SUPERUSER_LIBRARY) {
+            return next();
+        } else {
+            return res.status(403).send("No tienes permisos para acceder a esta página.");
+        }
+    } else {
+        return res.status(403).json("No tienes permisos para hacer esta petición")
+    }
+}
+
 // Función para validar los campos
 const validateForm = () => [
     body('fieldname')
@@ -48,5 +60,6 @@ const validateForm = () => [
 module.exports = {
     isAuthenticated,
     librarySuperUserAuthenticated,
+    librarySuperUserAuthenticatedAPI,
     validateForm,
 };

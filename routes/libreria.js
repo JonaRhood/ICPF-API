@@ -11,6 +11,7 @@
  * IMPORTS
  */
 const express = require('express');
+const { librarySuperUserAuthenticatedAPI } = require("../middleware/middleware.js");
 const { 
     createPedidoLibreria, assingBookToPedido, readIncomeByYear,
     readIncomeByMonth, readByYearBestSellers, readByMonthBestSellers,
@@ -27,7 +28,7 @@ router.get('/month', readIncomeByMonth);
 router.get('/year/best', readByYearBestSellers);
 router.get('/month/best', readByMonthBestSellers);
 router.get('/rentable', readByRentableBooks);
-router.post('/pedido', createPedidoLibreria);
-router.post('/assign', assingBookToPedido);
+router.post('/pedido', librarySuperUserAuthenticatedAPI, createPedidoLibreria);
+router.post('/assign', librarySuperUserAuthenticatedAPI, assingBookToPedido);
 
 module.exports = router;
