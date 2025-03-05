@@ -22,7 +22,10 @@ const { doubleCsrf } = require("csrf-csrf");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan")
 require('dotenv').config();
-const {  librarySuperUserAuthenticated } = require('./middleware/middleware.js');
+const { librarySuperUserAuthenticated } = require('./middleware/middleware.js');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+
 
 // Imports de Rutas
 const librosRoutes = require('./routes/libros.js');
@@ -81,13 +84,13 @@ app.use(
 // Middleware Para la seguridad CSRF
 // Opciones para doubleCsrf
 const doubleCsrfOptions = {
-    getSecret: () => process.env.CSRF_SECRET,  
-    cookieName: "csrfToken",  
-    size: 64,  
-    ignoredMethods: ["GET", "HEAD", "OPTIONS"],  
+    getSecret: () => process.env.CSRF_SECRET,
+    cookieName: "csrfToken",
+    size: 64,
+    ignoredMethods: ["GET", "HEAD", "OPTIONS"],
     getTokenFromRequest: (req) => {
         return req.body._csrf || req.headers["x-csrf-token"] || req.cookies.csrfToken;
-      },
+    },
 };
 
 const {
@@ -179,6 +182,15 @@ app.get('/login_libreria', (req, res) => {
 app.get('/inicio_libreria', librarySuperUserAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'index.html'));
 });
+
+// Documentación SWagger UI
+const swaggerDocument = YAML.load(path.join(__dirname, 'src', 'swagger', 'swagger-config.yaml'));
+const options = {
+    customCss: '.topbar { display: none }',
+    customSiteTitle: "Documentación de la API",
+    customfavIcon: ""
+};
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // Comprobación de Salud del Servidor
 app.get('/health', (req, res) => {
