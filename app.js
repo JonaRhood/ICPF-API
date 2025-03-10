@@ -98,11 +98,9 @@ const {
     doubleCsrfProtection,
 } = doubleCsrf(doubleCsrfOptions);
 
-
 /**
  * PATHS
  */
-
 // Login y Logout, envio de solicitud en body de "username" y "password"
 app.post("/login", doubleCsrfProtection, (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {

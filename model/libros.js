@@ -26,7 +26,8 @@ const get = () => pool.query(`
 		)) AS autores,
         JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
             'id', c.id,
-            'categoria', c.categoria
+            'categoria', c.categoria,
+            'color', c.color
         )) AS categorias
     FROM libros l
     LEFT JOIN libros_autores la ON l.id = la.libro_id
@@ -61,7 +62,8 @@ const getById = (id) => pool.query(`
 		)) AS autores,
         JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
             'id', c.id,
-            'categoria', c.categoria
+            'categoria', c.categoria,
+            'color', c.color
         )) AS categorias
     FROM libros l
     LEFT JOIN libros_autores la ON l.id = la.libro_id
@@ -101,7 +103,8 @@ const getByColumn = (column, type) => pool.query(
 		)) AS autores,
         JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
             'id', c.id,
-            'categoria', c.categoria
+            'categoria', c.categoria,
+            'color', c.color
         )) AS categorias
     FROM libros l
     LEFT JOIN libros_autores la ON l.id = la.libro_id
