@@ -46,7 +46,11 @@ const getById = (id) => pool.query(`
             JSON_AGG(
                 CASE 
                     WHEN l.id IS NOT NULL THEN 
-                        JSON_BUILD_OBJECT('id', l.id, 'titulo', l.titulo)
+                        JSON_BUILD_OBJECT(
+                            'id', l.id, 
+                            'titulo', l.titulo,
+                            'imagen', l.imagen
+                        )
                     ELSE NULL
                 END
             ) FILTER (WHERE l.id IS NOT NULL), 
