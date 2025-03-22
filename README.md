@@ -1,7 +1,8 @@
 
 <a id="readme-top"></a>
 
-# <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHlxZnUzc3NlZm95YzU3Z3psOG41eGY2dTFzd2NmZ3V4bTdlZzVpZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/gdTD9BIMWfPEnWmV4e/giphy.gif" width="30">&nbsp; ICPF - Librería Baluarte de la Verdad - REST API (Full-Stack PENV App)
+# <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHlxZnUzc3NlZm95YzU3Z3psOG41eGY2dTFzd2NmZ3V4bTdlZzVpZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/gdTD9BIMWfPEnWmV4e/giphy.gif" width="30">&nbsp; ICPF - Librería Baluarte de la Verdad 
+## REST API Backend (Full-Stack PENV App)
 
 Este es el Backend de la Full-Stack PENV App creada para la Iglesia Caminando por Fe. Este es el enlace del frontend: [https://github.com/JonaRhood/ICPF](https://github.com/JonaRhood/ICPF). 
 
