@@ -3,7 +3,9 @@
 
 # <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHlxZnUzc3NlZm95YzU3Z3psOG41eGY2dTFzd2NmZ3V4bTdlZzVpZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/gdTD9BIMWfPEnWmV4e/giphy.gif" width="30">&nbsp; ICPF - Librería Baluarte de la Verdad - REST API (PEN Backend)
 
-Este es el backend del siguiente proyecto:[https://github.com/JonaRhood/ICPF](https://github.com/JonaRhood/ICPF), desarrollado como una REST API utilizando **Node.js**, **Express** y **PostgreSQL**. El backend ha sido desplegado en **Railway**, mientras que la base de datos se aloja en **Supabase**, permitiéndome aprender mucho sobre la integración entre diferentes proveedores de servicios.
+Este es el Backend de la Full-Stack PENV App creada para la Iglesia Caminando por Fe. Este es el enlace del frontend: [https://github.com/JonaRhood/ICPF](https://github.com/JonaRhood/ICPF. 
+
+El Backend ha sido desarrollado como una REST API utilizando **PostgreSQL**, **Express** y **Node.js**. El backend ha sido desplegado en **Railway**, mientras que la base de datos se aloja en **Supabase**, permitiéndome aprender mucho sobre la integración entre diferentes proveedores de servicios.
 
 ## 📋 Tabla de Contenidos
 1. [Resumen del Proyecto](#resumen-del-proyecto)
