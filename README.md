@@ -1,4 +1,6 @@
 
+<a id="readme-top"></a>
+
 # <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHlxZnUzc3NlZm95YzU3Z3psOG41eGY2dTFzd2NmZ3V4bTdlZzVpZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/gdTD9BIMWfPEnWmV4e/giphy.gif" width="30">&nbsp; ICPF REST API 
 
 #  REST API con Node.js, Express y PostgreSQL
@@ -47,6 +49,9 @@ Este backend proporciona una **API REST robusta, segura y escalable** para la ge
     <img src="./public/diagrams/icpf-diagram-black.svg" />
   </p>
 
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
+
 ### 🔧 <a id="tecnologias-utilizadas">Tecnologías Utilizadas
 [![NODEJS][Node.js]][Node-url]
 [![EXPRESS][Express.js]][Express-url]
@@ -58,15 +63,8 @@ Este backend proporciona una **API REST robusta, segura y escalable** para la ge
 [![DOTENV][Dotenv]][Dotenv-url]
 [![ESLINT][Eslint]][Eslint-url]
 [![NODEMON][Nodemon]][Nodemon-url]
-- **Autenticación**: `passport`, `passport-local`, `passport-google-oauth20`, `passport-facebook`
-- **Seguridad**: `helmet`, `csrf-csrf`, `express-validator`
-- **Manejo de Sesiones**: `express-session`, `connect-pg-simple`, `connect-flash`
-- **Carga y Procesamiento de Imágenes**: `multer`, `sharp`
-- **Variables de Entorno**: `dotenv`
-- **Utilidades**: `uuid`, `validator`, `yamljs`
-- **Linting y Seguridad**: `eslint`, `@eslint/js`, `eslint-plugin-security`, `globals`
-- **Registro de Peticiones**: `morgan`
-- **Monitoreo de Cambios**: `nodemon`
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
 ## 👤 <a id="contacto">Contacto</a>
 
@@ -76,6 +74,8 @@ Este backend proporciona una **API REST robusta, segura y escalable** para la ge
 
 [![LinkedIn][linkedin-shield]][linkedin-url] <br />
 Jonathan Cano -  jonathancanofreta@gmail.com
+
+<p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
 [Node.js]: https://img.shields.io/badge/NODE.JS-20232A?style=for-the-badge&logo=Node.js
 [Node-url]: https://nodejs.org/en
