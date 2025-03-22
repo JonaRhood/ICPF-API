@@ -5,7 +5,7 @@
 
 #  REST API con Node.js, Express y PostgreSQL
 
-Este es el backend del proyecto, desarrollado como una REST API utilizando **Node.js**, **Express** y **PostgreSQL**. El backend ha sido desplegado en **Railway**, mientras que la base de datos se aloja en **Supabase**, permitiéndome aprender mucho sobre la integración entre diferentes proveedores de servicios.
+Este es el backend del siguiente proyecto:[https://github.com/JonaRhood/ICPF](https://github.com/JonaRhood/ICPF), desarrollado como una REST API utilizando **Node.js**, **Express** y **PostgreSQL**. El backend ha sido desplegado en **Railway**, mientras que la base de datos se aloja en **Supabase**, permitiéndome aprender mucho sobre la integración entre diferentes proveedores de servicios.
 
 ## 📋 Tabla de Contenidos
 1. [Resumen del Proyecto](#resumen-del-proyecto)
