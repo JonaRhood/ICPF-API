@@ -48,7 +48,7 @@ Este backend proporciona una **API REST robusta, segura y escalable** para la ge
   </p>
 
 ### 🔧 <a id="tecnologias-utilizadas">Tecnologías Utilizadas
-- **Servidor y Framework**: [![EXPRESS][https://img.shields.io/badge/EXPRESS-20232A?style=for-the-badge&logo=express]][https://expressjs.com/es/]
+- **Servidor y Framework**: [![EXPRESS][Express.js]][Express-url]
 - **Base de Datos**: `pg`, `postgres`
 - **Autenticación**: `passport`, `passport-local`, `passport-google-oauth20`, `passport-facebook`
 - **Seguridad**: `helmet`, `csrf-csrf`, `express-validator`
@@ -68,6 +68,9 @@ Este backend proporciona una **API REST robusta, segura y escalable** para la ge
 
 [![LinkedIn][linkedin-shield]][linkedin-url] <br />
 Jonathan Cano -  jonathancanofreta@gmail.com
+
+[Express.js]: https://img.shields.io/badge/EXPRESS-20232A?style=for-the-badge&logo=express
+[Express-url]: https://expressjs.com/es/
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-blue.svg?style=for-the-badge&logo=linkedin&colorBlue
 [linkedin-url]: https://www.linkedin.com/in/jonathancanocalduch
