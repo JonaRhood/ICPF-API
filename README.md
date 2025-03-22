@@ -48,8 +48,11 @@ Este backend proporciona una **API REST robusta, segura y escalable** para la ge
   </p>
 
 ### 🔧 <a id="tecnologias-utilizadas">Tecnologías Utilizadas
-- **Servidor y Framework**: [![EXPRESS][Express.js]][Express-url]
-- **Base de Datos**: `pg`, `postgres`
+- **Servidor y Framework**: 
+  [![EXPRESS][Express.js]][Express-url]
+- **Base de Datos**: 
+  [![Postgres][Postgres]][Postgres-url]
+  [![Supabase][Supabase]][Supabase-url]
 - **Autenticación**: `passport`, `passport-local`, `passport-google-oauth20`, `passport-facebook`
 - **Seguridad**: `helmet`, `csrf-csrf`, `express-validator`
 - **Manejo de Sesiones**: `express-session`, `connect-pg-simple`, `connect-flash`
@@ -71,6 +74,10 @@ Jonathan Cano -  jonathancanofreta@gmail.com
 
 [Express.js]: https://img.shields.io/badge/EXPRESS-20232A?style=for-the-badge&logo=express
 [Express-url]: https://expressjs.com/es/
+[Postgres]: https://img.shields.io/badge/POSTGRESQL-20232A?style=for-the-badge&logo=PostgreSQL
+[Postgres-url]: https://www.postgresql.org/
+[Supabase]: https://img.shields.io/badge/SUPABASE-20232A?style=for-the-badge&logo=Supabase
+[Supabase-url]: https://supabase.com/
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-blue.svg?style=for-the-badge&logo=linkedin&colorBlue
 [linkedin-url]: https://www.linkedin.com/in/jonathancanocalduch
