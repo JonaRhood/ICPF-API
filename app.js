@@ -66,7 +66,14 @@ app.use(passport.session());
 
 // Middleware CORS para protección Cross-Origin Resource Sharing
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://192.168.1.36:5173', 'https://aws-0-eu-west-3.pooler.supabase.com:6543', 'https://icpf-api-production.up.railway.app', 'https://iguiskudllwluojaxepj.supabase.co/'],
+    origin: [
+        'http://localhost:5173', 
+        'http://192.168.1.36:5173',
+        'https://aws-0-eu-west-3.pooler.supabase.com:6543',
+        'https://icpf-api-production.up.railway.app', 
+        'https://iguiskudllwluojaxepj.supabase.co/',
+        'https://caminandoporfe.netlify.app/'
+    ],
     credentials: true,
 }));
 
