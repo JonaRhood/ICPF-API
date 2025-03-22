@@ -11,10 +11,10 @@ Este es el backend del proyecto, desarrollado como una REST API utilizando **Nod
 3. [Tecnologías Utilizadas](#tecnologias-utilizadas)
 4. [Contacto](#contacto)
 
-## ✏️ Resumen del Proyecto  
+## ✏️ <a id="resumen-del-proyecto">Resumen del Proyecto</a>
 Este backend proporciona una **API REST robusta, segura y escalable** para la gestión eficiente de la **Librería Baluarte de la Fe** de ICPF. La arquitectura está diseñada para garantizar la integridad y seguridad de los datos mediante **encriptación de contraseñas con bcrypt**, autenticación basada en sesiones con **express-session**, y validaciones estrictas con **express-validator**. Además, se ha optimizado el almacenamiento y rendimiento utilizando **PostgreSQL** alojado en **Supabase**, asegurando una experiencia ágil y confiable.  
 
-## ⚙️ Características 
+## ⚙️ <a id="caracteristicas">Características 
 
 - **🔐 Autenticación Segura**  
   Implementación de **Passport.js** con estrategias locales para gestionar el inicio de sesión de usuarios de manera segura, reforzado con encriptación avanzada.
@@ -47,7 +47,7 @@ Este backend proporciona una **API REST robusta, segura y escalable** para la ge
     <img src="./public/diagrams/icpf-diagram-black.svg" />
   </p>
 
-### 🔧 Tecnologías Utilizadas
+### 🔧 <a id="tecnologias-utilizadas">Tecnologías Utilizadas
 - **Servidor y Framework**: [![EXPRESS][https://img.shields.io/badge/EXPRESS-20232A?style=for-the-badge&logo=express]][https://expressjs.com/es/]
 - **Base de Datos**: `pg`, `postgres`
 - **Autenticación**: `passport`, `passport-local`, `passport-google-oauth20`, `passport-facebook`
@@ -56,13 +56,11 @@ Este backend proporciona una **API REST robusta, segura y escalable** para la ge
 - **Carga y Procesamiento de Imágenes**: `multer`, `sharp`
 - **Variables de Entorno**: `dotenv`
 - **Utilidades**: `uuid`, `validator`, `yamljs`
-
-### 🛠️ Dependencias de Desarrollo
 - **Linting y Seguridad**: `eslint`, `@eslint/js`, `eslint-plugin-security`, `globals`
 - **Registro de Peticiones**: `morgan`
 - **Monitoreo de Cambios**: `nodemon`
 
-## 👤 Contacto
+## 👤 <a id="contacto">Contacto</a>
 📧 **Jonathan Cano** - jonathancanofreta@gmail.com
 
 🚀 ¡Espero que este proyecto te sea útil! Para más información o contribuciones, no dudes en contactarme.
