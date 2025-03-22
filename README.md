@@ -61,7 +61,13 @@ Este backend proporciona una **API REST robusta, segura y escalable** para la ge
 - **Monitoreo de Cambios**: `nodemon`
 
 ## 👤 <a id="contacto">Contacto</a>
-📧 **Jonathan Cano** - jonathancanofreta@gmail.com
 
-🚀 ¡Espero que este proyecto te sea útil! Para más información o contribuciones, no dudes en contactarme.
+<a href="https://github.com/JonaRhood/reddit-client/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=JonaRhood/reddit-client" />
+</a>
 
+[![LinkedIn][linkedin-shield]][linkedin-url] <br />
+Jonathan Cano -  jonathancanofreta@gmail.com
+
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-blue.svg?style=for-the-badge&logo=linkedin&colorBlue
+[linkedin-url]: https://www.linkedin.com/in/jonathancanocalduch
