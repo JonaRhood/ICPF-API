@@ -48,11 +48,16 @@ Este backend proporciona una **API REST robusta, segura y escalable** para la ge
   </p>
 
 ### 🔧 <a id="tecnologias-utilizadas">Tecnologías Utilizadas
-- **Servidor y Framework**: 
-  [![EXPRESS][Express.js]][Express-url]
-- **Base de Datos**: 
-  [![Postgres][Postgres]][Postgres-url]
-  [![Supabase][Supabase]][Supabase-url]
+[![NODEJS][Node.js]][Node-url]
+[![EXPRESS][Express.js]][Express-url]
+[![Postgres][Postgres]][Postgres-url]
+[![Supabase][Supabase]][Supabase-url]
+[![Railway][Railway]][Railway-url]
+[![Passport][Passport]][Passport-url]
+[![Swagger][Swagger]][Swagger-url]
+[![DOTENV][Dotenv]][Dotenv-url]
+[![ESLINT][Eslint]][Eslint-url]
+[![NODEMON][Nodemon]][Nodemon-url]
 - **Autenticación**: `passport`, `passport-local`, `passport-google-oauth20`, `passport-facebook`
 - **Seguridad**: `helmet`, `csrf-csrf`, `express-validator`
 - **Manejo de Sesiones**: `express-session`, `connect-pg-simple`, `connect-flash`
@@ -72,12 +77,27 @@ Este backend proporciona una **API REST robusta, segura y escalable** para la ge
 [![LinkedIn][linkedin-shield]][linkedin-url] <br />
 Jonathan Cano -  jonathancanofreta@gmail.com
 
+[Node.js]: https://img.shields.io/badge/NODE.JS-20232A?style=for-the-badge&logo=Node.js
+[Node-url]: https://nodejs.org/en
 [Express.js]: https://img.shields.io/badge/EXPRESS-20232A?style=for-the-badge&logo=express
 [Express-url]: https://expressjs.com/es/
 [Postgres]: https://img.shields.io/badge/POSTGRESQL-20232A?style=for-the-badge&logo=PostgreSQL
 [Postgres-url]: https://www.postgresql.org/
 [Supabase]: https://img.shields.io/badge/SUPABASE-20232A?style=for-the-badge&logo=Supabase
 [Supabase-url]: https://supabase.com/
+[Railway]: https://img.shields.io/badge/RAILWAY-20232A?style=for-the-badge&logo=Railway
+[Railway-url]: https://railway.com/
+[Passport]: https://img.shields.io/badge/Passport-20232A?style=for-the-badge&logo=Passport
+[Passport-url]: https://supabase.com/
+[Swagger]: https://img.shields.io/badge/Swagger-20232A?style=for-the-badge&logo=Swagger
+[Swagger-url]: https://swagger.io/
+[Dotenv]: https://img.shields.io/badge/.ENV-20232A?style=for-the-badge&logo=.env
+[Dotenv-url]: https://www.dotenv.org/
+[Eslint]: https://img.shields.io/badge/ESLINT-20232A?style=for-the-badge&logo=ESLint
+[Eslint-url]: https://eslint.org/
+[Nodemon]: https://img.shields.io/badge/Nodemon-20232A?style=for-the-badge&logo=Nodemon
+[Nodemon-url]: https://nodemon.io/
+
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-blue.svg?style=for-the-badge&logo=linkedin&colorBlue
 [linkedin-url]: https://www.linkedin.com/in/jonathancanocalduch
