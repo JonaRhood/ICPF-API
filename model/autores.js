@@ -7,7 +7,7 @@
 
 "use strict";
 
-const pool = require('./database.js');
+const pool = require('../db/database.js');
 require("dotenv").config()
 const { deleteImageFromSupabase } = require("../middleware/imageProcessor.js");
 

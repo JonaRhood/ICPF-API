@@ -5,7 +5,7 @@
  * 
  */
 
-const pool = require('./database.js');
+const pool = require('../db/database.js');
 const { deleteImageFromSupabase } = require("../middleware/imageProcessor.js");
 require("dotenv").config()
 

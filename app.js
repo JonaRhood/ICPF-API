@@ -14,7 +14,7 @@
 const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
-const pool = require('./model/database.js');
+const pool = require('./db/database.js');
 const { passport, sessionMiddleware } = require('./middleware/session/session.js');
 const helmet = require("helmet");
 const cors = require("cors");
