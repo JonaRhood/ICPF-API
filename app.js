@@ -72,7 +72,8 @@ app.use(cors({
         'https://aws-0-eu-west-3.pooler.supabase.com:6543',
         'https://icpf-api-production.up.railway.app', 
         'https://iguiskudllwluojaxepj.supabase.co/',
-        'https://caminandoporfe.netlify.app'
+        'https://caminandoporfe.netlify.app',
+        'https://caminandoporfe.es',
     ],
     credentials: true,
 }));
