@@ -109,6 +109,9 @@ const {
 /**
  * PATHS
  */
+
+app.get('/', (req, res) => res.send('Servidor funcionando'));
+
 // Login y Logout, envio de solicitud en body de "username" y "password"
 app.post("/login", doubleCsrfProtection, (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
