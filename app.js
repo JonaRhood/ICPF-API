@@ -34,6 +34,15 @@ const autoresRoutes = require('./routes/autores.js');
 const categoriasRoutes = require('./routes/categorias.js');
 const libreriaRoutes = require('./routes/libreria.js');
 
+// Captura de errores globales
+process.on('uncaughtException', err => {
+  console.error('❌ Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', err => {
+  console.error('❌ Unhandled Rejection:', err);
+});
+
 /**
  * INICIALIZACION DEL SERVIDOR
  */
@@ -67,11 +76,12 @@ app.use(passport.session());
 // Middleware CORS para protección Cross-Origin Resource Sharing
 app.use(cors({
     origin: [
-        'http://localhost:5173', 
+        'http://localhost:5173',
         'http://192.168.1.36:5173',
         'https://aws-0-eu-west-3.pooler.supabase.com:6543',
-        'https://icpf-api-production.up.railway.app', 
-        'https://iguiskudllwluojaxepj.supabase.co/',
+        'https://icpf-api-production.up.railway.app',
+        'https://iguiskudllwluojaxepj.supabase.co',
+        'https://icpf-api.onrender.com',
         'https://caminandoporfe.netlify.app',
         'https://caminandoporfe.es',
     ],
@@ -83,7 +93,7 @@ app.use(
     helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "https://cdn.jsdelivr.net", "https://aws-0-eu-west-3.pooler.supabase.com:6543", "https://icpf-api-production.up.railway.app"],
+            scriptSrc: ["'self'", "https://cdn.jsdelivr.net", "https://aws-0-eu-west-3.pooler.supabase.com:6543", "https://icpf-api-production.up.railway.app", 'https://icpf-api.onrender.com'],
             imgSrc: ["'self'", "data:", "https://iguiskudllwluojaxepj.supabase.co"],
         },
     })
@@ -130,7 +140,10 @@ app.post("/login", doubleCsrfProtection, (req, res, next) => {
                 console.log("Error en logIn:", err);
                 return next(err);
             }
-            console.log("Usuario autenticado correctamente:", user);
+
+            if (process.env.NODE_ENV !== 'production') {
+                console.log("Usuario autenticado correctamente:", user.email);
+            }
 
             // Redireccionamiento al autenticar
             if (referer.includes("/login_libreria") && user.email === process.env.SUPERUSER_LIBRARY) {
@@ -203,12 +216,12 @@ app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // Comprobación de Salud del Servidor
 app.get('/health', (req, res) => {
-    res.sendStatus(200);
+    res.sendStatus(200).send("ok");
 });
 
 /**
  * LISTENER
  */
 app.listen(port, () => {
-    console.log(`Servidor escuchando en ${process.env.URL}${port}`);
+    console.log(`Servidor escuchando en ${process.env.URL}:${port}`);
 });
