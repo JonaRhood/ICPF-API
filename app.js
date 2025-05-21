@@ -216,7 +216,7 @@ app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // Comprobación de Salud del Servidor
 app.get('/health', (req, res) => {
-    res.sendStatus(200).send("ok");
+    res.sendStatus(200);
 });
 
 /**
