@@ -20,7 +20,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const { doubleCsrf } = require("csrf-csrf");
 const cookieParser = require("cookie-parser");
-const morgan = require("morgan")
+// const morgan = require("morgan")
 require('dotenv').config();
 const { librarySuperUserAuthenticated } = require('./middleware/middleware.js');
 const swaggerUi = require('swagger-ui-express');
@@ -53,7 +53,7 @@ const port = process.env.PORT || 3000;
  * MIDDLEWARE
  */
 // Morgan para asistencia en Logs
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 
 // Middleware para la correcta manipulacion de Cookies (CSRF)
 app.use(cookieParser());
