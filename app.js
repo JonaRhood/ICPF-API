@@ -81,7 +81,7 @@ app.use(cors({
         'https://aws-0-eu-west-3.pooler.supabase.com:6543',
         'https://icpf-api-production.up.railway.app',
         'https://iguiskudllwluojaxepj.supabase.co',
-        'https://icpf-api.onrender.com',
+        'https://icpf-api-bjeh.onrender.com',
         'https://caminandoporfe.netlify.app',
         'https://caminandoporfe.es',
     ],
@@ -93,7 +93,7 @@ app.use(
     helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "https://cdn.jsdelivr.net", "https://aws-0-eu-west-3.pooler.supabase.com:6543", "https://icpf-api-production.up.railway.app", 'https://icpf-api.onrender.com'],
+            scriptSrc: ["'self'", "https://cdn.jsdelivr.net", "https://aws-0-eu-west-3.pooler.supabase.com:6543", "https://icpf-api-production.up.railway.app", 'https://icpf-api-bjeh.onrender.com'],
             imgSrc: ["'self'", "data:", "https://iguiskudllwluojaxepj.supabase.co"],
         },
     })
